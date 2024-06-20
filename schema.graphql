@@ -1,0 +1,30 @@
+type ExpiringLock @entity {
+  id: ID!
+  token: Bytes!
+  sender: Bytes!
+  amount: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type OnetimeLock @entity {
+  id: ID!
+  token: Bytes!
+  sender: Bytes!
+  amount: BigInt!
+  metadata: Bytes!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type TransferHistory @entity {
+  id: ID!
+  token: Bytes!
+  sender: Bytes!
+  recipient: Bytes!
+  amount: BigInt!
+  metadata: Bytes
+  txHash: Bytes!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}

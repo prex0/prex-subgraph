@@ -1,0 +1,12 @@
+node_modules
+build
+generated
+
+# auto-generated
+subgraph.yaml
+subgraph-uni.yaml
+src/contracts.ts
+
+# graph
+.latest.json
+.bin
