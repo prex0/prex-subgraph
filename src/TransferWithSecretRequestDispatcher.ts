@@ -4,6 +4,7 @@ import { ensureTransferHistory } from './helpers'
 export function handleRequestSubmitted(event: RequestSubmitted): void {
   const transferHistory = ensureTransferHistory(
     event.transaction.hash,
+    event.transactionLogIndex,
     event.block.timestamp
   )
 

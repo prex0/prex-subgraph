@@ -22,6 +22,7 @@ export function handleReceived(event: Received): void {
 
   const transferHistory = ensureTransferHistory(
     event.transaction.hash,
+    event.transactionLogIndex,
     event.block.timestamp
   )
 

@@ -4,9 +4,10 @@ import { ExpiringLock, OnetimeLock, TransferHistory } from '../generated/schema'
 
 export function ensureTransferHistory(
   txHash: Bytes,
+  logIndex: BigInt,
   eventTime: BigInt
 ): TransferHistory {
-  const id = txHash.toString()
+  const id = txHash.toString() + '-' + logIndex.toString()
 
   let transferHistory = TransferHistory.load(id)
 
