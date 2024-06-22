@@ -6,27 +6,9 @@
         "name": "_permit2",
         "type": "address",
         "internalType": "address"
-      },
-      {
-        "name": "_facilitator",
-        "type": "address",
-        "internalType": "address"
       }
     ],
     "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "facilitator",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -78,6 +60,11 @@
         "name": "sig",
         "type": "bytes",
         "internalType": "bytes"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "internalType": "bytes"
       }
     ],
     "outputs": [],
@@ -112,16 +99,10 @@
         "internalType": "uint256"
       },
       {
-        "name": "nonce",
-        "type": "uint256",
+        "name": "metadata",
+        "type": "bytes",
         "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "name": "deadline",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
+        "internalType": "bytes"
       }
     ],
     "anonymous": false

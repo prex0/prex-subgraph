@@ -1,5 +1,13 @@
-import { Submitted, Received } from '../generated/ExpiringLockRequestDispatcher/ExpiringLockRequestDispatcher'
-import { ensureExpiringLock, ensureTransferHistory } from './helpers'
+import {
+  Submitted,
+  Received,
+  Deposited
+} from '../generated/ExpiringLockRequestDispatcher/ExpiringLockRequestDispatcher'
+import {
+  ensureExpiringLock,
+  ensureExpiringLockDeposit,
+  ensureExpiringLockDistribution
+} from './helpers'
 
 export function handleSubmitted(event: Submitted): void {
   const expiringLock = ensureExpiringLock(
@@ -14,22 +22,32 @@ export function handleSubmitted(event: Submitted): void {
   expiringLock.save()
 }
 
-export function handleReceived(event: Received): void {
-  const expiringLock = ensureExpiringLock(
+export function handleDeposited(event: Deposited): void {
+  const deposit = ensureExpiringLockDeposit(
+    event.transaction.hash,
+    event.transactionLogIndex,
     event.params.id,
     event.block.timestamp
   )
 
-  const transferHistory = ensureTransferHistory(
+  deposit.amount = event.params.amount
+  deposit.depositor = event.params.depositor
+  deposit.metadata = event.params.metadata
+
+  deposit.save()
+}
+
+export function handleReceived(event: Received): void {
+  const distribution = ensureExpiringLockDistribution(
     event.transaction.hash,
     event.transactionLogIndex,
+    event.params.id,
     event.block.timestamp
   )
 
-  transferHistory.token = expiringLock.token
-  transferHistory.sender = expiringLock.sender
-  transferHistory.recipient = event.params.recipient
-  transferHistory.amount = expiringLock.amount
+  distribution.amount = event.params.amount
+  distribution.recipient = event.params.recipient
+  distribution.metadata = event.params.metadata
 
-  transferHistory.save()
+  distribution.save()
 }

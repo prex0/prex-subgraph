@@ -8,6 +8,11 @@ beforeEach(() => {
 })
 
 describe("handleTransferred", () => {
+  test('1 + 1 = 2', () => {
+    assert.fieldEquals('TransferHistory', '1', 'id', '1')
+    assert.fieldEquals('TransferHistory', '1', 'amount', '100')
+  })
+
   test('check transferred', () => {
     const tradedEvent = createTransferredEvent(
       Address.zero(),

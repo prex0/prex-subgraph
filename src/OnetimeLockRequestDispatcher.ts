@@ -1,11 +1,12 @@
-import { RecipientUpdated, RequestSubmitted } from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher'
-import { ensureOnetimeLock, ensureTransferHistory } from './helpers'
+import {
+  RecipientUpdated,
+  RequestSubmitted,
+  RequestCancelled
+} from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher'
+import { ensureOnetimeLock } from './helpers'
 
 export function handleRequestSubmitted(event: RequestSubmitted): void {
-  const onetimeLock = ensureOnetimeLock(
-    event.params.id,
-    event.block.timestamp
-  )
+  const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
 
   onetimeLock.token = event.params.token
   onetimeLock.sender = event.params.sender
@@ -16,22 +17,19 @@ export function handleRequestSubmitted(event: RequestSubmitted): void {
 }
 
 export function handleRecipientUpdated(event: RecipientUpdated): void {
-  const onetimeLock = ensureOnetimeLock(
-    event.params.id,
-    event.block.timestamp
-  )
+  const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
 
-  const transferHistory = ensureTransferHistory(
-    event.transaction.hash,
-    event.transactionLogIndex,
-    event.block.timestamp
-  )
+  onetimeLock.recipient = event.params.recipient
+  onetimeLock.recipientMetadata = event.params.metadata
+  onetimeLock.status = 'COMPLETED'
 
-  transferHistory.token = onetimeLock.token
-  transferHistory.sender = onetimeLock.sender
-  transferHistory.recipient = event.params.recipient
-  transferHistory.amount = onetimeLock.amount
-  transferHistory.metadata = onetimeLock.metadata
+  onetimeLock.save()
+}
 
-  transferHistory.save()
+export function RequestCancelled(event: RequestCancelled): void {
+  const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
+
+  onetimeLock.status = 'CANCELLED'
+
+  onetimeLock.save()
 }

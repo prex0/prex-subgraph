@@ -1,23 +1,74 @@
+enum LockStatus {
+  LIVE
+  COMPLETED
+  CANCELLED
+  EXPIRED
+}
+
 type ExpiringLock @entity {
   id: ID!
   token: Bytes!
   sender: Bytes!
   amount: BigInt!
+  expiry: BigInt!
+  metadata: Bytes!
+  deposits: [ExpiringLockDeposit!]! @derivedFrom(field: "parent")
+  distributions: [ExpiringLockDistribution!]! @derivedFrom(field: "parent")
+  isCancelled: Boolean!
+  status: LockStatus!
   createdAt: BigInt!
   updatedAt: BigInt!
+}
+
+type ExpiringLockDeposit @entity {
+  id: ID!
+  parent: ExpiringLock!
+  amount: BigInt!
+  depositor: Bytes!
+  metadata: Bytes!
+  createdAt: BigInt!
+}
+
+type ExpiringLockDistribution @entity {
+  id: ID!
+  parent: ExpiringLock!
+  amount: BigInt!
+  recipient: Bytes!
+  metadata: Bytes!
+  createdAt: BigInt!
 }
 
 type OnetimeLock @entity {
   id: ID!
   token: Bytes!
   sender: Bytes!
+  recipient: Bytes
   amount: BigInt!
+  expiry: BigInt!
   metadata: Bytes!
+  recipientMetadata: Bytes
+  status: LockStatus!
+  txHash: Bytes!
+  recipientTxHash: Bytes
   createdAt: BigInt!
   updatedAt: BigInt!
 }
 
-type TransferHistory @entity {
+type TransferWithSecret @entity {
+  id: ID!
+  token: Bytes!
+  sender: Bytes!
+  recipient: Bytes
+  amount: BigInt!
+  metadata: Bytes!
+  recipientMetadata: Bytes
+  status: LockStatus!
+  txHash: Bytes
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type TransferRequest @entity {
   id: ID!
   token: Bytes!
   sender: Bytes!
@@ -26,5 +77,24 @@ type TransferHistory @entity {
   metadata: Bytes
   txHash: Bytes!
   createdAt: BigInt!
-  updatedAt: BigInt!
+}
+
+enum MovingType {
+  NONE
+  DIRECT
+  SECRET
+  ONETIME
+  EXPIRING
+}
+
+type CoinMovingHistory @entity {
+  id: ID!
+  movingType: MovingType!
+  token: Bytes!
+  sender: Bytes!
+  recipient: Bytes!
+  amount: BigInt!
+  metadata: Bytes
+  txHash: Bytes!
+  createdAt: BigInt!
 }

@@ -49,6 +49,11 @@
         "name": "amount",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "internalType": "bytes"
       }
     ],
     "outputs": [],
@@ -67,6 +72,11 @@
         "name": "recipient",
         "type": "address",
         "internalType": "address"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "internalType": "bytes"
       }
     ],
     "outputs": [],
@@ -81,6 +91,30 @@
         "name": "",
         "type": "address",
         "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isDistributed",
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
       }
     ],
     "stateMutability": "view"
@@ -120,6 +154,11 @@
         "name": "expiry",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "isLimitedByAddress",
+        "type": "bool",
+        "internalType": "bool"
       }
     ],
     "stateMutability": "view"
@@ -152,6 +191,16 @@
             "name": "expiry",
             "type": "uint256",
             "internalType": "uint256"
+          },
+          {
+            "name": "isLimitedByAddress",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "metadata",
+            "type": "bytes",
+            "internalType": "bytes"
           }
         ]
       }
@@ -170,7 +219,7 @@
         "internalType": "bytes32"
       },
       {
-        "name": "sender",
+        "name": "depositor",
         "type": "address",
         "indexed": false,
         "internalType": "address"
@@ -180,6 +229,12 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
       }
     ],
     "anonymous": false
@@ -205,6 +260,12 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
       }
     ],
     "anonymous": false
@@ -286,9 +347,26 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
       }
     ],
     "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "AlreadyDistributed",
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
   },
   {
     "type": "error",
@@ -297,7 +375,22 @@
   },
   {
     "type": "error",
-    "name": "Expired",
+    "name": "InsufficientFunds",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OnlySenderCanCancel",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "RequestExpired",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "RequestNotExpired",
     "inputs": []
   }
 ]
