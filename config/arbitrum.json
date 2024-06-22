@@ -4,5 +4,6 @@
   "TransferWithSecretRequestDispatcher": "0x02C9Ad1Aa219BCF221C3f915c45595f1d24928a1",
   "OnetimeLockRequestDispatcher": "0x55e857D3d53906E254D94F2cE3867EceA14110Ec",
   "ExpiringLockRequestDispatcher": "0x12Fea3F9185539562eC23F44f3cc1AD5EbB4AdC9",
+  "BaseReactor": "0x1f3f9DfBfDfDd3f3fDfDfDfDfDfDfDfDfDfDfDfD",
   "startBlock": 171222327
 }

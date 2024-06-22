@@ -98,3 +98,14 @@ type CoinMovingHistory @entity {
   txHash: Bytes!
   createdAt: BigInt!
 }
+
+type FilledHistory @entity {
+  id: ID!
+  swapper: Bytes!
+  inputToken: Bytes!
+  inputAmount: BigInt!
+  outputRecipients: [Bytes!]!
+  outputAmounts: [BigInt!]!
+  txHash: Bytes!
+  createdAt: BigInt!
+}

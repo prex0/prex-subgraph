@@ -26,7 +26,7 @@ export function handleRecipientUpdated(event: RecipientUpdated): void {
   onetimeLock.save()
 }
 
-export function RequestCancelled(event: RequestCancelled): void {
+export function handleRequestCancelled(event: RequestCancelled): void {
   const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
 
   onetimeLock.status = 'CANCELLED'
