@@ -1,27 +1,43 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts'; //
-import { assert, beforeEach, clearStore, describe, test } from 'matchstick-as/assembly/index';
-import { createRequestSubmittedEvent } from './utils';
+import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'; //
+import { assert, describe, newMockEvent, test } from 'matchstick-as';
+import { RequestSubmitted } from '../generated/TransferWithSecretRequestDispatcher/TransferWithSecretRequestDispatcher';
 import { handleRequestSubmitted } from '../src/TransferWithSecretRequestDispatcher';
 
-beforeEach(() => {
-  clearStore() // <-- clear the store before each test in the file
-})
+export const MOCK_EVENT = newMockEvent()
+
+const ZERO_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
 describe("handleRequestSubmitted", () => {
   test('check RequestSubmitted', () => {
-    const tradedEvent = createRequestSubmittedEvent(
+    const requestSubmittedEvent = new RequestSubmitted(
       Address.zero(),
-      Address.zero(),
-      Address.zero(),
-      BigInt.fromI32(100),
+      MOCK_EVENT.logIndex,
+      MOCK_EVENT.transactionLogIndex,
+      MOCK_EVENT.logType,
+      MOCK_EVENT.block,
+      MOCK_EVENT.transaction,
+      [
+        new ethereum.EventParam('token', ethereum.Value.fromAddress(Address.zero())),
+        new ethereum.EventParam('from', ethereum.Value.fromAddress(Address.zero())),
+        new ethereum.EventParam('to', ethereum.Value.fromAddress(Address.zero())),
+        new ethereum.EventParam('amount', ethereum.Value.fromSignedBigInt(BigInt.fromI32(100))),
+        new ethereum.EventParam('metadata', ethereum.Value.fromBytes(Bytes.fromHexString(ZERO_HASH))),
+        new ethereum.EventParam('recipientMetadata', ethereum.Value.fromBytes(Bytes.fromHexString(ZERO_HASH))),
+      ],
+      MOCK_EVENT.receipt,
     )
 
-    handleRequestSubmitted(tradedEvent)
+    handleRequestSubmitted(requestSubmittedEvent)
 
-    const id = `${tradedEvent.transaction.hash.toHex()}-${tradedEvent.logIndex.toString()}`
+    const id = `${MOCK_EVENT.transaction.hash.toHex()}-${MOCK_EVENT.logIndex.toString()}`
 
-    assert.entityCount('TransferHistory', 1)
-    assert.fieldEquals('TransferHistory', id, 'id', '1')
-    assert.fieldEquals('TransferHistory', id, 'amount', '100')
+    assert.entityCount('TransferWithSecret', 1)
+    assert.fieldEquals('TransferWithSecret', id, 'id', id)
+    assert.fieldEquals('TransferWithSecret', id, 'amount', '100')
+
+
+    assert.entityCount('CoinMovingHistory', 1)
+    assert.fieldEquals('CoinMovingHistory', id, 'id', id)
+    assert.fieldEquals('CoinMovingHistory', id, 'amount', '100')
   })
 })

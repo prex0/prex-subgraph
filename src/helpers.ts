@@ -16,7 +16,7 @@ export function ensureCoinMovingHistory(
   logIndex: BigInt,
   eventTime: BigInt
 ): CoinMovingHistory {
-  const id = txHash.toString() + '-' + logIndex.toString()
+  const id = txHash.toHex() + '-' + logIndex.toString()
 
   let coinMovingHistory = CoinMovingHistory.load(id)
 
@@ -64,7 +64,7 @@ export function ensureTransferRequest(
   logIndex: BigInt,
   eventTime: BigInt
 ): TransferRequest {
-  const id = txHash.toString() + '-' + logIndex.toString()
+  const id = txHash.toHex() + '-' + logIndex.toString()
 
   let transferHistory = TransferRequest.load(id)
 
@@ -84,25 +84,28 @@ export function ensureTransferRequest(
 }
 
 export function ensureTransferWithSecret(
-  id: Bytes,
+  txHash: Bytes,
+  logIndex: BigInt,
   eventTime: BigInt,
-  txHash: Bytes
 ): TransferWithSecret {
-  const idStr = id.toString()
+  const id = txHash.toHex() + '-' + logIndex.toString()
 
-  let transferHistory = TransferWithSecret.load(idStr)
+  let transferHistory = TransferWithSecret.load(id)
 
   if (transferHistory == null) {
-    transferHistory = new TransferWithSecret(idStr)
+    transferHistory = new TransferWithSecret(id)
 
     transferHistory.txHash = txHash
     transferHistory.token = Address.zero()
     transferHistory.sender = Address.zero()
     transferHistory.recipient = Address.zero()
     transferHistory.amount = BigInt.zero()
+    transferHistory.status = 'LIVE'
     transferHistory.metadata = Bytes.empty()
     transferHistory.createdAt = eventTime
   }
+
+  transferHistory.updatedAt = eventTime
 
   return transferHistory
 }
@@ -111,7 +114,7 @@ export function ensureOnetimeLock(
   lockId: Bytes,
   eventTime: BigInt
 ): OnetimeLock {
-  const id = lockId.toString()
+  const id = lockId.toHex()
 
   let onetimeLock = OnetimeLock.load(id)
 
@@ -136,7 +139,7 @@ export function ensureExpiringLock(
   lockId: Bytes,
   eventTime: BigInt
 ): ExpiringLock {
-  const id = lockId.toString()
+  const id = lockId.toHex()
 
   let expiringLock = ExpiringLock.load(id)
 
@@ -161,7 +164,7 @@ export function ensureExpiringLockDeposit(
   lockId: Bytes,
   eventTime: BigInt
 ): ExpiringLockDeposit {
-  const id = txHash.toString() + '-' + logIndex.toString()
+  const id = txHash.toHex() + '-' + logIndex.toString()
 
   let deposit = ExpiringLockDeposit.load(id)
 
@@ -184,7 +187,7 @@ export function ensureExpiringLockDistribution(
   lockId: Bytes,
   eventTime: BigInt
 ): ExpiringLockDistribution {
-  const id = txHash.toString() + '-' + logIndex.toString()
+  const id = txHash.toHex() + '-' + logIndex.toString()
 
   let distribution = ExpiringLockDistribution.load(id)
 

@@ -1,32 +1,34 @@
 import {
   RequestSubmitted,
-  RequestCompleted
 } from '../generated/TransferWithSecretRequestDispatcher/TransferWithSecretRequestDispatcher'
-import { ensureTransferWithSecret } from './helpers'
+import { createCoinMovingHistory, ensureTransferWithSecret } from './helpers'
 
 export function handleRequestSubmitted(event: RequestSubmitted): void {
   const transferHistory = ensureTransferWithSecret(
-    event.params.id,
+    event.transaction.hash,
+    event.transactionLogIndex,
     event.block.timestamp,
-    event.transaction.hash
   )
 
   transferHistory.token = event.params.token
-  transferHistory.sender = event.params.sender
-  transferHistory.recipient = event.params.recipient
+  transferHistory.sender = event.params.from
+  transferHistory.recipient = event.params.to
   transferHistory.amount = event.params.amount
   transferHistory.metadata = event.params.metadata
-  transferHistory.status = 'LIVE'
+  transferHistory.recipientMetadata = event.params.recipientMetadata
+  transferHistory.status = 'COMPLETED'
 
-  transferHistory.save()
-}
-
-export function handleRequestCompleted(event: RequestCompleted): void {
-  const transferHistory = ensureTransferWithSecret(
-    event.params.id,
+  createCoinMovingHistory(
+    event.transaction.hash,
+    event.transactionLogIndex,
     event.block.timestamp,
-    event.transaction.hash
+    event.params.token,
+    event.params.from,
+    event.params.to,
+    transferHistory.amount,
+    transferHistory.metadata,
+    'SECRET'
   )
 
-  transferHistory.status = 'COMPLETED'
+  transferHistory.save()
 }

@@ -1,0 +1,6 @@
+{
+  "network": "arbitrum-sepolia",
+  "TransferRequestDispatcher": "0x8115f078BC40BB2b4C3d9441Df142cf072883282",
+  "TransferWithSecretRequestDispatcher": "0xF150Be45eCBc442c612d36B21B564113827aF968",
+  "startBlock": 57988000
+}

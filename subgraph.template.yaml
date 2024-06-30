@@ -25,34 +25,6 @@ dataSources:
           handler: handleTransferred
       file: ./src/TransferRequestDispatcher.ts
   - kind: ethereum/contract
-    name: ExpiringLockRequestDispatcher
-    network: {{network}}
-    source:
-      address: "{{ExpiringLockRequestDispatcher}}"
-      abi: ExpiringLockRequestDispatcher
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - PerpTradeHistoryItem
-      abis:
-        - name: ExpiringLockRequestDispatcher
-          file: ./abis/ExpiringLockRequestDispatcher.json
-      eventHandlers:
-        - event: Submitted(bytes32,address,address,uint256,uint256,uint256,bytes)
-          handler: handleSubmitted
-        - event: Deposited(bytes32,address,uint256,bytes)
-          handler: handleDeposited
-        - event: Received(bytes32,address,uint256,bytes)
-          handler: handleReceived
-        - event: RequestCancelled(bytes32,uint256)
-          handler: handleRequestCancelled
-        - event: RequestCompleted(bytes32,uint256)
-          handler: handleRequestCompleted
-      file: ./src/ExpiringLockRequestDispatcher.ts
-  - kind: ethereum/contract
     name: TransferWithSecretRequestDispatcher
     network: {{network}}
     source:
@@ -69,59 +41,6 @@ dataSources:
         - name: TransferWithSecretRequestDispatcher
           file: ./abis/TransferWithSecretRequestDispatcher.json
       eventHandlers:
-        - event: RequestSubmitted(bytes32,address,address,address,uint256,bytes)
+        - event: RequestSubmitted(address,address,address,uint256,bytes,bytes)
           handler: handleRequestSubmitted
-        - event: RequestCompleted(bytes32,bytes)
-          handler: handleRequestCompleted
-        - event: RequestCancelled(bytes32)
-          handler: handleRequestCancelled
       file: ./src/TransferWithSecretRequestDispatcher.ts
-  - kind: ethereum/contract
-    name: OnetimeLockRequestDispatcher
-    network: {{network}}
-    source:
-      address: "{{OnetimeLockRequestDispatcher}}"
-      abi: OnetimeLockRequestDispatcher
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - GammaTradeHistoryItem
-        - GammaHedgeConditionHistoryItem
-      abis:
-        - name: OnetimeLockRequestDispatcher
-          file: ./abis/OnetimeLockRequestDispatcher.json
-      eventHandlers:
-        - event: RequestSubmitted(bytes32,address,address,uint256,uint256,bytes)
-          handler: handleRequestSubmitted
-        - event: RecipientUpdated(bytes32,address,bytes)
-          handler: handleRecipientUpdated
-        - event: RequestCompleted(bytes32)
-          handler: handleRequestCompleted
-        - event: RequestCancelled(bytes32)
-          handler: handleRequestCancelled
-      file: ./src/OnetimeLockRequestDispatcher.ts
-
-  - kind: ethereum/contract
-    name: BaseReactor
-    network: {{network}}
-    source:
-      address: "{{BaseReactor}}"
-      abi: BaseReactor
-      startBlock: {{startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - GammaTradeHistoryItem
-        - GammaHedgeConditionHistoryItem
-      abis:
-        - name: BaseReactor
-          file: ./abis/BaseReactor.json
-      eventHandlers:
-        - event: Filled(indexed bytes32,indexed address,indexed address,address,uint256,(address,uint256,address)[])
-          handler: handleFilled
-      file: ./src/BaseReactor.ts
