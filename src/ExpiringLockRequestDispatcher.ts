@@ -4,9 +4,11 @@ import {
   Deposited
 } from '../generated/ExpiringLockRequestDispatcher/ExpiringLockRequestDispatcher'
 import {
+  ensureEndUser,
   ensureExpiringLock,
   ensureExpiringLockDeposit,
-  ensureExpiringLockDistribution
+  ensureExpiringLockDistribution,
+  ensureToken
 } from './helpers'
 
 export function handleSubmitted(event: Submitted): void {
@@ -15,8 +17,16 @@ export function handleSubmitted(event: Submitted): void {
     event.block.timestamp
   )
 
-  expiringLock.token = event.params.token
-  expiringLock.sender = event.params.sender
+  const token = ensureToken(event.params.token, event.block.timestamp)
+
+  token.save()
+
+  const sender = ensureEndUser(event.params.sender, event.block.timestamp)
+
+  sender.save()
+
+  expiringLock.token = token.id
+  expiringLock.sender = sender.id
   expiringLock.amount = event.params.amount
 
   expiringLock.save()
@@ -30,8 +40,12 @@ export function handleDeposited(event: Deposited): void {
     event.block.timestamp
   )
 
+  const depositor = ensureEndUser(event.params.depositor, event.block.timestamp)
+
+  depositor.save()
+
   deposit.amount = event.params.amount
-  deposit.depositor = event.params.depositor
+  deposit.depositor = depositor.id
   deposit.metadata = event.params.metadata
 
   deposit.save()
@@ -45,8 +59,12 @@ export function handleReceived(event: Received): void {
     event.block.timestamp
   )
 
+  const recipient = ensureEndUser(event.params.recipient, event.block.timestamp)
+
+  recipient.save()
+
   distribution.amount = event.params.amount
-  distribution.recipient = event.params.recipient
+  distribution.recipient = recipient.id
   distribution.metadata = event.params.metadata
 
   distribution.save()

@@ -6,10 +6,48 @@ import {
   OnetimeLock,
   TransferRequest,
   TransferWithSecret,
-  CoinMovingHistory
+  CoinMovingHistory,
+  Token,
+  EndUser
 } from '../generated/schema'
 
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
+
+export function ensureToken(
+  tokenAddress: Address,
+  eventTime: BigInt
+): Token {
+  const id = tokenAddress.toHex()
+
+  let token = Token.load(id)
+
+  if (token == null) {
+    token = new Token(id)
+    token.createdAt = eventTime
+  }
+
+  token.updatedAt = eventTime
+
+  return token
+}
+
+export function ensureEndUser(
+  userAddress: Address,
+  eventTime: BigInt
+): EndUser {
+  const id = userAddress.toHex()
+
+  let user = EndUser.load(id)
+
+  if (user == null) {
+    user = new EndUser(id)
+    user.createdAt = eventTime
+  }
+
+  user.updatedAt = eventTime
+
+  return user
+}
 
 export function ensureCoinMovingHistory(
   txHash: Bytes,
@@ -24,9 +62,6 @@ export function ensureCoinMovingHistory(
     coinMovingHistory = new CoinMovingHistory(id)
 
     coinMovingHistory.txHash = txHash
-    coinMovingHistory.token = Address.zero()
-    coinMovingHistory.sender = Address.zero()
-    coinMovingHistory.recipient = Address.zero()
     coinMovingHistory.amount = BigInt.zero()
     coinMovingHistory.metadata = Bytes.empty()
     coinMovingHistory.createdAt = eventTime
@@ -40,18 +75,18 @@ export function createCoinMovingHistory(
   txHash: Bytes,
   logIndex: BigInt,
   eventTime: BigInt,
-  token: Address,
-  sender: Address,
-  recipient: Address,
+  tokenId: string,
+  senderId: string,
+  recipientId: string,
   amount: BigInt,
   metadata: Bytes,
   movingType: string
 ): void {
   const coinMoving = ensureCoinMovingHistory(txHash, logIndex, eventTime)
 
-  coinMoving.token = token
-  coinMoving.sender = sender
-  coinMoving.recipient = recipient
+  coinMoving.token = tokenId
+  coinMoving.sender = senderId
+  coinMoving.recipient = recipientId
   coinMoving.amount = amount
   coinMoving.metadata = metadata
   coinMoving.movingType = movingType
@@ -72,9 +107,6 @@ export function ensureTransferRequest(
     transferHistory = new TransferRequest(id)
 
     transferHistory.txHash = txHash
-    transferHistory.token = Address.zero()
-    transferHistory.sender = Address.zero()
-    transferHistory.recipient = Address.zero()
     transferHistory.amount = BigInt.zero()
     transferHistory.metadata = Bytes.empty()
     transferHistory.createdAt = eventTime
@@ -96,9 +128,6 @@ export function ensureTransferWithSecret(
     transferHistory = new TransferWithSecret(id)
 
     transferHistory.txHash = txHash
-    transferHistory.token = Address.zero()
-    transferHistory.sender = Address.zero()
-    transferHistory.recipient = Address.zero()
     transferHistory.amount = BigInt.zero()
     transferHistory.status = 'LIVE'
     transferHistory.metadata = Bytes.empty()
@@ -121,8 +150,6 @@ export function ensureOnetimeLock(
   if (onetimeLock == null) {
     onetimeLock = new OnetimeLock(id)
 
-    onetimeLock.token = Address.zero()
-    onetimeLock.sender = Address.zero()
     onetimeLock.amount = BigInt.zero()
     onetimeLock.expiry = BigInt.zero()
     onetimeLock.metadata = Bytes.empty()
@@ -146,8 +173,6 @@ export function ensureExpiringLock(
   if (expiringLock == null) {
     expiringLock = new ExpiringLock(id)
 
-    expiringLock.token = Address.zero()
-    expiringLock.sender = Address.zero()
     expiringLock.amount = BigInt.zero()
     expiringLock.expiry = BigInt.zero()
     expiringLock.createdAt = eventTime
@@ -172,7 +197,6 @@ export function ensureExpiringLockDeposit(
     deposit = new ExpiringLockDeposit(id)
 
     deposit.parent = lockId.toString()
-    deposit.depositor = Address.zero()
     deposit.amount = BigInt.zero()
     deposit.metadata = Bytes.empty()
     deposit.createdAt = eventTime
@@ -195,7 +219,6 @@ export function ensureExpiringLockDistribution(
     distribution = new ExpiringLockDistribution(id)
 
     distribution.parent = lockId.toString()
-    distribution.recipient = Address.zero()
     distribution.amount = BigInt.zero()
     distribution.metadata = Bytes.empty()
     distribution.createdAt = eventTime
