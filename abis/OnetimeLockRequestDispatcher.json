@@ -3,6 +3,11 @@
     "type": "constructor",
     "inputs": [
       {
+        "name": "_permit2",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
         "name": "_facilitator",
         "type": "address",
         "internalType": "address"
@@ -33,9 +38,26 @@
         "internalType": "bytes32"
       },
       {
-        "name": "secret",
-        "type": "bytes32",
-        "internalType": "bytes32"
+        "name": "recipientData",
+        "type": "tuple",
+        "internalType": "struct OnetimeLockRequestDispatcher.RecipientData",
+        "components": [
+          {
+            "name": "recipient",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sig",
+            "type": "bytes",
+            "internalType": "bytes"
+          },
+          {
+            "name": "metadata",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
       }
     ],
     "outputs": [],
@@ -50,6 +72,67 @@
         "name": "",
         "type": "address",
         "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRequestId",
+    "inputs": [
+      {
+        "name": "request",
+        "type": "tuple",
+        "internalType": "struct TransferWithSecretRequest",
+        "components": [
+          {
+            "name": "dispatcher",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sender",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "deadline",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "nonce",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "amount",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "token",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "publicKey",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "metadata",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
       }
     ],
     "stateMutability": "view"
@@ -76,14 +159,9 @@
         "internalType": "address"
       },
       {
-        "name": "secretHash1",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      },
-      {
-        "name": "secretHash2",
-        "type": "bytes32",
-        "internalType": "bytes32"
+        "name": "publicKey",
+        "type": "address",
+        "internalType": "address"
       },
       {
         "name": "sender",
@@ -91,45 +169,22 @@
         "internalType": "address"
       },
       {
-        "name": "recipient",
-        "type": "address",
-        "internalType": "address"
+        "name": "nonce",
+        "type": "uint256",
+        "internalType": "uint256"
       },
       {
         "name": "expiry",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "status",
+        "type": "uint8",
+        "internalType": "enum OnetimeLockRequestDispatcher.RequestStatus"
       }
     ],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "setRecipient",
-    "inputs": [
-      {
-        "name": "id",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      },
-      {
-        "name": "secret",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      },
-      {
-        "name": "recipient",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "metadata",
-        "type": "bytes",
-        "internalType": "bytes"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -138,10 +193,25 @@
       {
         "name": "request",
         "type": "tuple",
-        "internalType": "struct OnetimeLockRequest",
+        "internalType": "struct TransferWithSecretRequest",
         "components": [
           {
-            "name": "id",
+            "name": "dispatcher",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sender",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "deadline",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "nonce",
             "type": "uint256",
             "internalType": "uint256"
           },
@@ -156,19 +226,9 @@
             "internalType": "address"
           },
           {
-            "name": "secretHash1",
-            "type": "bytes32",
-            "internalType": "bytes32"
-          },
-          {
-            "name": "secretHash2",
-            "type": "bytes32",
-            "internalType": "bytes32"
-          },
-          {
-            "name": "expiry",
-            "type": "uint256",
-            "internalType": "uint256"
+            "name": "publicKey",
+            "type": "address",
+            "internalType": "address"
           },
           {
             "name": "metadata",
@@ -176,35 +236,15 @@
             "internalType": "bytes"
           }
         ]
+      },
+      {
+        "name": "sig",
+        "type": "bytes",
+        "internalType": "bytes"
       }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
-  },
-  {
-    "type": "event",
-    "name": "RecipientUpdated",
-    "inputs": [
-      {
-        "name": "id",
-        "type": "bytes32",
-        "indexed": false,
-        "internalType": "bytes32"
-      },
-      {
-        "name": "recipient",
-        "type": "address",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "name": "metadata",
-        "type": "bytes",
-        "indexed": false,
-        "internalType": "bytes"
-      }
-    ],
-    "anonymous": false
   },
   {
     "type": "event",
@@ -228,6 +268,18 @@
         "type": "bytes32",
         "indexed": false,
         "internalType": "bytes32"
+      },
+      {
+        "name": "recipient",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
       }
     ],
     "anonymous": false
@@ -243,13 +295,13 @@
         "internalType": "bytes32"
       },
       {
-        "name": "sender",
+        "name": "token",
         "type": "address",
         "indexed": false,
         "internalType": "address"
       },
       {
-        "name": "token",
+        "name": "sender",
         "type": "address",
         "indexed": false,
         "internalType": "address"
@@ -277,12 +329,22 @@
   },
   {
     "type": "error",
-    "name": "InvalidSecret",
+    "name": "CallerIsNotSenderOrFacilitator",
     "inputs": []
   },
   {
     "type": "error",
-    "name": "RecipientAlreadySet",
+    "name": "DeadlinePassed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidDispatcher",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidSecret",
     "inputs": []
   },
   {
@@ -302,7 +364,7 @@
   },
   {
     "type": "error",
-    "name": "RequestNotSubmitted",
+    "name": "RequestIsNotPending",
     "inputs": []
   }
 ]

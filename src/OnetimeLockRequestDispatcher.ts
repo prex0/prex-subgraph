@@ -1,9 +1,9 @@
 import {
-  RecipientUpdated,
+  RequestCompleted,
   RequestSubmitted,
   RequestCancelled
 } from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher'
-import { ensureEndUser, ensureOnetimeLock, ensureToken } from './helpers'
+import { createCoinMovingHistory, ensureEndUser, ensureOnetimeLock, ensureToken } from './helpers'
 
 export function handleRequestSubmitted(event: RequestSubmitted): void {
   const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
@@ -20,11 +20,12 @@ export function handleRequestSubmitted(event: RequestSubmitted): void {
   onetimeLock.sender = sender.id
   onetimeLock.amount = event.params.amount
   onetimeLock.metadata = event.params.metadata
+  onetimeLock.txHash = event.transaction.hash
 
   onetimeLock.save()
 }
 
-export function handleRecipientUpdated(event: RecipientUpdated): void {
+export function handleRequestCompleted(event: RequestCompleted): void {
   const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
 
   const recipient = ensureEndUser(event.params.recipient, event.block.timestamp)
@@ -33,9 +34,22 @@ export function handleRecipientUpdated(event: RecipientUpdated): void {
 
   onetimeLock.recipient = recipient.id
   onetimeLock.recipientMetadata = event.params.metadata
+  onetimeLock.recipientTxHash = event.transaction.hash
   onetimeLock.status = 'COMPLETED'
 
   onetimeLock.save()
+
+  createCoinMovingHistory(
+    event.transaction.hash,
+    event.transactionLogIndex,
+    event.block.timestamp,
+    onetimeLock.token,
+    onetimeLock.sender,
+    recipient.id,
+    onetimeLock.amount,
+    event.params.metadata,
+    'ONETIME'
+  )
 }
 
 export function handleRequestCancelled(event: RequestCancelled): void {

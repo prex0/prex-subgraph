@@ -44,3 +44,27 @@ dataSources:
         - event: RequestSubmitted(address,address,address,uint256,bytes,bytes)
           handler: handleRequestSubmitted
       file: ./src/TransferWithSecretRequestDispatcher.ts
+  - kind: ethereum/contract
+    name: OnetimeLockRequestDispatcher
+    network: {{network}}
+    source:
+      address: "{{OnetimeLockRequestDispatcher}}"
+      abi: OnetimeLockRequestDispatcher
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - SpotTradeHistoryItem
+      abis:
+        - name: OnetimeLockRequestDispatcher
+          file: ./abis/OnetimeLockRequestDispatcher.json
+      eventHandlers:
+        - event: RequestSubmitted(bytes32,address,address,uint256,uint256,bytes)
+          handler: handleRequestSubmitted
+        - event: RequestCompleted(bytes32,address,bytes)
+          handler: handleRequestCompleted
+        - event: RequestCancelled(bytes32)
+          handler: handleRequestCancelled
+      file: ./src/OnetimeLockRequestDispatcher.ts
