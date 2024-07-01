@@ -2,6 +2,6 @@
   "network": "arbitrum-sepolia",
   "TransferRequestDispatcher": "0x8115f078BC40BB2b4C3d9441Df142cf072883282",
   "TransferWithSecretRequestDispatcher": "0xF150Be45eCBc442c612d36B21B564113827aF968",
-  "OnetimeLockRequestDispatcher": "0x68231d6FEfB729bD53F5C5865a912203DA133B2b",
+  "OnetimeLockRequestDispatcher": "0xd6f3DF2C5Deace2320D7e5245806Def9cFCC5223",
   "startBlock": 57988000
 }
