@@ -21,6 +21,7 @@ export function handleRequestSubmitted(event: RequestSubmitted): void {
   onetimeLock.amount = event.params.amount
   onetimeLock.metadata = event.params.metadata
   onetimeLock.txHash = event.transaction.hash
+  onetimeLock.expiry = event.params.expiry
 
   onetimeLock.save()
 }
@@ -47,8 +48,8 @@ export function handleRequestCompleted(event: RequestCompleted): void {
     onetimeLock.sender,
     recipient.id,
     onetimeLock.amount,
+    'ONETIME',
     event.params.metadata,
-    'ONETIME'
   )
 }
 

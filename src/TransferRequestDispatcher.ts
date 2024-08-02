@@ -33,7 +33,7 @@ export function handleTransferred(event: Transferred): void {
     from.id,
     to.id,
     event.params.amount,
+    'DIRECT',
     event.params.metadata,
-    'DIRECT'
   )
 }

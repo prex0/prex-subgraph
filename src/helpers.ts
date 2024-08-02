@@ -79,8 +79,8 @@ export function createCoinMovingHistory(
   senderId: string,
   recipientId: string,
   amount: BigInt,
-  metadata: Bytes,
-  movingType: string
+  movingType: string,
+  metadata?: Bytes,
 ): void {
   const coinMoving = ensureCoinMovingHistory(txHash, logIndex, eventTime)
 
@@ -88,7 +88,9 @@ export function createCoinMovingHistory(
   coinMoving.sender = senderId
   coinMoving.recipient = recipientId
   coinMoving.amount = amount
-  coinMoving.metadata = metadata
+  if(metadata) {
+    coinMoving.metadata = metadata
+  }
   coinMoving.movingType = movingType
 
   coinMoving.save()

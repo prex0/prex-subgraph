@@ -36,8 +36,8 @@ export function handleRequestSubmitted(event: RequestSubmitted): void {
     from.id,
     to.id,
     transferHistory.amount,
+    'SECRET',
     transferHistory.metadata,
-    'SECRET'
   )
 
   transferHistory.save()
