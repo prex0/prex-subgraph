@@ -1,13 +1,16 @@
+import { RequestSubmitted } from '../generated/TransferWithSecretRequestDispatcher/TransferWithSecretRequestDispatcher'
 import {
-  RequestSubmitted,
-} from '../generated/TransferWithSecretRequestDispatcher/TransferWithSecretRequestDispatcher'
-import { createCoinMovingHistory, ensureEndUser, ensureToken, ensureTransferWithSecret } from './helpers'
+  createCoinMovingHistory,
+  ensureEndUser,
+  ensureToken,
+  ensureTransferWithSecret
+} from './helpers'
 
 export function handleRequestSubmitted(event: RequestSubmitted): void {
   const transferHistory = ensureTransferWithSecret(
     event.transaction.hash,
     event.transactionLogIndex,
-    event.block.timestamp,
+    event.block.timestamp
   )
 
   const token = ensureToken(event.params.token, event.block.timestamp)
@@ -37,7 +40,7 @@ export function handleRequestSubmitted(event: RequestSubmitted): void {
     to.id,
     transferHistory.amount,
     'SECRET',
-    transferHistory.metadata,
+    transferHistory.metadata
   )
 
   transferHistory.save()

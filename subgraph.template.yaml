@@ -68,3 +68,23 @@ dataSources:
         - event: RequestCancelled(bytes32)
           handler: handleRequestCancelled
       file: ./src/OnetimeLockRequestDispatcher.ts
+  - kind: ethereum/contract
+    name: SwapExecutorV1
+    network: {{network}}
+    source:
+      address: "{{SwapExecutorV1}}"
+      abi: SwapExecutorV1
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - SpotTradeHistoryItem
+      abis:
+        - name: SwapExecutorV1
+          file: ./abis/SwapExecutorV1.json
+      eventHandlers:
+        - event: OrderFilled(indexed bytes32,indexed address,address,address,uint256,(address,uint256,address)[])
+          handler: handleOrderFilled
+      file: ./src/SwapExecutorV1.ts

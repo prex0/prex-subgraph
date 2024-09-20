@@ -3,7 +3,12 @@ import {
   RequestSubmitted,
   RequestCancelled
 } from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher'
-import { createCoinMovingHistory, ensureEndUser, ensureOnetimeLock, ensureToken } from './helpers'
+import {
+  createCoinMovingHistory,
+  ensureEndUser,
+  ensureOnetimeLock,
+  ensureToken
+} from './helpers'
 
 export function handleRequestSubmitted(event: RequestSubmitted): void {
   const onetimeLock = ensureOnetimeLock(event.params.id, event.block.timestamp)
@@ -49,7 +54,7 @@ export function handleRequestCompleted(event: RequestCompleted): void {
     recipient.id,
     onetimeLock.amount,
     'ONETIME',
-    event.params.metadata,
+    event.params.metadata
   )
 }
 

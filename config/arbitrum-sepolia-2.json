@@ -3,5 +3,6 @@
   "TransferRequestDispatcher": "0x8115f078BC40BB2b4C3d9441Df142cf072883282",
   "TransferWithSecretRequestDispatcher": "0x5aE9Cb7ccb70BcCF3393ADB52465b4852D7f7F59",
   "OnetimeLockRequestDispatcher": "0x3f0864F41300DD694c73717b76C365f449b6BB8B",
+  "SwapExecutorV1": "0x0C4A9411B6c896390faBc295fbb472DB7B399aEC",
   "startBlock": 68750000
 }

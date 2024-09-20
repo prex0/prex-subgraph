@@ -13,10 +13,7 @@ import {
 
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
-export function ensureToken(
-  tokenAddress: Address,
-  eventTime: BigInt
-): Token {
+export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
   const id = tokenAddress.toHex()
 
   let token = Token.load(id)
@@ -80,7 +77,7 @@ export function createCoinMovingHistory(
   recipientId: string,
   amount: BigInt,
   movingType: string,
-  metadata?: Bytes,
+  metadata?: Bytes
 ): void {
   const coinMoving = ensureCoinMovingHistory(txHash, logIndex, eventTime)
 
@@ -88,7 +85,7 @@ export function createCoinMovingHistory(
   coinMoving.sender = senderId
   coinMoving.recipient = recipientId
   coinMoving.amount = amount
-  if(metadata) {
+  if (metadata) {
     coinMoving.metadata = metadata
   }
   coinMoving.movingType = movingType
@@ -120,7 +117,7 @@ export function ensureTransferRequest(
 export function ensureTransferWithSecret(
   txHash: Bytes,
   logIndex: BigInt,
-  eventTime: BigInt,
+  eventTime: BigInt
 ): TransferWithSecret {
   const id = txHash.toHex() + '-' + logIndex.toString()
 

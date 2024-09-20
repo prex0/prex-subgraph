@@ -1,5 +1,10 @@
 import { Transferred } from '../generated/TransferRequestDispatcher/TransferRequestDispatcher'
-import { createCoinMovingHistory, ensureEndUser, ensureToken, ensureTransferRequest } from './helpers'
+import {
+  createCoinMovingHistory,
+  ensureEndUser,
+  ensureToken,
+  ensureTransferRequest
+} from './helpers'
 
 export function handleTransferred(event: Transferred): void {
   const transferHistory = ensureTransferRequest(
@@ -34,6 +39,6 @@ export function handleTransferred(event: Transferred): void {
     to.id,
     event.params.amount,
     'DIRECT',
-    event.params.metadata,
+    event.params.metadata
   )
 }

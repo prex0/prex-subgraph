@@ -110,3 +110,22 @@ type CoinMovingHistory @entity {
   txHash: Bytes!
   createdAt: BigInt!
 }
+
+type OrderFilledHistory @entity {
+  id: ID!
+  reactor: Bytes! # address
+  token: Token!
+  swapper: EndUser!
+  amount: BigInt!
+  outputs: [OrderFilledHistoryOutput!]! @derivedFrom(field: "parent")
+  txHash: Bytes!
+  createdAt: BigInt!
+}
+
+type OrderFilledHistoryOutput @entity {
+  id: ID!
+  parent: OrderFilledHistory!
+  token: Token!
+  amount: BigInt!
+  recipient: EndUser!
+}

@@ -5,7 +5,7 @@
     "codegen": "graph codegen",
     "test": "graph test -d",
     "build": "graph build",
-    "fmt:fix": "prettier --write src/**/*",
+    "fmt:fix": "prettier --write src/**/* abis/**/*",
     "prepare:arbitrum-sepolia": "mustache config/arbitrum-sepolia.json subgraph.template.yaml > subgraph.yaml",
     "deploy:studio:arbitrum-sepolia": "graph deploy --studio blockeragetransfersarbsepolia",
     "prepare:arbitrum-sepolia2": "mustache config/arbitrum-sepolia-2.json subgraph.template.yaml > subgraph.yaml",
