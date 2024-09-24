@@ -111,7 +111,7 @@ type CoinMovingHistory @entity {
   createdAt: BigInt!
 }
 
-type OrderFilledHistory @entity {
+type SwapV1History @entity {
   id: ID!
   reactor: Bytes! # address
   token: Token!
@@ -124,7 +124,7 @@ type OrderFilledHistory @entity {
 
 type OrderFilledHistoryOutput @entity {
   id: ID!
-  parent: OrderFilledHistory!
+  parent: SwapV1History!
   token: Token!
   amount: BigInt!
   recipient: EndUser!

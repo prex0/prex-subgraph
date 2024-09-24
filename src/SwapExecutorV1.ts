@@ -1,10 +1,10 @@
 import { BigInt, Bytes } from '@graphprotocol/graph-ts'
 import { OrderFilled } from '../generated/SwapExecutorV1/SwapExecutorV1'
-import { OrderFilledHistory, OrderFilledHistoryOutput } from '../generated/schema'
+import { SwapV1History, OrderFilledHistoryOutput } from '../generated/schema'
 import { ensureEndUser, ensureToken } from './helpers'
 
 export function handleOrderFilled(event: OrderFilled): void {
-  const filledHistory = ensureOrderFilledHistory(
+  const swapV1History = ensureOrderFilledHistory(
     event.params.orderHash,
     event.block.timestamp,
     event.transaction.hash
@@ -13,10 +13,13 @@ export function handleOrderFilled(event: OrderFilled): void {
   const token = ensureToken(event.params.token, event.block.timestamp)
   const swapper = ensureEndUser(event.params.swapper, event.block.timestamp)
 
-  filledHistory.swapper = swapper.id
-  filledHistory.token = token.id
-  filledHistory.amount = event.params.amount
-  filledHistory.reactor = event.params.reactor
+  token.save()
+  swapper.save()
+  
+  swapV1History.swapper = swapper.id
+  swapV1History.token = token.id
+  swapV1History.amount = event.params.amount
+  swapV1History.reactor = event.params.reactor
 
   for (let i = 0; i < event.params.outputs.length; i++) {
     const outputParams = event.params.outputs[i]
@@ -25,37 +28,39 @@ export function handleOrderFilled(event: OrderFilled): void {
       i
     )
 
-    const token = ensureToken(outputParams.token, event.block.timestamp)
-    const swapper = ensureEndUser(outputParams.recipient, event.block.timestamp)
+    const outputToken = ensureToken(outputParams.token, event.block.timestamp)
+    const recipient = ensureEndUser(outputParams.recipient, event.block.timestamp)
 
-    output.parent = filledHistory.id
-    output.token = token.id
+    output.parent = swapV1History.id
+    output.token = outputToken.id
     output.amount = outputParams.amount
-    output.recipient = swapper.id
+    output.recipient = recipient.id
 
+    outputToken.save()
+    recipient.save()
     output.save()
   }
 
-  filledHistory.save()
+  swapV1History.save()
 }
 
 export function ensureOrderFilledHistory(
   orderHash: Bytes,
   eventTime: BigInt,
   txHash: Bytes
-): OrderFilledHistory {
+): SwapV1History {
   const id = orderHash.toHex()
 
-  let filledHistory = OrderFilledHistory.load(id)
+  let swapV1History = SwapV1History.load(id)
 
-  if (filledHistory == null) {
-    filledHistory = new OrderFilledHistory(id)
+  if (swapV1History == null) {
+    swapV1History = new SwapV1History(id)
 
-    filledHistory.txHash = txHash
-    filledHistory.createdAt = eventTime
+    swapV1History.txHash = txHash
+    swapV1History.createdAt = eventTime
   }
 
-  return filledHistory
+  return swapV1History
 }
 
 export function ensureOrderFilledHistoryOutput(

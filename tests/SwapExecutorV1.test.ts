@@ -43,8 +43,9 @@ describe("SwapExecutorV1::handleOrderFilled", () => {
 
     const id = ORDER_HASH
 
-    assert.entityCount('OrderFilledHistory', 1)
-    assert.fieldEquals('OrderFilledHistory', id, 'id', id)
-    assert.fieldEquals('OrderFilledHistory', id, 'amount', '100')
+    assert.entityCount('SwapV1History', 1)
+    assert.fieldEquals('SwapV1History', id, 'id', id)
+    assert.fieldEquals('SwapV1History', id, 'amount', '100')
+    assert.fieldEquals('SwapV1History', id, 'token', '0x0000000000000000000000000000000000000000')
   })
 })
