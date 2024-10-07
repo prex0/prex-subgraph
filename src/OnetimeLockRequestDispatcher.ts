@@ -54,7 +54,9 @@ export function handleRequestCompleted(event: RequestCompleted): void {
     recipient.id,
     onetimeLock.amount,
     'ONETIME',
-    event.params.metadata
+    event.params.metadata,
+    null,
+    null
   )
 }
 

@@ -17,39 +17,6 @@ enum LockStatus {
   EXPIRED
 }
 
-type ExpiringLock @entity {
-  id: ID!
-  token: Token!
-  sender: EndUser!
-  amount: BigInt!
-  expiry: BigInt!
-  metadata: Bytes!
-  deposits: [ExpiringLockDeposit!]! @derivedFrom(field: "parent")
-  distributions: [ExpiringLockDistribution!]! @derivedFrom(field: "parent")
-  isCancelled: Boolean!
-  status: LockStatus!
-  createdAt: BigInt!
-  updatedAt: BigInt!
-}
-
-type ExpiringLockDeposit @entity {
-  id: ID!
-  parent: ExpiringLock!
-  amount: BigInt!
-  depositor: EndUser!
-  metadata: Bytes!
-  createdAt: BigInt!
-}
-
-type ExpiringLockDistribution @entity {
-  id: ID!
-  parent: ExpiringLock!
-  amount: BigInt!
-  recipient: EndUser!
-  metadata: Bytes!
-  createdAt: BigInt!
-}
-
 type OnetimeLock @entity {
   id: ID!
   token: Token!
@@ -96,7 +63,7 @@ enum MovingType {
   DIRECT
   SECRET
   ONETIME
-  EXPIRING
+  TOKEN_DISTRIBUTE
 }
 
 type CoinMovingHistory @entity {
@@ -104,7 +71,9 @@ type CoinMovingHistory @entity {
   movingType: MovingType!
   token: Token!
   sender: EndUser!
+  senderName: String
   recipient: EndUser!
+  recipientName: String
   amount: BigInt!
   metadata: Bytes
   txHash: Bytes!
@@ -128,4 +97,24 @@ type OrderFilledHistoryOutput @entity {
   token: Token!
   amount: BigInt!
   recipient: EndUser!
+}
+
+enum TokenDistributeRequestStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+type TokenDistributeRequest @entity {
+  id: ID!
+  status: TokenDistributeRequestStatus!
+  token: Token!
+  sender: EndUser!
+  amount: BigInt!
+  amountPerWithdrawal: BigInt!
+  expiry: BigInt!
+  name: String!
+  metadata: Bytes
+  txHash: Bytes!
+  createdAt: BigInt!
 }

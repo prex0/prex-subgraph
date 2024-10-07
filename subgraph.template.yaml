@@ -69,6 +69,34 @@ dataSources:
           handler: handleRequestCancelled
       file: ./src/OnetimeLockRequestDispatcher.ts
   - kind: ethereum/contract
+    name: TokenDistributor
+    network: {{network}}
+    source:
+      address: "{{TokenDistributor}}"
+      abi: TokenDistributor
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - SpotTradeHistoryItem
+      abis:
+        - name: TokenDistributor
+          file: ./abis/TokenDistributor.json
+      eventHandlers:
+        - event: Submitted(bytes32,address,address,uint256,uint256,uint256,string,bytes)
+          handler: handleSubmitted
+        - event: Deposited(bytes32,address,uint256)
+          handler: handleDeposited
+        - event: Received(bytes32,address,uint256)
+          handler: handleReceived
+        - event: RequestCancelled(bytes32,uint256)
+          handler: handleRequestCancelled
+        - event: RequestExpired(bytes32,uint256)
+          handler: handleRequestExpired
+      file: ./src/TokenDistributor.ts
+  - kind: ethereum/contract
     name: SwapExecutorV1
     network: {{network}}
     source:

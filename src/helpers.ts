@@ -1,9 +1,7 @@
 import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts'
 import {
-  ExpiringLock,
-  ExpiringLockDeposit,
-  ExpiringLockDistribution,
   OnetimeLock,
+  TokenDistributeRequest,
   TransferRequest,
   TransferWithSecret,
   CoinMovingHistory,
@@ -77,17 +75,19 @@ export function createCoinMovingHistory(
   recipientId: string,
   amount: BigInt,
   movingType: string,
-  metadata?: Bytes
+  metadata: Bytes | null,
+  senderName: string | null,
+  recipientName: string | null,
 ): void {
   const coinMoving = ensureCoinMovingHistory(txHash, logIndex, eventTime)
 
   coinMoving.token = tokenId
   coinMoving.sender = senderId
+  coinMoving.senderName = senderName
   coinMoving.recipient = recipientId
+  coinMoving.recipientName = recipientName
   coinMoving.amount = amount
-  if (metadata) {
-    coinMoving.metadata = metadata
-  }
+  coinMoving.metadata = metadata
   coinMoving.movingType = movingType
 
   coinMoving.save()
@@ -161,67 +161,22 @@ export function ensureOnetimeLock(
   return onetimeLock
 }
 
-export function ensureExpiringLock(
-  lockId: Bytes,
+export function ensureTokenDistributeRequest(
+  requestId: Bytes,
   eventTime: BigInt
-): ExpiringLock {
-  const id = lockId.toHex()
+): TokenDistributeRequest {
+  const id = requestId.toHex()
 
-  let expiringLock = ExpiringLock.load(id)
+  let tokenDistributeRequest = TokenDistributeRequest.load(id)
 
-  if (expiringLock == null) {
-    expiringLock = new ExpiringLock(id)
+  if (tokenDistributeRequest == null) {
+    tokenDistributeRequest = new TokenDistributeRequest(id)
 
-    expiringLock.amount = BigInt.zero()
-    expiringLock.expiry = BigInt.zero()
-    expiringLock.createdAt = eventTime
+    tokenDistributeRequest.amount = BigInt.zero()
+    tokenDistributeRequest.amountPerWithdrawal = BigInt.zero()
+    tokenDistributeRequest.expiry = BigInt.zero()
+    tokenDistributeRequest.createdAt = eventTime
   }
 
-  expiringLock.updatedAt = eventTime
-
-  return expiringLock
-}
-
-export function ensureExpiringLockDeposit(
-  txHash: Bytes,
-  logIndex: BigInt,
-  lockId: Bytes,
-  eventTime: BigInt
-): ExpiringLockDeposit {
-  const id = txHash.toHex() + '-' + logIndex.toString()
-
-  let deposit = ExpiringLockDeposit.load(id)
-
-  if (deposit == null) {
-    deposit = new ExpiringLockDeposit(id)
-
-    deposit.parent = lockId.toString()
-    deposit.amount = BigInt.zero()
-    deposit.metadata = Bytes.empty()
-    deposit.createdAt = eventTime
-  }
-
-  return deposit
-}
-
-export function ensureExpiringLockDistribution(
-  txHash: Bytes,
-  logIndex: BigInt,
-  lockId: Bytes,
-  eventTime: BigInt
-): ExpiringLockDistribution {
-  const id = txHash.toHex() + '-' + logIndex.toString()
-
-  let distribution = ExpiringLockDistribution.load(id)
-
-  if (distribution == null) {
-    distribution = new ExpiringLockDistribution(id)
-
-    distribution.parent = lockId.toString()
-    distribution.amount = BigInt.zero()
-    distribution.metadata = Bytes.empty()
-    distribution.createdAt = eventTime
-  }
-
-  return distribution
+  return tokenDistributeRequest
 }
