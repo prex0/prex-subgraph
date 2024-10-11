@@ -29,8 +29,10 @@ export function handleSubmitted(event: Submitted): void {
   tokenDistributeRequest.sender = sender.id
   tokenDistributeRequest.amount = event.params.amount
   tokenDistributeRequest.amountPerWithdrawal = event.params.amountPerWithdrawal
+  tokenDistributeRequest.cooltime = event.params.cooltime
+  tokenDistributeRequest.maxAmountPerAddress = event.params.maxAmountPerAddress
   tokenDistributeRequest.name = event.params.name
-  tokenDistributeRequest.metadata = event.params.metadata
+  tokenDistributeRequest.coordinate = event.params.coordinate
   tokenDistributeRequest.txHash = event.transaction.hash
   tokenDistributeRequest.expiry = event.params.expiry
   tokenDistributeRequest.status = 'PENDING'
@@ -46,7 +48,7 @@ export function handleSubmitted(event: Submitted): void {
     distributorContract.id,
     event.params.amount,
     'TOKEN_DISTRIBUTE',
-    event.params.metadata,
+    null,
     null,
     event.params.name
   )

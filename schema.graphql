@@ -112,9 +112,11 @@ type TokenDistributeRequest @entity {
   sender: EndUser!
   amount: BigInt!
   amountPerWithdrawal: BigInt!
+  cooltime: BigInt!
+  maxAmountPerAddress: BigInt!
   expiry: BigInt!
   name: String!
-  metadata: Bytes
+  coordinate: Bytes
   txHash: Bytes!
   createdAt: BigInt!
 }

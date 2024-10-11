@@ -85,7 +85,7 @@ dataSources:
         - name: TokenDistributor
           file: ./abis/TokenDistributor.json
       eventHandlers:
-        - event: Submitted(bytes32,address,address,uint256,uint256,uint256,string,bytes)
+        - event: Submitted(bytes32,address,address,uint256,uint256,uint256,uint256,uint256,string,bytes32)
           handler: handleSubmitted
         - event: Deposited(bytes32,address,uint256)
           handler: handleDeposited
