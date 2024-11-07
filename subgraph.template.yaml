@@ -116,3 +116,43 @@ dataSources:
         - event: OrderFilled(indexed bytes32,indexed address,address,address,uint256,(address,uint256,address)[])
           handler: handleOrderFilled
       file: ./src/SwapExecutorV1.ts
+  - kind: ethereum/contract
+    name: PrexSmartWalletFactory
+    network: {{network}}
+    source:
+      address: "{{PrexSmartWalletFactory}}"
+      abi: PrexSmartWalletFactory
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/PrexSmartWalletFactory.ts
+      entities:
+        - PrexSmartWallet
+      abis:
+        - name: PrexSmartWalletFactory
+          file: ./abis/PrexSmartWalletFactory.json
+      callHandlers:
+        - function: createAccount(bytes[],uint256)
+          handler: handleCreateAccount
+templates:
+  - name: PrexSmartWallet
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: PrexSmartWallet
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/PrexSmartWallet.ts
+      entities:
+        - PrexSmartWallet
+      abis:
+        - name: PrexSmartWallet
+          file: ./abis/PrexSmartWallet.json
+      eventHandlers:
+        - event: AddOwner(indexed uint256,bytes)
+          handler: handleAddOwner
+        - event: RemoveOwner(indexed uint256,bytes)
+          handler: handleRemoveOwner

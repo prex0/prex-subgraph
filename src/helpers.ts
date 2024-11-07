@@ -36,6 +36,8 @@ export function ensureEndUser(
 
   if (user == null) {
     user = new EndUser(id)
+
+    user.isSmartWallet = false
     user.createdAt = eventTime
   }
 

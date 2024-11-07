@@ -6,8 +6,27 @@ type Token @entity {
 
 type EndUser @entity {
   id: ID!
+  isSmartWallet: Boolean!
   createdAt: BigInt!
   updatedAt: BigInt!
+  p256PublicKeys: [P256PublicKey!]! @derivedFrom(field: "wallet")
+  owners: [BelongToSharedWallet!]! @derivedFrom(field: "owner")
+  sharedWallets: [BelongToSharedWallet!]! @derivedFrom(field: "sharedWallet")
+}
+
+type BelongToSharedWallet @entity {
+  id: ID!
+  index: BigInt!
+  owner: EndUser!
+  sharedWallet: EndUser!
+  isRemoved: Boolean!
+}
+
+type P256PublicKey @entity {
+  id: ID!
+  index: BigInt!
+  wallet: EndUser!
+  isRemoved: Boolean!
 }
 
 enum LockStatus {
