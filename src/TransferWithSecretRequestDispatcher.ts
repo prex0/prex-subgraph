@@ -42,6 +42,7 @@ export function handleRequestSubmitted(event: RequestSubmitted): void {
     'SECRET',
     transferHistory.metadata,
     null,
+    null,
     null
   )
 

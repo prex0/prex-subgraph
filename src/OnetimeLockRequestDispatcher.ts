@@ -56,6 +56,7 @@ export function handleRequestCompleted(event: RequestCompleted): void {
     'ONETIME',
     event.params.metadata,
     null,
+    null,
     null
   )
 }

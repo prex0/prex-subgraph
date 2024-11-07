@@ -76,6 +76,7 @@ type CoinMovingHistory @entity {
   recipientName: String
   amount: BigInt!
   metadata: Bytes
+  tokenDistributeRequest: TokenDistributeRequest
   txHash: Bytes!
   createdAt: BigInt!
 }

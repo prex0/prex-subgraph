@@ -41,6 +41,7 @@ export function handleTransferred(event: Transferred): void {
     'DIRECT',
     event.params.metadata,
     null,
+    null,
     null
   )
 }

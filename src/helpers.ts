@@ -78,6 +78,7 @@ export function createCoinMovingHistory(
   metadata: Bytes | null,
   senderName: string | null,
   recipientName: string | null,
+  tokenDistributeRequestId: string | null
 ): void {
   const coinMoving = ensureCoinMovingHistory(txHash, logIndex, eventTime)
 
@@ -89,6 +90,7 @@ export function createCoinMovingHistory(
   coinMoving.amount = amount
   coinMoving.metadata = metadata
   coinMoving.movingType = movingType
+  coinMoving.tokenDistributeRequest = tokenDistributeRequestId
 
   coinMoving.save()
 }

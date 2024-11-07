@@ -50,7 +50,8 @@ export function handleSubmitted(event: Submitted): void {
     'TOKEN_DISTRIBUTE',
     null,
     null,
-    event.params.name
+    event.params.name,
+    tokenDistributeRequest.id
   )
 }
 
@@ -79,7 +80,8 @@ export function handleDeposited(event: Deposited): void {
     'TOKEN_DISTRIBUTE',
     null,
     null,
-    tokenDistributeRequest.name
+    tokenDistributeRequest.name,
+    tokenDistributeRequest.id
   )
 }
 
@@ -107,7 +109,8 @@ export function handleReceived(event: Received): void {
     'TOKEN_DISTRIBUTE',
     null,
     tokenDistributeRequest.name,
-    null
+    null,
+    tokenDistributeRequest.id
   )
 }
 
@@ -133,7 +136,8 @@ export function handleRequestCancelled(event: RequestCancelled): void {
     'TOKEN_DISTRIBUTE',
     null,
     tokenDistributeRequest.name,
-    null
+    null,
+    tokenDistributeRequest.id
   )
 }
 
@@ -159,6 +163,7 @@ export function handleRequestExpired(event: RequestExpired): void {
     'TOKEN_DISTRIBUTE',
     null,
     tokenDistributeRequest.name,
-    null
+    null,
+    tokenDistributeRequest.id
   )
 }
