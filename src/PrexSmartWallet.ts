@@ -21,13 +21,11 @@ export function handleAddOwner(event: AddOwner): void {
       event.block.timestamp
     )
 
-    const id = getBelongToSharedWalletId(
+    const belongToSharedWallet = ensureBelongToSharedWallet(
       event.address,
       Address.fromBytes(event.params.owner),
       event.params.index
     )
-
-    const belongToSharedWallet = new BelongToSharedWallet(id)
 
     belongToSharedWallet.owner = parentUser.id
     belongToSharedWallet.sharedWallet = user.id
@@ -51,17 +49,11 @@ export function handleRemoveOwner(event: RemoveOwner): void {
 
     p256PublicKey.save()
   } else {
-    const id = getBelongToSharedWalletId(
+    const belongToSharedWallet = ensureBelongToSharedWallet(
       event.address,
       Address.fromBytes(event.params.owner),
       event.params.index
     )
-
-    const belongToSharedWallet = BelongToSharedWallet.load(id)
-
-    if(belongToSharedWallet == null) {
-      return
-    }
 
     belongToSharedWallet.isRemoved = true
 
@@ -73,6 +65,23 @@ export function handleRemoveOwner(event: RemoveOwner): void {
 
 function getBelongToSharedWalletId(address: Address, owner: Address, index: BigInt): string {
   return address.toHex() + '-' + owner.toHex() + '-' + index.toString()
+}
+
+function ensureBelongToSharedWallet(sharedWallet: Address, owner: Address, index: BigInt): BelongToSharedWallet {
+  const id = getBelongToSharedWalletId(sharedWallet, owner, index)
+
+  let belongToSharedWallet = BelongToSharedWallet.load(id)
+
+  if(belongToSharedWallet == null) {
+    belongToSharedWallet = new BelongToSharedWallet(id)
+
+    belongToSharedWallet.owner = owner.toHex()
+    belongToSharedWallet.sharedWallet = sharedWallet.toHex()
+    belongToSharedWallet.index = index
+    belongToSharedWallet.isRemoved = false
+  }
+
+  return belongToSharedWallet
 }
 
 function ensureP256PublicKey(owner: Bytes): P256PublicKey {

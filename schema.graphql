@@ -10,8 +10,8 @@ type EndUser @entity {
   createdAt: BigInt!
   updatedAt: BigInt!
   p256PublicKeys: [P256PublicKey!]! @derivedFrom(field: "wallet")
-  owners: [BelongToSharedWallet!]! @derivedFrom(field: "owner")
-  sharedWallets: [BelongToSharedWallet!]! @derivedFrom(field: "sharedWallet")
+  owners: [BelongToSharedWallet!]! @derivedFrom(field: "sharedWallet")
+  sharedWallets: [BelongToSharedWallet!]! @derivedFrom(field: "owner")
 }
 
 type BelongToSharedWallet @entity {
