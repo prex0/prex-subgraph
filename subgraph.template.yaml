@@ -117,6 +117,30 @@ dataSources:
           handler: handleOrderFilled
       file: ./src/SwapExecutorV1.ts
   - kind: ethereum/contract
+    name: ProfileRegistry
+    network: {{network}}
+    source:
+      address: "{{ProfileRegistry}}"
+      abi: ProfileRegistry
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/ProfileRegistry.ts
+      entities:
+        - Profile
+      abis:
+        - name: ProfileRegistry
+          file: ./abis/ProfileRegistry.json
+      eventHandlers:
+        - event: ProfileNameUpdated(indexed address,address,string)
+          handler: handleProfileNameUpdated
+        - event: ProfileImageUpdated(indexed address,address,uint256)
+          handler: handleProfileImageUpdated
+        - event: ProfileNameGroupCreated(indexed address,string)
+          handler: handleProfileNameGroupCreated
+  - kind: ethereum/contract
     name: PrexSmartWalletFactory
     network: {{network}}
     source:

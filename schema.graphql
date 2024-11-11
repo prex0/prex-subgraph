@@ -12,6 +12,10 @@ type EndUser @entity {
   p256PublicKeys: [P256PublicKey!]! @derivedFrom(field: "wallet")
   owners: [BelongToSharedWallet!]! @derivedFrom(field: "sharedWallet")
   sharedWallets: [BelongToSharedWallet!]! @derivedFrom(field: "owner")
+  nameContract: ProfileNameGroup
+  name: String
+  imageContract: Bytes
+  imageTokenId: BigInt
 }
 
 type BelongToSharedWallet @entity {
@@ -139,4 +143,9 @@ type TokenDistributeRequest @entity {
   coordinate: Bytes
   txHash: Bytes!
   createdAt: BigInt!
+}
+
+type ProfileNameGroup @entity {
+  id: ID!
+  name: String!
 }
