@@ -6,6 +6,7 @@ import { ensureEndUser } from "./helpers";
 export function handleAddOwner(event: AddOwner): void {
   const user = ensureEndUser(event.address, event.block.timestamp)
 
+  // Only a smart contract wallet can emit the addOwner event
   user.isSmartWallet = true
 
   if(event.params.owner.byteLength >= 64) {
@@ -16,21 +17,21 @@ export function handleAddOwner(event: AddOwner): void {
 
     p256PublicKey.save()
   } else {
+    const ownerAddress = Address.fromBytes(event.params.owner)
+
     const parentUser = ensureEndUser(
-      Address.fromBytes(event.params.owner),
+      ownerAddress,
       event.block.timestamp
     )
 
     const belongToSharedWallet = ensureBelongToSharedWallet(
+      // shared wallet address
       event.address,
-      Address.fromBytes(event.params.owner),
+      // owner address
+      ownerAddress,
+      // index
       event.params.index
     )
-
-    belongToSharedWallet.owner = parentUser.id
-    belongToSharedWallet.sharedWallet = user.id
-    belongToSharedWallet.index = event.params.index
-    belongToSharedWallet.isRemoved = false;
 
     belongToSharedWallet.save()
     parentUser.save()
@@ -49,9 +50,14 @@ export function handleRemoveOwner(event: RemoveOwner): void {
 
     p256PublicKey.save()
   } else {
+    const ownerAddress = Address.fromBytes(event.params.owner)
+
     const belongToSharedWallet = ensureBelongToSharedWallet(
+      // shared wallet address
       event.address,
-      Address.fromBytes(event.params.owner),
+      // owner address
+      ownerAddress,
+      // index
       event.params.index
     )
 
