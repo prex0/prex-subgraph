@@ -16,6 +16,7 @@ type EndUser @entity {
   name: String
   imageContract: Bytes
   imageTokenId: BigInt
+  metadata: Bytes
 }
 
 type BelongToSharedWallet @entity {
@@ -134,6 +135,7 @@ type TokenDistributeRequest @entity {
   status: TokenDistributeRequestStatus!
   token: Token!
   sender: EndUser!
+  totalAmount: BigInt!
   amount: BigInt!
   amountPerWithdrawal: BigInt!
   cooltime: BigInt!

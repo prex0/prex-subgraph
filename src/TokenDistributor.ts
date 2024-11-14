@@ -28,6 +28,7 @@ export function handleSubmitted(event: Submitted): void {
   tokenDistributeRequest.token = token.id
   tokenDistributeRequest.sender = sender.id
   tokenDistributeRequest.amount = event.params.amount
+  tokenDistributeRequest.totalAmount = event.params.amount
   tokenDistributeRequest.amountPerWithdrawal = event.params.amountPerWithdrawal
   tokenDistributeRequest.cooltime = event.params.cooltime
   tokenDistributeRequest.maxAmountPerAddress = event.params.maxAmountPerAddress
@@ -59,7 +60,7 @@ export function handleDeposited(event: Deposited): void {
   const tokenDistributeRequest = ensureTokenDistributeRequest(event.params.id, event.block.timestamp)
 
   tokenDistributeRequest.amount = tokenDistributeRequest.amount.plus(event.params.amount)
-
+  tokenDistributeRequest.totalAmount = tokenDistributeRequest.totalAmount.plus(event.params.amount)
   tokenDistributeRequest.save()
 
 

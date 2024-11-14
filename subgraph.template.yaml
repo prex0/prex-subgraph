@@ -140,6 +140,8 @@ dataSources:
           handler: handleProfileImageUpdated
         - event: ProfileNameGroupCreated(indexed address,string)
           handler: handleProfileNameGroupCreated
+        - event: ProfileMetadataUpdated(indexed address,bytes32)
+          handler: handleProfileMetadataUpdated
   - kind: ethereum/contract
     name: PrexSmartWalletFactory
     network: {{network}}

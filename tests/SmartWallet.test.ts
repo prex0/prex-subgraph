@@ -6,6 +6,7 @@ import { AddOwner, RemoveOwner } from '../generated/templates/PrexSmartWallet/Pr
 export const MOCK_EVENT = newMockEvent()
 const ADDRESS1 = '0x0000000000000000000000000000000000000001'
 const ADDRESS2 = '0x0000000000000000000000000000000000000002'
+const ENCODED_ADDRESS2 = '0x0000000000000000000000000000000000000000000000000000000000000002'
 
 describe("PrexSmartWallet::handleAddOwner", () => {
   test('check AddOwner with P256PublicKey', () => {
@@ -43,7 +44,7 @@ describe("PrexSmartWallet::handleAddOwner", () => {
       MOCK_EVENT.transaction,
       [
         new ethereum.EventParam('index', ethereum.Value.fromSignedBigInt(BigInt.fromI32(1))),
-        new ethereum.EventParam('owner', ethereum.Value.fromBytes(Bytes.fromHexString(Address.fromString(ADDRESS2).toHex()))),
+        new ethereum.EventParam('owner', ethereum.Value.fromBytes(Bytes.fromHexString(ENCODED_ADDRESS2))),
       ],
       MOCK_EVENT.receipt,
     )
@@ -113,7 +114,7 @@ describe("PrexSmartWallet::handleRemoveOwner", () => {
       MOCK_EVENT.transaction,
       [
         new ethereum.EventParam('index', ethereum.Value.fromSignedBigInt(BigInt.fromI32(1))),
-        new ethereum.EventParam('owner', ethereum.Value.fromBytes(Bytes.fromHexString(Address.fromString(ADDRESS2).toHex()))),
+        new ethereum.EventParam('owner', ethereum.Value.fromBytes(Bytes.fromHexString(ENCODED_ADDRESS2))),
       ],
       MOCK_EVENT.receipt,
     )
@@ -129,7 +130,7 @@ describe("PrexSmartWallet::handleRemoveOwner", () => {
       MOCK_EVENT.transaction,
       [
         new ethereum.EventParam('index', ethereum.Value.fromSignedBigInt(BigInt.fromI32(1))),
-        new ethereum.EventParam('owner', ethereum.Value.fromBytes(Bytes.fromHexString(Address.fromString(ADDRESS2).toHex()))),
+        new ethereum.EventParam('owner', ethereum.Value.fromBytes(Bytes.fromHexString(ENCODED_ADDRESS2))),
       ],
       MOCK_EVENT.receipt,
     )

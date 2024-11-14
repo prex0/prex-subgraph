@@ -17,7 +17,7 @@ export function handleAddOwner(event: AddOwner): void {
 
     p256PublicKey.save()
   } else {
-    const ownerAddress = Address.fromBytes(event.params.owner)
+    const ownerAddress = decodeOwnerToAddress(event.params.owner)
 
     const parentUser = ensureEndUser(
       ownerAddress,
@@ -50,7 +50,7 @@ export function handleRemoveOwner(event: RemoveOwner): void {
 
     p256PublicKey.save()
   } else {
-    const ownerAddress = Address.fromBytes(event.params.owner)
+    const ownerAddress = decodeOwnerToAddress(event.params.owner)
 
     const belongToSharedWallet = ensureBelongToSharedWallet(
       // shared wallet address
@@ -67,6 +67,12 @@ export function handleRemoveOwner(event: RemoveOwner): void {
   }
 
   user.save()
+}
+
+function decodeOwnerToAddress(owner: Bytes): Address {
+  const ownerAddress = Address.fromString(owner.toHexString().slice(26))
+
+  return ownerAddress
 }
 
 function getBelongToSharedWalletId(address: Address, owner: Address, index: BigInt): string {
