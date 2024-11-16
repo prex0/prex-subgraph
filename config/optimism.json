@@ -1,0 +1,10 @@
+{
+  "network": "optimism",
+  "TransferRequestDispatcher": "0x7469241377a967170dd776b1b829a416b638c22b",
+  "OnetimeLockRequestDispatcher": "0xc64c22220ca22D9E499719230100e5dc7E1D4f89",
+  "SwapExecutorV1": "0x0C4A9411B6c896390faBc295fbb472DB7B399aEC",
+  "TokenDistributor": "0xD762679b6563Befa73ba9c26C0c5a1f3d2ABcbf3",
+  "PrexSmartWalletFactory": "0xB8C45FCf2e45732EBCB4BE81e3426ea407896938",
+  "ProfileRegistry": "0x778a3a74B879553B722EAd1Ec3F8d1E1614920dD",
+  "startBlock": 128000000
+}

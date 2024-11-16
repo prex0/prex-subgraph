@@ -11,7 +11,9 @@
     "prepare:arbitrum-sepolia2": "mustache config/arbitrum-sepolia-2.json subgraph.template.yaml > subgraph.yaml",
     "deploy:studio:arbitrum-sepolia2": "graph deploy --studio prex-transfers-arb-sepolia",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.template.yaml > subgraph.yaml",
-    "deploy:studio:arbitrum": "graph deploy --studio prex-transfers-arb"
+    "deploy:studio:arbitrum": "graph deploy --studio prex-transfers-arb",
+    "prepare:optimism": "mustache config/optimism.json subgraph.template.yaml > subgraph.yaml",
+    "deploy:studio:optimism": "graph deploy --studio prex-transfers-opt"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.82.0",
