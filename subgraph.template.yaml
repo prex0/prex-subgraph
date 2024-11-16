@@ -2,11 +2,12 @@ specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
+  {{#TransferRequestDispatcher}}
   - kind: ethereum/contract
-    name: TransferRequestDispatcher
+    name: {{name}}
     network: {{network}}
     source:
-      address: "{{TransferRequestDispatcher}}"
+      address: "{{address}}"
       abi: TransferRequestDispatcher
       startBlock: {{startBlock}}
     mapping:
@@ -14,9 +15,8 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - AssetGroupEntity
-        - AssetEntity
-        - VaultEntity
+        - TransferRequest
+        - CoinMovingHistory
       abis:
         - name: TransferRequestDispatcher
           file: ./abis/TransferRequestDispatcher.json
@@ -24,11 +24,13 @@ dataSources:
         - event: Transferred(address,address,address,uint256,bytes)
           handler: handleTransferred
       file: ./src/TransferRequestDispatcher.ts
+  {{/TransferRequestDispatcher}}
+  {{#OnetimeLockRequestDispatcher}}
   - kind: ethereum/contract
-    name: OnetimeLockRequestDispatcher
+    name: {{name}}
     network: {{network}}
     source:
-      address: "{{OnetimeLockRequestDispatcher}}"
+      address: "{{address}}"
       abi: OnetimeLockRequestDispatcher
       startBlock: {{startBlock}}
     mapping:
@@ -48,6 +50,7 @@ dataSources:
         - event: RequestCancelled(bytes32)
           handler: handleRequestCancelled
       file: ./src/OnetimeLockRequestDispatcher.ts
+  {{/OnetimeLockRequestDispatcher}}
   - kind: ethereum/contract
     name: TokenDistributor
     network: {{network}}

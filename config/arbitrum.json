@@ -1,8 +1,23 @@
 {
   "network": "arbitrum-one",
-  "TransferRequestDispatcher": "0x8115f078BC40BB2b4C3d9441Df142cf072883282",
-  "TransferWithSecretRequestDispatcher": "0x5aE9Cb7ccb70BcCF3393ADB52465b4852D7f7F59",
-  "OnetimeLockRequestDispatcher": "0x3f0864F41300DD694c73717b76C365f449b6BB8B",
+  "TransferRequestDispatcher": [{
+    "name": "TransferRequestDispatcherV1",
+    "address": "0x8115f078BC40BB2b4C3d9441Df142cf072883282",
+    "startBlock": 225400000
+  }, {
+    "name": "TransferRequestDispatcherV2",
+    "address": "0x7469241377a967170dd776b1b829a416b638c22b",
+    "startBlock": 275000000
+  }],
+  "OnetimeLockRequestDispatcher": [{
+    "name": "OnetimeLockRequestDispatcherV1",
+    "address": "0x3f0864F41300DD694c73717b76C365f449b6BB8B",
+    "startBlock": 225400000
+  }, {
+    "name": "OnetimeLockRequestDispatcherV2",
+    "address": "0xc64c22220ca22D9E499719230100e5dc7E1D4f89",
+    "startBlock": 275000000
+  }],
   "SwapExecutorV1": "0x0C4A9411B6c896390faBc295fbb472DB7B399aEC",
   "TokenDistributor": "0xD762679b6563Befa73ba9c26C0c5a1f3d2ABcbf3",
   "PrexSmartWalletFactory": "0xB8C45FCf2e45732EBCB4BE81e3426ea407896938",
