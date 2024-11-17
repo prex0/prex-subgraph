@@ -1,10 +1,12 @@
 {
   "network": "optimism",
   "TransferRequestDispatcher": [{
+    "name": "TransferRequestDispatcherV2",
     "address": "0x7469241377a967170dd776b1b829a416b638c22b",
     "startBlock": 128000000
   }],
   "OnetimeLockRequestDispatcher": [{
+    "name": "OnetimeLockRequestDispatcherV2",
     "address": "0xc64c22220ca22D9E499719230100e5dc7E1D4f89",
     "startBlock": 128000000
   }],
