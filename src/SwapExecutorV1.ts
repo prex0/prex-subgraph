@@ -15,7 +15,7 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   token.save()
   swapper.save()
-  
+
   swapV1History.swapper = swapper.id
   swapV1History.token = token.id
   swapV1History.amount = event.params.amount
@@ -23,13 +23,13 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   for (let i = 0; i < event.params.outputs.length; i++) {
     const outputParams = event.params.outputs[i]
-    const output = ensureOrderFilledHistoryOutput(
-      event.params.orderHash,
-      i
-    )
+    const output = ensureOrderFilledHistoryOutput(event.params.orderHash, i)
 
     const outputToken = ensureToken(outputParams.token, event.block.timestamp)
-    const recipient = ensureEndUser(outputParams.recipient, event.block.timestamp)
+    const recipient = ensureEndUser(
+      outputParams.recipient,
+      event.block.timestamp
+    )
 
     output.parent = swapV1History.id
     output.token = outputToken.id
@@ -65,7 +65,7 @@ export function ensureOrderFilledHistory(
 
 export function ensureOrderFilledHistoryOutput(
   orderHash: Bytes,
-  outputIndex: number  
+  outputIndex: number
 ): OrderFilledHistoryOutput {
   const id = orderHash.toHex() + '-' + outputIndex.toString()
 
@@ -73,7 +73,6 @@ export function ensureOrderFilledHistoryOutput(
 
   if (output == null) {
     output = new OrderFilledHistoryOutput(id)
-
   }
 
   return output

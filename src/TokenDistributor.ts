@@ -14,7 +14,10 @@ import {
 } from './helpers'
 
 export function handleSubmitted(event: Submitted): void {
-  const tokenDistributeRequest = ensureTokenDistributeRequest(event.params.id, event.block.timestamp)
+  const tokenDistributeRequest = ensureTokenDistributeRequest(
+    event.params.id,
+    event.block.timestamp
+  )
 
   const token = ensureToken(event.params.token, event.block.timestamp)
   token.save()
@@ -22,7 +25,10 @@ export function handleSubmitted(event: Submitted): void {
   const sender = ensureEndUser(event.params.sender, event.block.timestamp)
   sender.save()
 
-  const distributorContract = ensureEndUser(event.address, event.block.timestamp)
+  const distributorContract = ensureEndUser(
+    event.address,
+    event.block.timestamp
+  )
   distributorContract.save()
 
   tokenDistributeRequest.token = token.id
@@ -57,17 +63,26 @@ export function handleSubmitted(event: Submitted): void {
 }
 
 export function handleDeposited(event: Deposited): void {
-  const tokenDistributeRequest = ensureTokenDistributeRequest(event.params.id, event.block.timestamp)
+  const tokenDistributeRequest = ensureTokenDistributeRequest(
+    event.params.id,
+    event.block.timestamp
+  )
 
-  tokenDistributeRequest.amount = tokenDistributeRequest.amount.plus(event.params.amount)
-  tokenDistributeRequest.totalAmount = tokenDistributeRequest.totalAmount.plus(event.params.amount)
+  tokenDistributeRequest.amount = tokenDistributeRequest.amount.plus(
+    event.params.amount
+  )
+  tokenDistributeRequest.totalAmount = tokenDistributeRequest.totalAmount.plus(
+    event.params.amount
+  )
   tokenDistributeRequest.save()
-
 
   const depositor = ensureEndUser(event.params.depositor, event.block.timestamp)
   depositor.save()
 
-  const distributorContract = ensureEndUser(event.address, event.block.timestamp)
+  const distributorContract = ensureEndUser(
+    event.address,
+    event.block.timestamp
+  )
   distributorContract.save()
 
   createCoinMovingHistory(
@@ -87,16 +102,24 @@ export function handleDeposited(event: Deposited): void {
 }
 
 export function handleReceived(event: Received): void {
-  const tokenDistributeRequest = ensureTokenDistributeRequest(event.params.id, event.block.timestamp)
+  const tokenDistributeRequest = ensureTokenDistributeRequest(
+    event.params.id,
+    event.block.timestamp
+  )
 
-  tokenDistributeRequest.amount = tokenDistributeRequest.amount.minus(event.params.amount)
+  tokenDistributeRequest.amount = tokenDistributeRequest.amount.minus(
+    event.params.amount
+  )
 
   tokenDistributeRequest.save()
 
   const recipient = ensureEndUser(event.params.recipient, event.block.timestamp)
   recipient.save()
 
-  const distributorContract = ensureEndUser(event.address, event.block.timestamp)
+  const distributorContract = ensureEndUser(
+    event.address,
+    event.block.timestamp
+  )
   distributorContract.save()
 
   createCoinMovingHistory(
@@ -116,14 +139,20 @@ export function handleReceived(event: Received): void {
 }
 
 export function handleRequestCancelled(event: RequestCancelled): void {
-  const tokenDistributeRequest = ensureTokenDistributeRequest(event.params.id, event.block.timestamp)
+  const tokenDistributeRequest = ensureTokenDistributeRequest(
+    event.params.id,
+    event.block.timestamp
+  )
 
   tokenDistributeRequest.status = 'CANCELLED'
   tokenDistributeRequest.amount = BigInt.zero()
 
   tokenDistributeRequest.save()
 
-  const distributorContract = ensureEndUser(event.address, event.block.timestamp)
+  const distributorContract = ensureEndUser(
+    event.address,
+    event.block.timestamp
+  )
   distributorContract.save()
 
   createCoinMovingHistory(
@@ -143,14 +172,20 @@ export function handleRequestCancelled(event: RequestCancelled): void {
 }
 
 export function handleRequestExpired(event: RequestExpired): void {
-  const tokenDistributeRequest = ensureTokenDistributeRequest(event.params.id, event.block.timestamp)
+  const tokenDistributeRequest = ensureTokenDistributeRequest(
+    event.params.id,
+    event.block.timestamp
+  )
 
   tokenDistributeRequest.status = 'COMPLETED'
   tokenDistributeRequest.amount = BigInt.zero()
 
   tokenDistributeRequest.save()
 
-  const distributorContract = ensureEndUser(event.address, event.block.timestamp)
+  const distributorContract = ensureEndUser(
+    event.address,
+    event.block.timestamp
+  )
   distributorContract.save()
 
   createCoinMovingHistory(
