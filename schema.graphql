@@ -135,6 +135,7 @@ type TokenDistributeRequest @entity {
   status: TokenDistributeRequestStatus!
   token: Token!
   sender: EndUser!
+  publicKey: Bytes!
   totalAmount: BigInt!
   amount: BigInt!
   amountPerWithdrawal: BigInt!

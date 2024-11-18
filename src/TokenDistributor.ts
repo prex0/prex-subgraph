@@ -33,6 +33,7 @@ export function handleSubmitted(event: Submitted): void {
 
   tokenDistributeRequest.token = token.id
   tokenDistributeRequest.sender = sender.id
+  tokenDistributeRequest.publicKey = event.params.publicKey
   tokenDistributeRequest.amount = event.params.amount
   tokenDistributeRequest.totalAmount = event.params.amount
   tokenDistributeRequest.amountPerWithdrawal = event.params.amountPerWithdrawal

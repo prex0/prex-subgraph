@@ -11,7 +11,7 @@
     "startBlock": 128000000
   }],
   "SwapExecutorV1": "0x0C4A9411B6c896390faBc295fbb472DB7B399aEC",
-  "TokenDistributor": "0xD762679b6563Befa73ba9c26C0c5a1f3d2ABcbf3",
+  "TokenDistributor": "0xcb6a2184A2259040476CEDd111cA0513492E47D0",
   "SmartWalletFactoryWrapper": "0x6e7F2eCca49856FB400032fAcAb151d0980FbbeC",
   "ProfileRegistry": "0x778a3a74B879553B722EAd1Ec3F8d1E1614920dD",
   "startBlock": 126000000
