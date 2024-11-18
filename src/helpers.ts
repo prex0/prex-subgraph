@@ -8,6 +8,7 @@ import {
   Token,
   EndUser
 } from '../generated/schema'
+import { PrexSmartWallet } from '../generated/templates'
 
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
@@ -39,6 +40,8 @@ export function ensureEndUser(
 
     user.isSmartWallet = false
     user.createdAt = eventTime
+
+    PrexSmartWallet.create(userAddress)
   }
 
   user.updatedAt = eventTime

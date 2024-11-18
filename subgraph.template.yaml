@@ -1,4 +1,6 @@
-specVersion: 0.0.4
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
 schema:
   file: ./schema.graphql
 dataSources:
@@ -12,7 +14,7 @@ dataSources:
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - TransferRequest
@@ -35,10 +37,10 @@ dataSources:
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - SpotTradeHistoryItem
+        - OnetimeLock
       abis:
         - name: OnetimeLockRequestDispatcher
           file: ./abis/OnetimeLockRequestDispatcher.json
@@ -60,10 +62,10 @@ dataSources:
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - SpotTradeHistoryItem
+        - TokenDistributeRequest
       abis:
         - name: TokenDistributor
           file: ./abis/TokenDistributor.json
@@ -88,10 +90,10 @@ dataSources:
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - SpotTradeHistoryItem
+        - SwapV1History
       abis:
         - name: SwapExecutorV1
           file: ./abis/SwapExecutorV1.json
@@ -108,11 +110,12 @@ dataSources:
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/ProfileRegistry.ts
       entities:
-        - Profile
+        - ProfileNameGroup
+        - EndUser
       abis:
         - name: ProfileRegistry
           file: ./abis/ProfileRegistry.json
@@ -126,24 +129,24 @@ dataSources:
         - event: ProfileMetadataUpdated(indexed address,bytes32)
           handler: handleProfileMetadataUpdated
   - kind: ethereum/contract
-    name: PrexSmartWalletFactory
+    name: SmartWalletFactoryWrapper
     network: {{network}}
     source:
-      address: "{{PrexSmartWalletFactory}}"
-      abi: PrexSmartWalletFactory
+      address: "{{SmartWalletFactoryWrapper}}"
+      abi: SmartWalletFactoryWrapper
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: ./src/PrexSmartWalletFactory.ts
+      file: ./src/SmartWalletFactoryWrapper.ts
       entities:
-        - PrexSmartWallet
+        - EndUser
       abis:
-        - name: PrexSmartWalletFactory
-          file: ./abis/PrexSmartWalletFactory.json
-      callHandlers:
-        - function: createAccount(bytes[],uint256)
-          handler: handleCreateAccount
+        - name: SmartWalletFactoryWrapper
+          file: ./abis/SmartWalletFactoryWrapper.json
+      eventHandlers:
+        - event: WalletCreated(indexed address,bytes[],uint256)
+          handler: handleWalletCreated
 templates:
   - name: PrexSmartWallet
     kind: ethereum/contract
@@ -152,11 +155,11 @@ templates:
       abi: PrexSmartWallet
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/PrexSmartWallet.ts
       entities:
-        - PrexSmartWallet
+        - EndUser
       abis:
         - name: PrexSmartWallet
           file: ./abis/PrexSmartWallet.json

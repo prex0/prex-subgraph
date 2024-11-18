@@ -7,11 +7,11 @@
     "build": "graph build",
     "fmt:fix": "prettier --write src/**/* abis/**/*",
     "prepare:arbitrum-sepolia": "mustache config/arbitrum-sepolia.json subgraph.template.yaml > subgraph.yaml",
-    "deploy:studio:arbitrum-sepolia": "graph deploy prex-transfers-arb-sepolia",
+    "deploy:arbitrum-sepolia": "graph deploy --node https://api.studio.thegraph.com/deploy/ prex-transfers-arb-sepolia",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.template.yaml > subgraph.yaml",
-    "deploy:studio:arbitrum": "graph deploy prex-transfers-arb",
+    "deploy:arbitrum": "graph deploy --node https://api.studio.thegraph.com/deploy/ prex-transfers-arb",
     "prepare:optimism": "mustache config/optimism.json subgraph.template.yaml > subgraph.yaml",
-    "deploy:studio:optimism": "graph deploy prex-transfers-opt"
+    "deploy:optimism": "graph deploy --node https://api.studio.thegraph.com/deploy/ prex-transfers-opt"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.89.0",
