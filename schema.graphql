@@ -1,11 +1,13 @@
 type Token @entity {
   id: ID!
+  totalSupply: BigInt!
   createdAt: BigInt!
   updatedAt: BigInt!
 }
 
 type EndUser @entity {
   id: ID!
+  address: Bytes!
   isSmartWallet: Boolean!
   createdAt: BigInt!
   updatedAt: BigInt!
@@ -32,6 +34,15 @@ type P256PublicKey @entity {
   index: BigInt!
   wallet: EndUser!
   isRemoved: Boolean!
+}
+
+type TokenHolder @entity {
+  id: ID!
+  token: Token!
+  holder: EndUser!
+  balance: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
 }
 
 enum LockStatus {
@@ -138,6 +149,7 @@ type TokenDistributeRequest @entity {
   publicKey: Bytes!
   totalAmount: BigInt!
   amount: BigInt!
+  finalAmount: BigInt!
   amountPerWithdrawal: BigInt!
   cooltime: BigInt!
   maxAmountPerAddress: BigInt!

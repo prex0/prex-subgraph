@@ -146,6 +146,7 @@ export function handleRequestCancelled(event: RequestCancelled): void {
   )
 
   tokenDistributeRequest.status = 'CANCELLED'
+  tokenDistributeRequest.finalAmount = tokenDistributeRequest.amount
   tokenDistributeRequest.amount = BigInt.zero()
 
   tokenDistributeRequest.save()
@@ -179,8 +180,9 @@ export function handleRequestExpired(event: RequestExpired): void {
   )
 
   tokenDistributeRequest.status = 'COMPLETED'
+  tokenDistributeRequest.finalAmount = tokenDistributeRequest.amount
   tokenDistributeRequest.amount = BigInt.zero()
-
+  
   tokenDistributeRequest.save()
 
   const distributorContract = ensureEndUser(

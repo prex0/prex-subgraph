@@ -19,6 +19,8 @@ export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
 
   if (token == null) {
     token = new Token(id)
+    // token.address = tokenAddress
+    token.totalSupply = BigInt.zero()
     token.createdAt = eventTime
   }
 
@@ -38,6 +40,7 @@ export function ensureEndUser(
   if (user == null) {
     user = new EndUser(id)
 
+    user.address = userAddress
     user.isSmartWallet = false
     user.createdAt = eventTime
 
@@ -180,6 +183,9 @@ export function ensureTokenDistributeRequest(
     tokenDistributeRequest = new TokenDistributeRequest(id)
 
     tokenDistributeRequest.amount = BigInt.zero()
+    tokenDistributeRequest.totalAmount = BigInt.zero()
+    tokenDistributeRequest.finalAmount = BigInt.zero()
+    tokenDistributeRequest.status = 'PENDING'
     tokenDistributeRequest.amountPerWithdrawal = BigInt.zero()
     tokenDistributeRequest.expiry = BigInt.zero()
     tokenDistributeRequest.createdAt = eventTime

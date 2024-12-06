@@ -2,10 +2,12 @@ import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'; //
 import { assert, describe, newMockEvent, test, beforeEach } from 'matchstick-as';
 import { Submitted, Received, RequestCancelled, RequestExpired } from '../generated/TokenDistributor/TokenDistributor';
 import { handleSubmitted, handleReceived, handleRequestCancelled, handleRequestExpired } from '../src/TokenDistributor';
+import { TokenDistributeRequest } from '../generated/schema';
 
 export const MOCK_EVENT = newMockEvent()
 
 const ZERO_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000'
+const ADDRESS_ONE = '0x0000000000000000000000000000000000000001'
 
 const REQUEST_ID = ZERO_HASH
 
@@ -36,6 +38,10 @@ describe("handleSubmitted", () => {
     handleSubmitted(requestSubmittedEvent)
 
     const id = `${MOCK_EVENT.transaction.hash.toHex()}-${MOCK_EVENT.logIndex.toString()}`
+
+    const tokenDistributeRequest = TokenDistributeRequest.load(REQUEST_ID)
+
+    assert.assertTrue(tokenDistributeRequest != null)
 
     assert.entityCount('TokenDistributeRequest', 1)
     assert.fieldEquals('TokenDistributeRequest', REQUEST_ID, 'id', REQUEST_ID)
