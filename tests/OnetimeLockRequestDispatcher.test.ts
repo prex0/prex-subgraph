@@ -21,7 +21,6 @@ createMockedFunction(Address.zero(), "balanceOf", "balanceOf(address):(uint256)"
     ethereum.Value.fromI32(0)
   ]);
 
-
 describe("OnetimeLockRequestDispatcher::handleRequestSubmitted", () => {
   test('check RequestSubmitted', () => {
     const requestSubmittedEvent = new RequestSubmitted(
