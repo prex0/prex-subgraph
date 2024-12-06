@@ -2,7 +2,7 @@ import {
   RequestCompleted,
   RequestSubmitted,
   RequestCancelled
-} from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher'
+} from '../generated/OnetimeLockRequestDispatcherV2/OnetimeLockRequestDispatcher'
 import {
   createCoinMovingHistory,
   ensureEndUser,

@@ -1,4 +1,4 @@
-import { Transferred } from '../generated/TransferRequestDispatcher/TransferRequestDispatcher'
+import { Transferred } from '../generated/TransferRequestDispatcherV2/TransferRequestDispatcher'
 import {
   createCoinMovingHistory,
   ensureEndUser,

@@ -6,9 +6,11 @@ import {
   TransferWithSecret,
   CoinMovingHistory,
   Token,
-  EndUser
+  EndUser,
+  TokenHolder
 } from '../generated/schema'
 import { PrexSmartWallet } from '../generated/templates'
+import { ERC20 } from '../generated/templates/ERC20/ERC20'
 
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
@@ -19,12 +21,26 @@ export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
 
   if (token == null) {
     token = new Token(id)
+    token.address = tokenAddress
+    token.totalSupply = BigInt.zero()
     token.createdAt = eventTime
   }
 
   token.updatedAt = eventTime
 
   return token
+}
+
+export function updateTokenTotalSupply(
+  tokenId: string,
+  totalSupply: BigInt,
+  eventTime: BigInt
+): void {
+  const token = ensureToken(Address.fromString(tokenId), eventTime)
+
+  token.totalSupply = totalSupply
+
+  token.save()
 }
 
 export function ensureEndUser(
@@ -38,6 +54,7 @@ export function ensureEndUser(
   if (user == null) {
     user = new EndUser(id)
 
+    user.address = userAddress
     user.isSmartWallet = false
     user.createdAt = eventTime
 
@@ -98,6 +115,20 @@ export function createCoinMovingHistory(
   coinMoving.tokenDistributeRequest = tokenDistributeRequestId
 
   coinMoving.save()
+
+  const tokenAddress = Address.fromString(tokenId)
+
+  const totalSupply = ERC20.bind(tokenAddress).totalSupply()
+  const senderBalance = ERC20.bind(tokenAddress).balanceOf(
+    Address.fromString(senderId)
+  )
+  const recipientBalance = ERC20.bind(tokenAddress).balanceOf(
+    Address.fromString(recipientId)
+  )
+
+  updateTokenTotalSupply(tokenId, totalSupply, eventTime)
+  updateTokenHolder(tokenId, senderId, senderBalance, eventTime)
+  updateTokenHolder(tokenId, recipientId, recipientBalance, eventTime)
 }
 
 export function ensureTransferRequest(
@@ -180,10 +211,49 @@ export function ensureTokenDistributeRequest(
     tokenDistributeRequest = new TokenDistributeRequest(id)
 
     tokenDistributeRequest.amount = BigInt.zero()
+    tokenDistributeRequest.totalAmount = BigInt.zero()
+    tokenDistributeRequest.finalAmount = BigInt.zero()
+    tokenDistributeRequest.status = 'PENDING'
     tokenDistributeRequest.amountPerWithdrawal = BigInt.zero()
     tokenDistributeRequest.expiry = BigInt.zero()
     tokenDistributeRequest.createdAt = eventTime
   }
 
   return tokenDistributeRequest
+}
+
+export function ensureTokenHolder(
+  tokenId: string,
+  holderId: string,
+  eventTime: BigInt
+): TokenHolder {
+  const id = tokenId + '-' + holderId
+
+  let tokenHolder = TokenHolder.load(id)
+
+  if (tokenHolder == null) {
+    tokenHolder = new TokenHolder(id)
+
+    tokenHolder.token = tokenId
+    tokenHolder.holder = holderId
+    tokenHolder.balance = BigInt.zero()
+    tokenHolder.createdAt = eventTime
+  }
+
+  tokenHolder.updatedAt = eventTime
+
+  return tokenHolder
+}
+
+export function updateTokenHolder(
+  tokenId: string,
+  holderId: string,
+  balance: BigInt,
+  eventTime: BigInt
+): void {
+  const tokenHolder = ensureTokenHolder(tokenId, holderId, eventTime)
+
+  tokenHolder.balance = balance
+
+  tokenHolder.save()
 }

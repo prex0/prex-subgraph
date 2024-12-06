@@ -1,1 +1,482 @@
-[{"type":"constructor","inputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"addFacilitator","inputs":[{"name":"_facilitator","type":"address","internalType":"address"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"cancelRequest","inputs":[{"name":"id","type":"bytes32","internalType":"bytes32"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"completeRequest","inputs":[{"name":"id","type":"bytes32","internalType":"bytes32"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"deposit","inputs":[{"name":"depositRequest","type":"tuple","internalType":"struct TokenDistributeDepositRequest","components":[{"name":"dispatcher","type":"address","internalType":"address"},{"name":"sender","type":"address","internalType":"address"},{"name":"deadline","type":"uint256","internalType":"uint256"},{"name":"nonce","type":"uint256","internalType":"uint256"},{"name":"requestId","type":"bytes32","internalType":"bytes32"},{"name":"token","type":"address","internalType":"address"},{"name":"amount","type":"uint256","internalType":"uint256"}]},{"name":"sig","type":"bytes","internalType":"bytes"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"distribute","inputs":[{"name":"recipientData","type":"tuple","internalType":"struct RecipientData","components":[{"name":"requestId","type":"bytes32","internalType":"bytes32"},{"name":"recipient","type":"address","internalType":"address"},{"name":"nonce","type":"uint256","internalType":"uint256"},{"name":"deadline","type":"uint256","internalType":"uint256"},{"name":"sig","type":"bytes","internalType":"bytes"},{"name":"subPublicKey","type":"address","internalType":"address"},{"name":"subSig","type":"bytes","internalType":"bytes"}]}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"distributionInfoMap","inputs":[{"name":"","type":"bytes32","internalType":"bytes32"},{"name":"","type":"address","internalType":"address"}],"outputs":[{"name":"lastDistributedAt","type":"uint256","internalType":"uint256"},{"name":"amount","type":"uint256","internalType":"uint256"}],"stateMutability":"view"},{"type":"function","name":"facilitators","inputs":[{"name":"","type":"address","internalType":"address"}],"outputs":[{"name":"","type":"bool","internalType":"bool"}],"stateMutability":"view"},{"type":"function","name":"initialize","inputs":[{"name":"_permit2","type":"address","internalType":"address"},{"name":"_admin","type":"address","internalType":"address"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"nonceUsedMap","inputs":[{"name":"","type":"uint256","internalType":"uint256"}],"outputs":[{"name":"","type":"bool","internalType":"bool"}],"stateMutability":"view"},{"type":"function","name":"owner","inputs":[],"outputs":[{"name":"","type":"address","internalType":"address"}],"stateMutability":"view"},{"type":"function","name":"pendingRequests","inputs":[{"name":"","type":"bytes32","internalType":"bytes32"}],"outputs":[{"name":"amount","type":"uint256","internalType":"uint256"},{"name":"amountPerWithdrawal","type":"uint256","internalType":"uint256"},{"name":"cooltime","type":"uint256","internalType":"uint256"},{"name":"maxAmountPerAddress","type":"uint256","internalType":"uint256"},{"name":"token","type":"address","internalType":"address"},{"name":"publicKey","type":"address","internalType":"address"},{"name":"sender","type":"address","internalType":"address"},{"name":"expiry","type":"uint256","internalType":"uint256"},{"name":"status","type":"uint8","internalType":"enum TokenDistributor.RequestStatus"},{"name":"name","type":"string","internalType":"string"},{"name":"additionalValidator","type":"address","internalType":"address"},{"name":"additionalData","type":"bytes","internalType":"bytes"},{"name":"coordinate","type":"bytes32","internalType":"bytes32"}],"stateMutability":"view"},{"type":"function","name":"publicKeyToRequestId","inputs":[{"name":"","type":"address","internalType":"address"}],"outputs":[{"name":"","type":"bytes32","internalType":"bytes32"}],"stateMutability":"view"},{"type":"function","name":"removeFacilitator","inputs":[{"name":"_facilitator","type":"address","internalType":"address"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"renounceOwnership","inputs":[],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"submit","inputs":[{"name":"request","type":"tuple","internalType":"struct TokenDistributeSubmitRequest","components":[{"name":"dispatcher","type":"address","internalType":"address"},{"name":"sender","type":"address","internalType":"address"},{"name":"deadline","type":"uint256","internalType":"uint256"},{"name":"nonce","type":"uint256","internalType":"uint256"},{"name":"token","type":"address","internalType":"address"},{"name":"publicKey","type":"address","internalType":"address"},{"name":"amount","type":"uint256","internalType":"uint256"},{"name":"amountPerWithdrawal","type":"uint256","internalType":"uint256"},{"name":"expiry","type":"uint256","internalType":"uint256"},{"name":"name","type":"string","internalType":"string"},{"name":"cooltime","type":"uint256","internalType":"uint256"},{"name":"maxAmountPerAddress","type":"uint256","internalType":"uint256"},{"name":"additionalValidator","type":"address","internalType":"address"},{"name":"additionalData","type":"bytes","internalType":"bytes"},{"name":"coordinate","type":"bytes32","internalType":"bytes32"}]},{"name":"sig","type":"bytes","internalType":"bytes"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"transferOwnership","inputs":[{"name":"newOwner","type":"address","internalType":"address"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"event","name":"Deposited","inputs":[{"name":"id","type":"bytes32","indexed":false,"internalType":"bytes32"},{"name":"depositor","type":"address","indexed":false,"internalType":"address"},{"name":"amount","type":"uint256","indexed":false,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"FacilitatorAdded","inputs":[{"name":"facilitator","type":"address","indexed":true,"internalType":"address"}],"anonymous":false},{"type":"event","name":"FacilitatorRemoved","inputs":[{"name":"facilitator","type":"address","indexed":true,"internalType":"address"}],"anonymous":false},{"type":"event","name":"Initialized","inputs":[{"name":"version","type":"uint8","indexed":false,"internalType":"uint8"}],"anonymous":false},{"type":"event","name":"OwnershipTransferred","inputs":[{"name":"previousOwner","type":"address","indexed":true,"internalType":"address"},{"name":"newOwner","type":"address","indexed":true,"internalType":"address"}],"anonymous":false},{"type":"event","name":"Received","inputs":[{"name":"id","type":"bytes32","indexed":false,"internalType":"bytes32"},{"name":"recipient","type":"address","indexed":false,"internalType":"address"},{"name":"amount","type":"uint256","indexed":false,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"RequestCancelled","inputs":[{"name":"id","type":"bytes32","indexed":false,"internalType":"bytes32"},{"name":"amount","type":"uint256","indexed":false,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"RequestExpired","inputs":[{"name":"id","type":"bytes32","indexed":false,"internalType":"bytes32"},{"name":"amount","type":"uint256","indexed":false,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"Submitted","inputs":[{"name":"id","type":"bytes32","indexed":false,"internalType":"bytes32"},{"name":"token","type":"address","indexed":false,"internalType":"address"},{"name":"sender","type":"address","indexed":false,"internalType":"address"},{"name":"publicKey","type":"address","indexed":false,"internalType":"address"},{"name":"amount","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"amountPerWithdrawal","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"cooltime","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"maxAmountPerAddress","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"expiry","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"name","type":"string","indexed":false,"internalType":"string"},{"name":"coordinate","type":"bytes32","indexed":false,"internalType":"bytes32"}],"anonymous":false},{"type":"error","name":"CallerIsNotFacilitator","inputs":[]},{"type":"error","name":"CallerIsNotSender","inputs":[]},{"type":"error","name":"DeadlinePassed","inputs":[]},{"type":"error","name":"ExceededMaxAmount","inputs":[]},{"type":"error","name":"InsufficientFunds","inputs":[]},{"type":"error","name":"InvalidAdditionalValidation","inputs":[]},{"type":"error","name":"InvalidDispatcher","inputs":[]},{"type":"error","name":"InvalidRequest","inputs":[]},{"type":"error","name":"InvalidSecret","inputs":[]},{"type":"error","name":"NonceUsed","inputs":[]},{"type":"error","name":"NotEnoughCooltime","inputs":[]},{"type":"error","name":"PublicKeyAlreadyExists","inputs":[]},{"type":"error","name":"RequestAlreadyExists","inputs":[]},{"type":"error","name":"RequestExpiredError","inputs":[]},{"type":"error","name":"RequestNotExpired","inputs":[]},{"type":"error","name":"RequestNotPending","inputs":[]}]
+[
+  { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
+  {
+    "type": "function",
+    "name": "addFacilitator",
+    "inputs": [
+      { "name": "_facilitator", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelRequest",
+    "inputs": [{ "name": "id", "type": "bytes32", "internalType": "bytes32" }],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "completeRequest",
+    "inputs": [{ "name": "id", "type": "bytes32", "internalType": "bytes32" }],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "deposit",
+    "inputs": [
+      {
+        "name": "depositRequest",
+        "type": "tuple",
+        "internalType": "struct TokenDistributeDepositRequest",
+        "components": [
+          {
+            "name": "dispatcher",
+            "type": "address",
+            "internalType": "address"
+          },
+          { "name": "sender", "type": "address", "internalType": "address" },
+          { "name": "deadline", "type": "uint256", "internalType": "uint256" },
+          { "name": "nonce", "type": "uint256", "internalType": "uint256" },
+          { "name": "requestId", "type": "bytes32", "internalType": "bytes32" },
+          { "name": "token", "type": "address", "internalType": "address" },
+          { "name": "amount", "type": "uint256", "internalType": "uint256" }
+        ]
+      },
+      { "name": "sig", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "distribute",
+    "inputs": [
+      {
+        "name": "recipientData",
+        "type": "tuple",
+        "internalType": "struct RecipientData",
+        "components": [
+          { "name": "requestId", "type": "bytes32", "internalType": "bytes32" },
+          { "name": "recipient", "type": "address", "internalType": "address" },
+          { "name": "nonce", "type": "uint256", "internalType": "uint256" },
+          { "name": "deadline", "type": "uint256", "internalType": "uint256" },
+          { "name": "sig", "type": "bytes", "internalType": "bytes" },
+          {
+            "name": "subPublicKey",
+            "type": "address",
+            "internalType": "address"
+          },
+          { "name": "subSig", "type": "bytes", "internalType": "bytes" }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "distributionInfoMap",
+    "inputs": [
+      { "name": "", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      {
+        "name": "lastDistributedAt",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "facilitators",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "initialize",
+    "inputs": [
+      { "name": "_permit2", "type": "address", "internalType": "address" },
+      { "name": "_admin", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "nonceUsedMap",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingRequests",
+    "inputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "outputs": [
+      { "name": "amount", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "amountPerWithdrawal",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "cooltime", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "maxAmountPerAddress",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "token", "type": "address", "internalType": "address" },
+      { "name": "publicKey", "type": "address", "internalType": "address" },
+      { "name": "sender", "type": "address", "internalType": "address" },
+      { "name": "expiry", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "status",
+        "type": "uint8",
+        "internalType": "enum TokenDistributor.RequestStatus"
+      },
+      { "name": "name", "type": "string", "internalType": "string" },
+      {
+        "name": "additionalValidator",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "additionalData", "type": "bytes", "internalType": "bytes" },
+      { "name": "coordinate", "type": "bytes32", "internalType": "bytes32" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "publicKeyToRequestId",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "removeFacilitator",
+    "inputs": [
+      { "name": "_facilitator", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "renounceOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "submit",
+    "inputs": [
+      {
+        "name": "request",
+        "type": "tuple",
+        "internalType": "struct TokenDistributeSubmitRequest",
+        "components": [
+          {
+            "name": "dispatcher",
+            "type": "address",
+            "internalType": "address"
+          },
+          { "name": "sender", "type": "address", "internalType": "address" },
+          { "name": "deadline", "type": "uint256", "internalType": "uint256" },
+          { "name": "nonce", "type": "uint256", "internalType": "uint256" },
+          { "name": "token", "type": "address", "internalType": "address" },
+          { "name": "publicKey", "type": "address", "internalType": "address" },
+          { "name": "amount", "type": "uint256", "internalType": "uint256" },
+          {
+            "name": "amountPerWithdrawal",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "expiry", "type": "uint256", "internalType": "uint256" },
+          { "name": "name", "type": "string", "internalType": "string" },
+          { "name": "cooltime", "type": "uint256", "internalType": "uint256" },
+          {
+            "name": "maxAmountPerAddress",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "additionalValidator",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "additionalData",
+            "type": "bytes",
+            "internalType": "bytes"
+          },
+          { "name": "coordinate", "type": "bytes32", "internalType": "bytes32" }
+        ]
+      },
+      { "name": "sig", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "inputs": [
+      { "name": "newOwner", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "Deposited",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "depositor",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FacilitatorAdded",
+    "inputs": [
+      {
+        "name": "facilitator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FacilitatorRemoved",
+    "inputs": [
+      {
+        "name": "facilitator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Received",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "recipient",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RequestCancelled",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RequestExpired",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Submitted",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "sender",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "publicKey",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "amountPerWithdrawal",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "cooltime",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "maxAmountPerAddress",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "expiry",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "coordinate",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "CallerIsNotFacilitator", "inputs": [] },
+  { "type": "error", "name": "CallerIsNotSender", "inputs": [] },
+  { "type": "error", "name": "DeadlinePassed", "inputs": [] },
+  { "type": "error", "name": "ExceededMaxAmount", "inputs": [] },
+  { "type": "error", "name": "InsufficientFunds", "inputs": [] },
+  { "type": "error", "name": "InvalidAdditionalValidation", "inputs": [] },
+  { "type": "error", "name": "InvalidDispatcher", "inputs": [] },
+  { "type": "error", "name": "InvalidRequest", "inputs": [] },
+  { "type": "error", "name": "InvalidSecret", "inputs": [] },
+  { "type": "error", "name": "NonceUsed", "inputs": [] },
+  { "type": "error", "name": "NotEnoughCooltime", "inputs": [] },
+  { "type": "error", "name": "PublicKeyAlreadyExists", "inputs": [] },
+  { "type": "error", "name": "RequestAlreadyExists", "inputs": [] },
+  { "type": "error", "name": "RequestExpiredError", "inputs": [] },
+  { "type": "error", "name": "RequestNotExpired", "inputs": [] },
+  { "type": "error", "name": "RequestNotPending", "inputs": [] }
+]

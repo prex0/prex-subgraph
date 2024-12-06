@@ -169,3 +169,18 @@ templates:
           handler: handleAddOwner
         - event: RemoveOwner(indexed uint256,bytes)
           handler: handleRemoveOwner
+  - name: ERC20
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ERC20
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/ERC20.ts
+      entities:
+        - EndUser
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
