@@ -119,8 +119,12 @@ export function createCoinMovingHistory(
   const tokenAddress = Address.fromString(tokenId)
 
   const totalSupply = ERC20.bind(tokenAddress).totalSupply()
-  const senderBalance = ERC20.bind(tokenAddress).balanceOf(Address.fromString(senderId))
-  const recipientBalance = ERC20.bind(tokenAddress).balanceOf(Address.fromString(recipientId))
+  const senderBalance = ERC20.bind(tokenAddress).balanceOf(
+    Address.fromString(senderId)
+  )
+  const recipientBalance = ERC20.bind(tokenAddress).balanceOf(
+    Address.fromString(recipientId)
+  )
 
   updateTokenTotalSupply(tokenId, totalSupply, eventTime)
   updateTokenHolder(tokenId, senderId, senderBalance, eventTime)

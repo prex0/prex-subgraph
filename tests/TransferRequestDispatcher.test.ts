@@ -1,6 +1,6 @@
 import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'; //
 import { assert, createMockedFunction, describe, newMockEvent, test } from 'matchstick-as';
-import { Transferred } from '../generated/TransferRequestDispatcher/TransferRequestDispatcher';
+import { Transferred } from '../generated/TransferRequestDispatcherV2/TransferRequestDispatcher';
 import { handleTransferred } from '../src/TransferRequestDispatcher';
 
 export const MOCK_EVENT = newMockEvent()

@@ -182,7 +182,7 @@ export function handleRequestExpired(event: RequestExpired): void {
   tokenDistributeRequest.status = 'COMPLETED'
   tokenDistributeRequest.finalAmount = tokenDistributeRequest.amount
   tokenDistributeRequest.amount = BigInt.zero()
-  
+
   tokenDistributeRequest.save()
 
   const distributorContract = ensureEndUser(

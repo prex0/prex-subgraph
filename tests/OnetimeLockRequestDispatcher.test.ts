@@ -1,7 +1,7 @@
 import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'; //
 import { assert, createMockedFunction, describe, newMockEvent, test } from 'matchstick-as';
 import { handleRequestSubmitted, handleRequestCompleted, handleRequestCancelled } from '../src/OnetimeLockRequestDispatcher';
-import { RequestCompleted, RequestSubmitted, RequestCancelled } from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher';
+import { RequestCompleted, RequestSubmitted, RequestCancelled } from '../generated/OnetimeLockRequestDispatcherV2/OnetimeLockRequestDispatcher';
 
 export const MOCK_EVENT = newMockEvent()
 
