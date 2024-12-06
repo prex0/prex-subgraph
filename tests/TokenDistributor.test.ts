@@ -1,5 +1,5 @@
 import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'; //
-import { assert, describe, newMockEvent, test, beforeEach } from 'matchstick-as';
+import { assert, describe, newMockEvent, test, beforeEach, createMockedFunction } from 'matchstick-as';
 import { Submitted, Received, RequestCancelled, RequestExpired } from '../generated/TokenDistributor/TokenDistributor';
 import { handleSubmitted, handleReceived, handleRequestCancelled, handleRequestExpired } from '../src/TokenDistributor';
 import { TokenDistributeRequest } from '../generated/schema';
@@ -7,7 +7,19 @@ import { TokenDistributeRequest } from '../generated/schema';
 export const MOCK_EVENT = newMockEvent()
 
 const ZERO_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000'
-const ADDRESS_ONE = '0x0000000000000000000000000000000000000001'
+
+createMockedFunction(Address.zero(), "totalSupply", "totalSupply():(uint256)")
+  .returns([
+    ethereum.Value.fromI32(0)
+  ]);
+
+createMockedFunction(Address.zero(), "balanceOf", "balanceOf(address):(uint256)")
+  .withArgs([
+    ethereum.Value.fromAddress(Address.zero())
+  ])
+  .returns([
+    ethereum.Value.fromI32(0)
+  ]);
 
 const REQUEST_ID = ZERO_HASH
 
@@ -24,6 +36,7 @@ describe("handleSubmitted", () => {
         new ethereum.EventParam('id', ethereum.Value.fromBytes(Bytes.fromHexString(REQUEST_ID))),
         new ethereum.EventParam('token', ethereum.Value.fromAddress(Address.zero())),
         new ethereum.EventParam('sender', ethereum.Value.fromAddress(Address.zero())),
+        new ethereum.EventParam('publicKey', ethereum.Value.fromAddress(Address.zero())),
         new ethereum.EventParam('amount', ethereum.Value.fromSignedBigInt(BigInt.fromI32(100))),
         new ethereum.EventParam('amountPerWithdrawal', ethereum.Value.fromSignedBigInt(BigInt.fromI32(10))),
         new ethereum.EventParam('cooltime', ethereum.Value.fromSignedBigInt(BigInt.fromI32(10))),
@@ -66,6 +79,7 @@ describe("handleReceived", () => {
         new ethereum.EventParam('id', ethereum.Value.fromBytes(Bytes.fromHexString(REQUEST_ID))),
         new ethereum.EventParam('token', ethereum.Value.fromAddress(Address.zero())),
         new ethereum.EventParam('sender', ethereum.Value.fromAddress(Address.zero())),
+        new ethereum.EventParam('publicKey', ethereum.Value.fromAddress(Address.zero())),
         new ethereum.EventParam('amount', ethereum.Value.fromSignedBigInt(BigInt.fromI32(100))),
         new ethereum.EventParam('amountPerWithdrawal', ethereum.Value.fromSignedBigInt(BigInt.fromI32(10))),
         new ethereum.EventParam('cooltime', ethereum.Value.fromSignedBigInt(BigInt.fromI32(10))),

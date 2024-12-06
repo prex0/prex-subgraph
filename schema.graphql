@@ -1,5 +1,6 @@
 type Token @entity {
   id: ID!
+  address: Bytes!
   totalSupply: BigInt!
   createdAt: BigInt!
   updatedAt: BigInt!

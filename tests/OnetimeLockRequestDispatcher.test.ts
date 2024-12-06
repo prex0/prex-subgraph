@@ -1,5 +1,5 @@
 import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'; //
-import { assert, describe, newMockEvent, test } from 'matchstick-as';
+import { assert, createMockedFunction, describe, newMockEvent, test } from 'matchstick-as';
 import { handleRequestSubmitted, handleRequestCompleted, handleRequestCancelled } from '../src/OnetimeLockRequestDispatcher';
 import { RequestCompleted, RequestSubmitted, RequestCancelled } from '../generated/OnetimeLockRequestDispatcher/OnetimeLockRequestDispatcher';
 
@@ -7,6 +7,20 @@ export const MOCK_EVENT = newMockEvent()
 
 const ZERO_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000'
 const ID2 = '0x0000000000000000000000000000000000000000000000000000000000000002'
+
+createMockedFunction(Address.zero(), "totalSupply", "totalSupply():(uint256)")
+  .returns([
+    ethereum.Value.fromI32(0)
+  ]);
+
+createMockedFunction(Address.zero(), "balanceOf", "balanceOf(address):(uint256)")
+  .withArgs([
+    ethereum.Value.fromAddress(Address.zero())
+  ])
+  .returns([
+    ethereum.Value.fromI32(0)
+  ]);
+
 
 describe("OnetimeLockRequestDispatcher::handleRequestSubmitted", () => {
   test('check RequestSubmitted', () => {
