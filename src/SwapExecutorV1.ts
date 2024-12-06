@@ -1,7 +1,8 @@
 import { BigInt, Bytes } from '@graphprotocol/graph-ts'
 import { OrderFilled } from '../generated/SwapExecutorV1/SwapExecutorV1'
 import { SwapV1History, OrderFilledHistoryOutput } from '../generated/schema'
-import { ensureEndUser, ensureToken } from './helpers'
+import { ensureEndUser, ensureToken, updateTokenHolder } from './helpers'
+import { ERC20 } from '../generated/SwapExecutorV1/ERC20'
 
 export function handleOrderFilled(event: OrderFilled): void {
   const swapV1History = ensureOrderFilledHistory(
@@ -39,9 +40,28 @@ export function handleOrderFilled(event: OrderFilled): void {
     outputToken.save()
     recipient.save()
     output.save()
+
+    // update token holders
+    const recipientBalance = ERC20.bind(outputParams.token).balanceOf(
+      outputParams.recipient
+    )
+
+    updateTokenHolder(
+      outputToken.id,
+      recipient.id,
+      recipientBalance,
+      event.block.timestamp
+    )
   }
 
   swapV1History.save()
+
+  // update token holders
+  const senderBalance = ERC20.bind(event.params.token).balanceOf(
+    event.params.swapper
+  )
+
+  updateTokenHolder(token.id, swapper.id, senderBalance, event.block.timestamp)
 }
 
 export function ensureOrderFilledHistory(

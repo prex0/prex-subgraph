@@ -22,6 +22,8 @@ dataSources:
       abis:
         - name: TransferRequestDispatcher
           file: ./abis/TransferRequestDispatcher.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transferred(address,address,address,uint256,bytes)
           handler: handleTransferred
@@ -44,6 +46,8 @@ dataSources:
       abis:
         - name: OnetimeLockRequestDispatcher
           file: ./abis/OnetimeLockRequestDispatcher.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: RequestSubmitted(bytes32,address,address,uint256,uint256,bytes)
           handler: handleRequestSubmitted
@@ -69,6 +73,8 @@ dataSources:
       abis:
         - name: TokenDistributor
           file: ./abis/TokenDistributor.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Submitted(bytes32,address,address,address,uint256,uint256,uint256,uint256,uint256,string,bytes32)
           handler: handleSubmitted
@@ -97,6 +103,8 @@ dataSources:
       abis:
         - name: SwapExecutorV1
           file: ./abis/SwapExecutorV1.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: OrderFilled(indexed bytes32,indexed address,address,address,uint256,(address,uint256,address)[])
           handler: handleOrderFilled
@@ -169,18 +177,3 @@ templates:
           handler: handleAddOwner
         - event: RemoveOwner(indexed uint256,bytes)
           handler: handleRemoveOwner
-  - name: ERC20
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: ERC20
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      file: ./src/ERC20.ts
-      entities:
-        - EndUser
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json

@@ -10,7 +10,7 @@ import {
   TokenHolder
 } from '../generated/schema'
 import { PrexSmartWallet } from '../generated/templates'
-import { ERC20 } from '../generated/templates/ERC20/ERC20'
+import { ERC20 } from '../generated/OnetimeLockRequestDispatcherV2/ERC20'
 
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
