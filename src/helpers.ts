@@ -7,7 +7,8 @@ import {
   CoinMovingHistory,
   Token,
   EndUser,
-  TokenHolder
+  TokenHolder,
+  TokenFollow
 } from '../generated/schema'
 import { PrexSmartWallet } from '../generated/templates'
 import { ERC20 } from '../generated/OnetimeLockRequestDispatcherV2/ERC20'
@@ -237,12 +238,51 @@ export function ensureTokenHolder(
     tokenHolder.token = tokenId
     tokenHolder.holder = holderId
     tokenHolder.balance = BigInt.zero()
+    tokenHolder.receivedAmount = BigInt.zero()
+    tokenHolder.sentAmount = BigInt.zero()
+    tokenHolder.receivedCount = BigInt.zero()
+    tokenHolder.sentCount = BigInt.zero()
+    tokenHolder.uniqueReceivedCount = BigInt.zero()
+    tokenHolder.uniqueSentCount = BigInt.zero()
     tokenHolder.createdAt = eventTime
   }
 
   tokenHolder.updatedAt = eventTime
 
   return tokenHolder
+}
+
+function getTokenFollowId(tokenId: string, followerId: string, followedId: string): string {
+  return tokenId + '-' + followerId + '-' + followedId
+}
+
+function existsTokenFollow(tokenId: string, followerId: string, followedId: string): boolean {
+  const id = getTokenFollowId(tokenId, followerId, followedId)
+  return TokenFollow.load(id) != null
+}
+
+export function ensureTokenFollow(
+  tokenId: string,
+  followerId: string,
+  followedId: string,
+  eventTime: BigInt
+): TokenFollow {
+  const id = getTokenFollowId(tokenId, followerId, followedId)
+
+  let tokenFollow = TokenFollow.load(id)
+
+  if (tokenFollow == null) {
+    tokenFollow = new TokenFollow(id)
+
+    tokenFollow.token = tokenId
+    tokenFollow.following = followerId
+    tokenFollow.followed = followedId
+    tokenFollow.createdAt = eventTime
+  }
+
+  tokenFollow.updatedAt = eventTime
+
+  return tokenFollow
 }
 
 export function updateTokenHolder(
@@ -254,6 +294,61 @@ export function updateTokenHolder(
   const tokenHolder = ensureTokenHolder(tokenId, holderId, eventTime)
 
   tokenHolder.balance = balance
+
+  tokenHolder.save()
+}
+
+export function updateTokenHolderParams(
+  tokenId: string,
+  senderId: string,
+  recipientId: string,
+  sentAmount: BigInt,
+  eventTime: BigInt
+): void {
+  sentTokenHolder(tokenId, senderId, recipientId, sentAmount, eventTime)
+  receivedTokenHolder(tokenId, recipientId, senderId, sentAmount, eventTime)
+
+  const tokenFollow = ensureTokenFollow(tokenId, senderId, recipientId, eventTime)
+  const tokenFollow2 = ensureTokenFollow(tokenId, recipientId, senderId, eventTime)
+
+  tokenFollow.save()
+  tokenFollow2.save()
+}
+
+export function sentTokenHolder(
+  tokenId: string,
+  holderId: string,
+  recipientId: string,
+  sentAmount: BigInt,
+  eventTime: BigInt
+): void {
+  const tokenHolder = ensureTokenHolder(tokenId, holderId, eventTime)
+
+  tokenHolder.sentAmount = tokenHolder.sentAmount.plus(sentAmount)
+  tokenHolder.sentCount = tokenHolder.sentCount.plus(BigInt.fromI32(1))
+
+  if (!existsTokenFollow(tokenId, holderId, recipientId)) {
+    tokenHolder.uniqueSentCount = tokenHolder.uniqueSentCount.plus(BigInt.fromI32(1))
+  }
+
+  tokenHolder.save()
+}
+
+export function receivedTokenHolder(
+  tokenId: string,
+  holderId: string,
+  senderId: string,
+  receivedAmount: BigInt,
+  eventTime: BigInt
+): void {
+  const tokenHolder = ensureTokenHolder(tokenId, holderId, eventTime)
+
+  tokenHolder.receivedAmount = tokenHolder.receivedAmount.plus(receivedAmount)
+  tokenHolder.receivedCount = tokenHolder.receivedCount.plus(BigInt.fromI32(1))
+  
+  if (!existsTokenFollow(tokenId, senderId, holderId)) {
+    tokenHolder.uniqueReceivedCount = tokenHolder.uniqueReceivedCount.plus(BigInt.fromI32(1))
+  }
 
   tokenHolder.save()
 }

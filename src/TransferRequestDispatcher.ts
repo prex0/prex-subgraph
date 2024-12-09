@@ -3,7 +3,10 @@ import {
   createCoinMovingHistory,
   ensureEndUser,
   ensureToken,
-  ensureTransferRequest
+  ensureTransferRequest,
+  receivedTokenHolder,
+  sentTokenHolder,
+  updateTokenHolderParams
 } from './helpers'
 
 export function handleTransferred(event: Transferred): void {
@@ -43,5 +46,13 @@ export function handleTransferred(event: Transferred): void {
     null,
     null,
     null
+  )
+
+  updateTokenHolderParams(
+    token.id,
+    to.id,
+    from.id,
+    event.params.amount,
+    event.block.timestamp
   )
 }

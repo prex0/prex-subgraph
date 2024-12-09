@@ -7,7 +7,10 @@ import {
   createCoinMovingHistory,
   ensureEndUser,
   ensureOnetimeLock,
-  ensureToken
+  ensureToken,
+  receivedTokenHolder,
+  sentTokenHolder,
+  updateTokenHolderParams
 } from './helpers'
 
 export function handleRequestSubmitted(event: RequestSubmitted): void {
@@ -58,6 +61,14 @@ export function handleRequestCompleted(event: RequestCompleted): void {
     null,
     null,
     null
+  )
+
+  updateTokenHolderParams(
+    onetimeLock.token,
+    onetimeLock.sender,
+    recipient.id,
+    onetimeLock.amount,
+    event.block.timestamp
   )
 }
 

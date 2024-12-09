@@ -42,6 +42,21 @@ type TokenHolder @entity {
   token: Token!
   holder: EndUser!
   balance: BigInt!
+  receivedAmount: BigInt!
+  sentAmount: BigInt!
+  receivedCount: BigInt!
+  sentCount: BigInt!
+  uniqueReceivedCount: BigInt!
+  uniqueSentCount: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type TokenFollow @entity {
+  id: ID!
+  token: Token!
+  following: EndUser!
+  followed: EndUser!
   createdAt: BigInt!
   updatedAt: BigInt!
 }
