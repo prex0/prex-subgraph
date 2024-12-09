@@ -24,6 +24,9 @@ export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
     token = new Token(id)
     token.address = tokenAddress
     token.totalSupply = BigInt.zero()
+    token.totalUniqueSenders = BigInt.zero()
+    token.totalTransfers = BigInt.zero()
+    token.totalTransferAmount = BigInt.zero()
     token.createdAt = eventTime
   }
 
@@ -128,6 +131,9 @@ export function createCoinMovingHistory(
   )
 
   updateTokenTotalSupply(tokenId, totalSupply, eventTime)
+
+  updateTokenTotalUniqueSenders(tokenId, senderId, eventTime, amount)
+
   updateTokenHolder(tokenId, senderId, senderBalance, eventTime)
   updateTokenHolder(tokenId, recipientId, recipientBalance, eventTime)
 }
@@ -223,6 +229,28 @@ export function ensureTokenDistributeRequest(
   return tokenDistributeRequest
 }
 
+export function updateTokenTotalUniqueSenders(
+  tokenId: string,
+  senderId: string,
+  eventTime: BigInt,
+  amount: BigInt
+): void {
+  const id = tokenId + '-' + senderId
+
+  let tokenHolder = TokenHolder.load(id)
+
+  const token = ensureToken(Address.fromString(tokenId), eventTime)
+
+  token.totalTransfers = token.totalTransfers.plus(BigInt.fromI32(1))
+  token.totalTransferAmount = token.totalTransferAmount.plus(amount)
+
+  if (tokenHolder == null) {
+    token.totalUniqueSenders = token.totalUniqueSenders.plus(BigInt.fromI32(1))
+  }
+
+  token.save()
+}
+
 export function ensureTokenHolder(
   tokenId: string,
   holderId: string,
@@ -252,11 +280,19 @@ export function ensureTokenHolder(
   return tokenHolder
 }
 
-function getTokenFollowId(tokenId: string, followerId: string, followedId: string): string {
+function getTokenFollowId(
+  tokenId: string,
+  followerId: string,
+  followedId: string
+): string {
   return tokenId + '-' + followerId + '-' + followedId
 }
 
-function existsTokenFollow(tokenId: string, followerId: string, followedId: string): boolean {
+function existsTokenFollow(
+  tokenId: string,
+  followerId: string,
+  followedId: string
+): boolean {
   const id = getTokenFollowId(tokenId, followerId, followedId)
   return TokenFollow.load(id) != null
 }
@@ -308,8 +344,18 @@ export function updateTokenHolderParams(
   sentTokenHolder(tokenId, senderId, recipientId, sentAmount, eventTime)
   receivedTokenHolder(tokenId, recipientId, senderId, sentAmount, eventTime)
 
-  const tokenFollow = ensureTokenFollow(tokenId, senderId, recipientId, eventTime)
-  const tokenFollow2 = ensureTokenFollow(tokenId, recipientId, senderId, eventTime)
+  const tokenFollow = ensureTokenFollow(
+    tokenId,
+    senderId,
+    recipientId,
+    eventTime
+  )
+  const tokenFollow2 = ensureTokenFollow(
+    tokenId,
+    recipientId,
+    senderId,
+    eventTime
+  )
 
   tokenFollow.save()
   tokenFollow2.save()
@@ -328,7 +374,9 @@ export function sentTokenHolder(
   tokenHolder.sentCount = tokenHolder.sentCount.plus(BigInt.fromI32(1))
 
   if (!existsTokenFollow(tokenId, holderId, recipientId)) {
-    tokenHolder.uniqueSentCount = tokenHolder.uniqueSentCount.plus(BigInt.fromI32(1))
+    tokenHolder.uniqueSentCount = tokenHolder.uniqueSentCount.plus(
+      BigInt.fromI32(1)
+    )
   }
 
   tokenHolder.save()
@@ -345,9 +393,11 @@ export function receivedTokenHolder(
 
   tokenHolder.receivedAmount = tokenHolder.receivedAmount.plus(receivedAmount)
   tokenHolder.receivedCount = tokenHolder.receivedCount.plus(BigInt.fromI32(1))
-  
+
   if (!existsTokenFollow(tokenId, senderId, holderId)) {
-    tokenHolder.uniqueReceivedCount = tokenHolder.uniqueReceivedCount.plus(BigInt.fromI32(1))
+    tokenHolder.uniqueReceivedCount = tokenHolder.uniqueReceivedCount.plus(
+      BigInt.fromI32(1)
+    )
   }
 
   tokenHolder.save()

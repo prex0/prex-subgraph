@@ -2,6 +2,9 @@ type Token @entity {
   id: ID!
   address: Bytes!
   totalSupply: BigInt!
+  totalUniqueSenders: BigInt!
+  totalTransfers: BigInt!
+  totalTransferAmount: BigInt!
   createdAt: BigInt!
   updatedAt: BigInt!
 }
