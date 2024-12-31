@@ -137,6 +137,30 @@ dataSources:
         - event: ProfileMetadataUpdated(indexed address,bytes32)
           handler: handleProfileMetadataUpdated
   - kind: ethereum/contract
+    name: FanController
+    network: {{network}}
+    source:
+      address: "{{pumpum.FanController}}"
+      abi: FanController
+      startBlock: {{pumpum.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Fan
+      abis:
+        - name: FanController
+          file: ./abis/FanController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TokenIssued(indexed address,indexed address,string,string,uint256,uint256)
+          handler: handleTokenIssued
+        - event: OrderFilled(indexed address,indexed address,bool,uint256,uint256)
+          handler: handleOrderFilled
+      file: ./src/FanController.ts
+  - kind: ethereum/contract
     name: SmartWalletFactoryWrapper
     network: {{network}}
     source:

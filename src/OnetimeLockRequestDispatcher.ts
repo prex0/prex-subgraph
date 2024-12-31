@@ -8,8 +8,6 @@ import {
   ensureEndUser,
   ensureOnetimeLock,
   ensureToken,
-  receivedTokenHolder,
-  sentTokenHolder,
   updateTokenHolderParams
 } from './helpers'
 

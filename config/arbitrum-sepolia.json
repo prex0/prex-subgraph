@@ -22,5 +22,10 @@
   "TokenDistributor": "0x1bDF9c09D05F660C91e334df9ce531B2B3CE6e1d",
   "SmartWalletFactoryWrapper": "0x6e7F2eCca49856FB400032fAcAb151d0980FbbeC",
   "ProfileRegistry": "0x778a3a74B879553B722EAd1Ec3F8d1E1614920dD",
-  "startBlock": 68750000
+  "startBlock": 68750000,
+  "pumpum": {
+    "CommunityPool": "0x6EB59c7e3d979ECa09bff826ea4Dc3535Ad241fD",
+    "FanController": "0x8F53d0bd60E1f153dF511f90Cb34E25643Bb378d",
+    "startBlock": 112031100
+  }
 }

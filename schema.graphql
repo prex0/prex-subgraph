@@ -183,3 +183,24 @@ type ProfileNameGroup @entity {
   id: ID!
   name: String!
 }
+
+type PumToken @entity {
+  id: ID!
+  address: Bytes!
+  name: String!
+  symbol: String!
+  issuer: EndUser!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type PumTokenOrders @entity {
+  id: ID!
+  token: PumToken!
+  swapper: EndUser!
+  isBuy: Boolean!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  txHash: Bytes!
+  createdAt: BigInt!
+}
