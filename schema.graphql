@@ -190,6 +190,7 @@ type PumToken @entity {
   name: String!
   symbol: String!
   issuer: EndUser!
+  marketCap: BigInt!
   createdAt: BigInt!
   updatedAt: BigInt!
 }
@@ -198,6 +199,7 @@ type PumTokenOrders @entity {
   id: ID!
   token: PumToken!
   swapper: EndUser!
+  recipient: EndUser!
   isBuy: Boolean!
   amountIn: BigInt!
   amountOut: BigInt!

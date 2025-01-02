@@ -25,7 +25,7 @@
   "startBlock": 68750000,
   "pumpum": {
     "CommunityPool": "0x6EB59c7e3d979ECa09bff826ea4Dc3535Ad241fD",
-    "FanController": "0x8F53d0bd60E1f153dF511f90Cb34E25643Bb378d",
+    "FanController": "0x0853e43DA0F5a82178e26d3eEFDe51c15f7d339D",
     "startBlock": 112031100
   }
 }

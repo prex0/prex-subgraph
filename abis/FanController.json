@@ -21,6 +21,19 @@
   },
   {
     "type": "function",
+    "name": "communityPool",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract CommunityPool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "communityPoolCallback",
     "inputs": [
       {
@@ -48,6 +61,7 @@
             "internalType": "address"
           },
           { "name": "sender", "type": "address", "internalType": "address" },
+          { "name": "recipient", "type": "address", "internalType": "address" },
           { "name": "deadline", "type": "uint256", "internalType": "uint256" },
           { "name": "nonce", "type": "uint256", "internalType": "uint256" },
           {
@@ -157,6 +171,12 @@
         "name": "communityToken",
         "type": "address",
         "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "recipient",
+        "type": "address",
+        "indexed": false,
         "internalType": "address"
       },
       {

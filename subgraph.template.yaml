@@ -148,16 +148,16 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Fan
+        - PumToken
       abis:
         - name: FanController
           file: ./abis/FanController.json
-        - name: ERC20
-          file: ./abis/ERC20.json
+        - name: CommunityPool
+          file: ./abis/CommunityPool.json
       eventHandlers:
         - event: TokenIssued(indexed address,indexed address,string,string,uint256,uint256)
           handler: handleTokenIssued
-        - event: OrderFilled(indexed address,indexed address,bool,uint256,uint256)
+        - event: OrderFilled(indexed address,indexed address,address,bool,uint256,uint256)
           handler: handleOrderFilled
       file: ./src/FanController.ts
   - kind: ethereum/contract
