@@ -183,3 +183,32 @@ type ProfileNameGroup @entity {
   id: ID!
   name: String!
 }
+
+type PumToken @entity {
+  id: ID!
+  address: Bytes!
+  name: String!
+  symbol: String!
+  issuer: EndUser!
+  marketCap: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+enum PumAction {
+  ISSUE
+  BUY
+  SELL
+}
+
+type PumActionHistory @entity {
+  id: ID!
+  user: EndUser!
+  token: PumToken!
+  action: PumAction!
+  recipient: EndUser
+  amountIn: BigInt
+  amountOut: BigInt
+  txHash: Bytes!
+  createdAt: BigInt!
+}
