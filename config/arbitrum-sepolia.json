@@ -24,8 +24,8 @@
   "ProfileRegistry": "0x778a3a74B879553B722EAd1Ec3F8d1E1614920dD",
   "startBlock": 68750000,
   "pumpum": {
-    "CommunityPool": "0x6EB59c7e3d979ECa09bff826ea4Dc3535Ad241fD",
-    "FanController": "0x0853e43DA0F5a82178e26d3eEFDe51c15f7d339D",
+    "CommunityPool": "0xa55d30630b5115666d7a65029951a27742741b4a",
+    "FanController": "0x6f4d059a6b7407a324e7dcb74bda6ddcaeb2bacf",
     "startBlock": 112031100
   }
 }

@@ -42,7 +42,6 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   pumTokenOrder.save()
 
-
   // Update market cap
   const fanController = FanController.bind(event.address)
   const communityPool = CommunityPool.bind(fanController.communityPool())
