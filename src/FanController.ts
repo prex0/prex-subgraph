@@ -3,7 +3,7 @@ import {
   OrderFilled,
   TokenIssued
 } from '../generated/FanController/FanController'
-import { PumToken, PumTokenOrders } from '../generated/schema'
+import { PumActionHistory, PumToken } from '../generated/schema'
 import { ensureEndUser } from './helpers'
 import { CommunityPool } from '../generated/FanController/CommunityPool'
 import { FanController } from '../generated/FanController/FanController'
@@ -20,6 +20,12 @@ export function handleTokenIssued(event: TokenIssued): void {
   pumToken.issuer = endUser.id
 
   pumToken.save()
+
+  const pumActionHistory = ensurePumActionHistory(endUser.id, pumToken.id, event.transaction.hash, event.logIndex)
+
+  pumActionHistory.action = "ISSUE"
+
+  pumActionHistory.save()
 }
 
 export function handleOrderFilled(event: OrderFilled): void {
@@ -30,18 +36,6 @@ export function handleOrderFilled(event: OrderFilled): void {
   const endUser = ensureEndUser(event.params.sender, event.block.timestamp)
   const recipient = ensureEndUser(event.params.recipient, event.block.timestamp)
 
-  const pumTokenOrder = new PumTokenOrders(event.transaction.hash.toHex())
-  pumTokenOrder.token = pumToken.id
-  pumTokenOrder.swapper = endUser.id
-  pumTokenOrder.recipient = recipient.id
-  pumTokenOrder.isBuy = event.params.isBuy
-  pumTokenOrder.amountIn = event.params.amountIn
-  pumTokenOrder.amountOut = event.params.amountOut
-  pumTokenOrder.txHash = event.transaction.hash
-  pumTokenOrder.createdAt = event.block.timestamp
-
-  pumTokenOrder.save()
-
   // Update market cap
   const fanController = FanController.bind(event.address)
   const communityPool = CommunityPool.bind(fanController.communityPool())
@@ -50,6 +44,20 @@ export function handleOrderFilled(event: OrderFilled): void {
   pumToken.marketCap = marketInfo.reserveStable
 
   pumToken.save()
+
+  const pumActionHistory = ensurePumActionHistory(endUser.id, pumToken.id, event.transaction.hash, event.logIndex)
+
+  if (event.params.isBuy) {
+    pumActionHistory.action = "BUY"
+  } else {
+    pumActionHistory.action = "SELL"
+  }
+
+  pumActionHistory.recipient = recipient.id
+  pumActionHistory.amountIn = event.params.amountIn
+  pumActionHistory.amountOut = event.params.amountOut
+
+  pumActionHistory.save()
 }
 
 function ensurePumToken(address: Bytes, timestamp: BigInt): PumToken {
@@ -67,3 +75,19 @@ function ensurePumToken(address: Bytes, timestamp: BigInt): PumToken {
 
   return pumToken
 }
+
+function ensurePumActionHistory(user: string, token: string, txHash: Bytes, logIndex: BigInt): PumActionHistory {
+  const id = `${user}-${token}-${txHash.toHex()}-${logIndex.toString()}`
+  let pumActionHistory = PumActionHistory.load(id)
+
+  if (!pumActionHistory) {
+    pumActionHistory = new PumActionHistory(id)
+    pumActionHistory.user = user
+    pumActionHistory.token = token
+    pumActionHistory.action = "ISSUE"
+    pumActionHistory.txHash = txHash
+  }
+
+  return pumActionHistory
+}
+

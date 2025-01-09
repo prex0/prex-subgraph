@@ -195,14 +195,20 @@ type PumToken @entity {
   updatedAt: BigInt!
 }
 
-type PumTokenOrders @entity {
+enum PumAction {
+  ISSUE
+  BUY
+  SELL
+}
+
+type PumActionHistory @entity {
   id: ID!
+  user: EndUser!
   token: PumToken!
-  swapper: EndUser!
-  recipient: EndUser!
-  isBuy: Boolean!
-  amountIn: BigInt!
-  amountOut: BigInt!
+  action: PumAction!
+  recipient: EndUser
+  amountIn: BigInt
+  amountOut: BigInt
   txHash: Bytes!
   createdAt: BigInt!
 }
