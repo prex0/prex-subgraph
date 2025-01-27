@@ -154,12 +154,40 @@ dataSources:
           file: ./abis/FanController.json
         - name: CommunityPool
           file: ./abis/CommunityPool.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
-        - event: TokenIssued(indexed address,indexed address,string,string,uint256,uint256)
+        - event: TokenIssued(indexed address,indexed address,string,string,uint256,uint256,string)
           handler: handleTokenIssued
         - event: OrderFilled(indexed address,indexed address,address,bool,uint256,uint256)
           handler: handleOrderFilled
+        - event: MetadataUpdated(indexed address,string)
+          handler: handleMetadataUpdated
       file: ./src/FanController.ts
+  - kind: ethereum/contract
+    name: CommunityPool
+    network: {{network}}
+    source:
+      address: "{{pumpum.CommunityPool}}"
+      abi: CommunityPool
+      startBlock: {{pumpum.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PumToken
+      abis:
+        - name: CommunityPool
+          file: ./abis/CommunityPool.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: MarketStatusUpdated(indexed address,bool)
+          handler: handleMarketStatusUpdated
+        - event: Swap(indexed address,indexed address,int256,int256,uint256,uint256)
+          handler: handleSwap
+      file: ./src/CommunityPool.ts
   - kind: ethereum/contract
     name: SmartWalletFactoryWrapper
     network: {{network}}

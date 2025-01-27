@@ -14,13 +14,6 @@
   },
   {
     "type": "function",
-    "name": "POINTS_REQUIRED_FOR_ISSUE",
-    "inputs": [],
-    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
     "name": "communityPool",
     "inputs": [],
     "outputs": [
@@ -85,21 +78,6 @@
   },
   {
     "type": "function",
-    "name": "initializePair",
-    "inputs": [
-      {
-        "name": "communityToken",
-        "type": "address",
-        "internalType": "address"
-      },
-      { "name": "amountCT", "type": "uint256", "internalType": "uint256" },
-      { "name": "amountPoint", "type": "uint256", "internalType": "uint256" }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
     "name": "issueCoin",
     "inputs": [
       {
@@ -117,7 +95,8 @@
           { "name": "nonce", "type": "uint256", "internalType": "uint256" },
           { "name": "name", "type": "string", "internalType": "string" },
           { "name": "symbol", "type": "string", "internalType": "string" },
-          { "name": "amount", "type": "uint256", "internalType": "uint256" }
+          { "name": "amount", "type": "uint256", "internalType": "uint256" },
+          { "name": "metadata", "type": "string", "internalType": "string" }
         ]
       },
       { "name": "sig", "type": "bytes", "internalType": "bytes" }
@@ -127,10 +106,43 @@
   },
   {
     "type": "function",
+    "name": "quoteExecuteOrder",
+    "inputs": [
+      {
+        "name": "communityToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "isBuy", "type": "bool", "internalType": "bool" },
+      { "name": "isExactIn", "type": "bool", "internalType": "bool" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      { "name": "amountIn", "type": "uint256", "internalType": "uint256" },
+      { "name": "amountOut", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "symbolUsed",
     "inputs": [{ "name": "", "type": "string", "internalType": "string" }],
     "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
     "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "updateMetadata",
+    "inputs": [
+      {
+        "name": "communityToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "metadata", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
     "type": "event",
@@ -153,6 +165,25 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MetadataUpdated",
+    "inputs": [
+      {
+        "name": "communityToken",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "metadata",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
       }
     ],
     "anonymous": false
@@ -239,19 +270,19 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      },
+      {
+        "name": "metadata",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
       }
     ],
     "anonymous": false
   },
   { "type": "error", "name": "DeadlinePassed", "inputs": [] },
-  {
-    "type": "error",
-    "name": "InitialPointIsTooLow",
-    "inputs": [
-      { "name": "initialPoint", "type": "uint256", "internalType": "uint256" }
-    ]
-  },
   { "type": "error", "name": "InvalidDispatcher", "inputs": [] },
+  { "type": "error", "name": "NotIssuer", "inputs": [] },
   { "type": "error", "name": "SlippageTooHigh", "inputs": [] },
   { "type": "error", "name": "SymbolAlreadyUsed", "inputs": [] }
 ]

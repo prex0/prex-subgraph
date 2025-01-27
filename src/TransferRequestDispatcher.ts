@@ -4,8 +4,6 @@ import {
   ensureEndUser,
   ensureToken,
   ensureTransferRequest,
-  receivedTokenHolder,
-  sentTokenHolder,
   updateTokenHolderParams
 } from './helpers'
 

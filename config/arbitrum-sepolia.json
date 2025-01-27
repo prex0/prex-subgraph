@@ -24,8 +24,9 @@
   "ProfileRegistry": "0x778a3a74B879553B722EAd1Ec3F8d1E1614920dD",
   "startBlock": 68750000,
   "pumpum": {
-    "CommunityPool": "0xa55d30630b5115666d7a65029951a27742741b4a",
-    "FanController": "0x6f4d059a6b7407a324e7dcb74bda6ddcaeb2bacf",
-    "startBlock": 112031100
+    "PointMarket": "0xe12A88AE7Ca1D261A1b036d0F5e072da985b5678",
+    "CommunityPool": "0x7cf3c352fD9ea1e8a71052Bb126dF038703859F9",
+    "FanController": "0xBf98d59f9E1c9de6F6777c1bD2c593e86643a784",
+    "startBlock": 117980000
   }
 }

@@ -186,11 +186,16 @@ type ProfileNameGroup @entity {
 
 type PumToken @entity {
   id: ID!
+  token: Token!
   address: Bytes!
   name: String!
   symbol: String!
+  metadata: String!
   issuer: EndUser!
-  marketCap: BigInt!
+  uniqueBuyers: BigInt!
+  isMarketOpen: Boolean!
+  reserveCT: BigInt!
+  reserveStable: BigInt!
   createdAt: BigInt!
   updatedAt: BigInt!
 }
@@ -211,4 +216,26 @@ type PumActionHistory @entity {
   amountOut: BigInt
   txHash: Bytes!
   createdAt: BigInt!
+}
+
+enum PriceInterval {
+  HOUR
+  DAY
+}
+
+type PumTokenPrice @entity {
+  id: ID!
+  token: PumToken!
+  interval: PriceInterval!
+  open: BigInt!
+  high: BigInt!
+  low: BigInt!
+  close: BigInt!
+  volume: BigInt!
+  traderCount: BigInt!
+  buyers: [EndUser!]!
+  sellers: [EndUser!]!
+  startAt: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
 }

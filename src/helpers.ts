@@ -8,11 +8,13 @@ import {
   Token,
   EndUser,
   TokenHolder,
-  TokenFollow
+  TokenFollow,
+  PumToken,
+  PumActionHistory,
+  PumTokenPrice
 } from '../generated/schema'
 import { PrexSmartWallet } from '../generated/templates'
 import { ERC20 } from '../generated/OnetimeLockRequestDispatcherV2/ERC20'
-
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
 export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
@@ -251,6 +253,11 @@ export function updateTokenTotalUniqueSenders(
   token.save()
 }
 
+export function existsTokenHolder(tokenId: string, holderId: string): boolean {
+  const id = tokenId + '-' + holderId
+  return TokenHolder.load(id) != null
+}
+
 export function ensureTokenHolder(
   tokenId: string,
   holderId: string,
@@ -401,4 +408,94 @@ export function receivedTokenHolder(
   }
 
   tokenHolder.save()
+}
+
+export function ensurePumToken(address: Bytes, timestamp: BigInt): PumToken {
+  const id = address.toHex()
+  let pumToken = PumToken.load(id)
+
+  if (!pumToken) {
+    pumToken = new PumToken(id)
+    pumToken.address = address
+    pumToken.reserveStable = BigInt.fromI32(0)
+    pumToken.reserveCT = BigInt.fromI32(0)
+    pumToken.uniqueBuyers = BigInt.fromI32(0)
+    pumToken.isMarketOpen = false
+    pumToken.metadata = ''
+    pumToken.createdAt = timestamp
+  }
+
+  pumToken.updatedAt = timestamp
+
+  return pumToken
+}
+
+export function ensurePumActionHistory(
+  user: string,
+  token: string,
+  txHash: Bytes,
+  action: string,
+  timestamp: BigInt
+): PumActionHistory {
+  const id = `${txHash.toHex()}-${action}`
+  let pumActionHistory = PumActionHistory.load(id)
+
+  if (!pumActionHistory) {
+    pumActionHistory = new PumActionHistory(id)
+    pumActionHistory.user = user
+    pumActionHistory.token = token
+    pumActionHistory.action = action
+    pumActionHistory.txHash = txHash
+    pumActionHistory.createdAt = timestamp
+  }
+
+  return pumActionHistory
+}
+
+export function ensurePumTokenPrice(
+  token: string,
+  interval: string,
+  timestamp: BigInt
+): PumTokenPrice {
+  const offsetTimestamp = getStartTimestamp(timestamp, interval)
+  const id = getPumTokenPriceId(token, interval, offsetTimestamp)
+  let pumTokenPrice = PumTokenPrice.load(id)
+
+  if (!pumTokenPrice) {
+    pumTokenPrice = new PumTokenPrice(id)
+
+    pumTokenPrice.token = token
+    pumTokenPrice.interval = interval
+    pumTokenPrice.open = BigInt.fromI32(0)
+    pumTokenPrice.high = BigInt.fromI32(0)
+    pumTokenPrice.low = BigInt.fromI32(0)
+    pumTokenPrice.close = BigInt.fromI32(0)
+    pumTokenPrice.volume = BigInt.fromI32(0)
+    pumTokenPrice.traderCount = BigInt.fromI32(0)
+    pumTokenPrice.buyers = []
+    pumTokenPrice.sellers = []
+    pumTokenPrice.startAt = offsetTimestamp
+    pumTokenPrice.createdAt = timestamp
+  }
+
+  pumTokenPrice.updatedAt = timestamp
+
+  return pumTokenPrice
+}
+
+function getPumTokenPriceId(token: string, interval: string, startAt: BigInt): string {
+  return `${token}-${interval}-${startAt.toString()}`
+}
+
+function getStartTimestamp(timestamp: BigInt, interval: string): BigInt {
+  const JST_OFFSET = BigInt.fromI32(32400) // JST is UTC+9, which is 9*3600 seconds = 32400 seconds
+  const adjustedTimestamp = timestamp.plus(JST_OFFSET)
+
+  if (interval === "HOUR") {
+    return adjustedTimestamp.div(BigInt.fromI32(3600))
+  } else if (interval === "DAY") {
+    return adjustedTimestamp.div(BigInt.fromI32(86400))
+  }
+
+  return adjustedTimestamp
 }
