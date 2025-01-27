@@ -457,7 +457,7 @@ export function ensurePumTokenPrice(
   interval: string,
   timestamp: BigInt
 ): PumTokenPrice {
-  const offsetTimestamp = getStartTimestamp(timestamp, interval)
+  const offsetTimestamp = getStartTimestampWithInterval(timestamp, interval)
   const id = getPumTokenPriceId(token, interval, offsetTimestamp)
   let pumTokenPrice = PumTokenPrice.load(id)
 
@@ -487,15 +487,20 @@ function getPumTokenPriceId(token: string, interval: string, startAt: BigInt): s
   return `${token}-${interval}-${startAt.toString()}`
 }
 
-function getStartTimestamp(timestamp: BigInt, interval: string): BigInt {
+function getStartTimestampWithInterval(timestamp: BigInt, interval: string): BigInt {
+  if (interval === "HOUR") {
+    return getStartTimestamp(timestamp, BigInt.fromU32(3600))
+  } else if (interval === "DAY") {
+    return getStartTimestamp(timestamp, BigInt.fromI32(86400))
+  }
+
+  return timestamp
+}
+
+function getStartTimestamp(timestamp: BigInt, interval: BigInt): BigInt {
   const JST_OFFSET = BigInt.fromI32(32400) // JST is UTC+9, which is 9*3600 seconds = 32400 seconds
   const adjustedTimestamp = timestamp.plus(JST_OFFSET)
 
-  if (interval === "HOUR") {
-    return adjustedTimestamp.div(BigInt.fromI32(3600))
-  } else if (interval === "DAY") {
-    return adjustedTimestamp.div(BigInt.fromI32(86400))
-  }
-
-  return adjustedTimestamp
+  const excess = adjustedTimestamp.mod(interval)
+  return adjustedTimestamp.minus(excess).minus(interval)
 }
