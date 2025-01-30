@@ -36,23 +36,23 @@ function updatePumTokenPrice(id: string, event: Swap, interval: string): void {
 
   const price = event.params.reserveStable
 
-  if (pumTokenPrice.open === BigInt.fromI32(0)) {
+  if (pumTokenPrice.open.isZero()) {
     pumTokenPrice.open = price
   }
 
-  if (pumTokenPrice.high === BigInt.fromI32(0)) {
+  if (pumTokenPrice.high.isZero()) {
     pumTokenPrice.high = price
   }
 
-  if (pumTokenPrice.low === BigInt.fromI32(0)) {
+  if (pumTokenPrice.low.isZero()) {
     pumTokenPrice.low = price
   }
 
-  if (price > pumTokenPrice.high) {
+  if (price.gt(pumTokenPrice.high)) {
     pumTokenPrice.high = price
   }
 
-  if (price < pumTokenPrice.low) {
+  if (price.lt(pumTokenPrice.low)) {
     pumTokenPrice.low = price
   }
 
