@@ -483,14 +483,21 @@ export function ensurePumTokenPrice(
   return pumTokenPrice
 }
 
-function getPumTokenPriceId(token: string, interval: string, startAt: BigInt): string {
+function getPumTokenPriceId(
+  token: string,
+  interval: string,
+  startAt: BigInt
+): string {
   return `${token}-${interval}-${startAt.toString()}`
 }
 
-function getStartTimestampWithInterval(timestamp: BigInt, interval: string): BigInt {
-  if (interval === "HOUR") {
+function getStartTimestampWithInterval(
+  timestamp: BigInt,
+  interval: string
+): BigInt {
+  if (interval === 'HOUR') {
     return getStartTimestamp(timestamp, BigInt.fromU32(3600))
-  } else if (interval === "DAY") {
+  } else if (interval === 'DAY') {
     return getStartTimestamp(timestamp, BigInt.fromI32(86400))
   }
 

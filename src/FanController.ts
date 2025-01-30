@@ -97,7 +97,12 @@ export function handleOrderFilled(event: OrderFilled): void {
   addTraderInPumTokenPrice(pumToken, endUser, 'DAY', event)
 }
 
-function addTraderInPumTokenPrice(pumToken: PumToken, endUser: EndUser, interval: string, event: OrderFilled): void {
+function addTraderInPumTokenPrice(
+  pumToken: PumToken,
+  endUser: EndUser,
+  interval: string,
+  event: OrderFilled
+): void {
   const pumTokenPrice = ensurePumTokenPrice(
     pumToken.id,
     interval,

@@ -1,23 +1,9 @@
-import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts'
+import { BigInt } from '@graphprotocol/graph-ts'
+import { ensurePumToken, ensurePumTokenPrice } from './helpers'
 import {
-  OrderFilled,
-  TokenIssued
-} from '../generated/FanController/FanController'
-import { PumActionHistory, PumToken } from '../generated/schema'
-import {
-  ensurePumToken,
-  ensurePumActionHistory,
-  ensureEndUser,
-  ensureToken,
-  ensurePumTokenPrice
-} from './helpers'
-import {
-  CommunityPool,
   MarketStatusUpdated,
   Swap
 } from '../generated/FanController/CommunityPool'
-import { FanController } from '../generated/FanController/FanController'
-import { ERC20 } from '../generated/FanController/ERC20'
 
 export function handleMarketStatusUpdated(event: MarketStatusUpdated): void {
   const pumToken = ensurePumToken(
@@ -39,41 +25,43 @@ export function handleSwap(event: Swap): void {
   pumToken.reserveCT = event.params.reserveCT
   pumToken.reserveStable = event.params.reserveStable
 
-  const pumTokenPrice = ensurePumTokenPrice(
-    pumToken.id,
-    'HOUR',
-    event.block.timestamp
-  )
-
-  const price = event.params.reserveStable
-
-  if (pumTokenPrice.open === BigInt.fromI32(0)) {
-    pumTokenPrice.open = price
-  }
-
-  if (pumTokenPrice.high === BigInt.fromI32(0)) {
-    pumTokenPrice.high = price
-  }
-
-  if (pumTokenPrice.low === BigInt.fromI32(0)) {
-    pumTokenPrice.low = price
-  }
-
-  if (price > pumTokenPrice.high) {
-    pumTokenPrice.high = price
-  }
-
-  if (price < pumTokenPrice.low) {
-    pumTokenPrice.low = price
-  }
-
-  pumTokenPrice.close = price  
-
-  pumTokenPrice.volume = pumTokenPrice.volume.plus(event.params.deltaStable.abs())
-  pumTokenPrice.traderCount = pumTokenPrice.traderCount.plus(BigInt.fromI32(1))
-
-  pumTokenPrice.save()
+  updatePumTokenPrice(pumToken.id, event, 'HOUR')
+  updatePumTokenPrice(pumToken.id, event, 'DAY')
 
   pumToken.save()
 }
 
+function updatePumTokenPrice(id: string, event: Swap, interval: string): void {
+  const pumTokenPrice = ensurePumTokenPrice(id, interval, event.block.timestamp)
+
+  const price = event.params.reserveStable
+
+  if (pumTokenPrice.open.isZero()) {
+    pumTokenPrice.open = price
+  }
+
+  if (pumTokenPrice.high.isZero()) {
+    pumTokenPrice.high = price
+  }
+
+  if (pumTokenPrice.low.isZero()) {
+    pumTokenPrice.low = price
+  }
+
+  if (price.gt(pumTokenPrice.high)) {
+    pumTokenPrice.high = price
+  }
+
+  if (price.lt(pumTokenPrice.low)) {
+    pumTokenPrice.low = price
+  }
+
+  pumTokenPrice.close = price
+
+  pumTokenPrice.volume = pumTokenPrice.volume.plus(
+    event.params.deltaStable.abs()
+  )
+  pumTokenPrice.traderCount = pumTokenPrice.traderCount.plus(BigInt.fromI32(1))
+
+  pumTokenPrice.save()
+}
