@@ -22,6 +22,7 @@
   "TokenDistributor": "0x1bDF9c09D05F660C91e334df9ce531B2B3CE6e1d",
   "SmartWalletFactoryWrapper": "0x6e7F2eCca49856FB400032fAcAb151d0980FbbeC",
   "ProfileRegistry": "0x778a3a74B879553B722EAd1Ec3F8d1E1614920dD",
+  "ProfileRegistryV2": "0x0e4d63b98937da40e943583d2eb4c243bcb1b05e",
   "startBlock": 68750000,
   "pumpum": {
     "PointMarket": "0x32509693304DfC189C2FbAA47e72dfBC6a82b0b4",

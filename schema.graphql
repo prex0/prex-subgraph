@@ -5,6 +5,7 @@ type Token @entity {
   totalUniqueSenders: BigInt!
   totalTransfers: BigInt!
   totalTransferAmount: BigInt!
+  tokenHolders: [TokenHolder!]! @derivedFrom(field: "token")
   createdAt: BigInt!
   updatedAt: BigInt!
 }
@@ -19,7 +20,9 @@ type EndUser @entity {
   owners: [BelongToSharedWallet!]! @derivedFrom(field: "sharedWallet")
   sharedWallets: [BelongToSharedWallet!]! @derivedFrom(field: "owner")
   nameContract: ProfileNameGroup
+  domain: BigInt
   name: String
+  pictureHash: Bytes
   imageContract: Bytes
   imageTokenId: BigInt
   metadata: Bytes
@@ -196,6 +199,7 @@ type PumToken @entity {
   isMarketOpen: Boolean!
   reserveCT: BigInt!
   reserveStable: BigInt!
+  tokenPrices: [PumTokenPrice!]! @derivedFrom(field: "token")
   createdAt: BigInt!
   updatedAt: BigInt!
 }

@@ -1,0 +1,153 @@
+[
+  {
+    "type": "function",
+    "name": "getProfile",
+    "inputs": [
+      { "name": "user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct ProfileRegistryV2.Profile",
+        "components": [
+          { "name": "domain", "type": "uint256", "internalType": "uint256" },
+          { "name": "name", "type": "string", "internalType": "string" },
+          {
+            "name": "pictureHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          { "name": "metadata", "type": "bytes", "internalType": "bytes" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "names",
+    "inputs": [
+      { "name": "", "type": "uint256", "internalType": "uint256" },
+      { "name": "", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "profiles",
+    "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "outputs": [
+      { "name": "domain", "type": "uint256", "internalType": "uint256" },
+      { "name": "name", "type": "string", "internalType": "string" },
+      { "name": "pictureHash", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "metadata", "type": "bytes", "internalType": "bytes" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "updateAvatar",
+    "inputs": [
+      { "name": "pictureHash", "type": "bytes32", "internalType": "bytes32" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateMetadata",
+    "inputs": [
+      { "name": "metadata", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateName",
+    "inputs": [
+      { "name": "domain", "type": "uint256", "internalType": "uint256" },
+      { "name": "name", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateProfile",
+    "inputs": [
+      { "name": "domain", "type": "uint256", "internalType": "uint256" },
+      { "name": "name", "type": "string", "internalType": "string" },
+      { "name": "pictureHash", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "metadata", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "AvatarUpdated",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "pictureHash",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MetadataUpdated",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "metadata",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "NameUpdated",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "domain",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "NameAlreadyTaken", "inputs": [] }
+]

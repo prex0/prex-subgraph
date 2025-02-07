@@ -137,6 +137,30 @@ dataSources:
         - event: ProfileMetadataUpdated(indexed address,bytes32)
           handler: handleProfileMetadataUpdated
   - kind: ethereum/contract
+    name: ProfileRegistryV2
+    network: {{network}}
+    source:
+      address: "{{ProfileRegistryV2}}"
+      abi: ProfileRegistryV2
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/ProfileRegistryV2.ts
+      entities:
+        - EndUser
+      abis:
+        - name: ProfileRegistryV2
+          file: ./abis/ProfileRegistryV2.json
+      eventHandlers:
+        - event: NameUpdated(indexed address,uint256,string)
+          handler: handleNameUpdated
+        - event: AvatarUpdated(indexed address,bytes32)
+          handler: handleAvatarUpdated
+        - event: MetadataUpdated(indexed address,bytes)
+          handler: handleMetadataUpdated
+  - kind: ethereum/contract
     name: FanController
     network: {{network}}
     source:
