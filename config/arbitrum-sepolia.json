@@ -26,8 +26,8 @@
   "startBlock": 68750000,
   "pumpum": {
     "PointMarket": "0x32509693304DfC189C2FbAA47e72dfBC6a82b0b4",
-    "CommunityPool": "0xe73CD1Bc9d7857e8f6a46F8d01D97BfD239d4d83",
-    "FanController": "0x66223cad2D9CFae3a29a388E7079A4312F3Edc9d",
+    "CommunityPool": "0x6c48bBc1CAe8A1AC872B072b2EABD7779658DbC0",
+    "FanController": "0x230364a9161c779a2D54C9e83a903559D048378B",
     "startBlock": 118200000
   }
 }

@@ -1,5 +1,12 @@
 [
-  { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
+  {
+    "type": "constructor",
+    "inputs": [
+      { "name": "_prexPoint", "type": "address", "internalType": "address" },
+      { "name": "_owner", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
   {
     "type": "function",
     "name": "DAI_PER_STABLE",
@@ -19,6 +26,15 @@
     "name": "burnPointAndFundStable",
     "inputs": [
       { "name": "amountPoint", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "closeMarket",
+    "inputs": [
+      { "name": "communityToken", "type": "address", "internalType": "address" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -72,6 +88,7 @@
             "internalType": "uint256"
           },
           { "name": "sellable", "type": "bool", "internalType": "bool" },
+          { "name": "isClosed", "type": "bool", "internalType": "bool" },
           { "name": "feePercent", "type": "uint256", "internalType": "uint256" }
         ]
       }
@@ -89,20 +106,10 @@
   },
   {
     "type": "function",
-    "name": "globalFeeStable",
+    "name": "globalFeeDai",
     "inputs": [],
     "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "initialize",
-    "inputs": [
-      { "name": "_prexPoint", "type": "address", "internalType": "address" },
-      { "name": "_owner", "type": "address", "internalType": "address" }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -114,9 +121,19 @@
       { "name": "reserveCT", "type": "uint256", "internalType": "uint256" },
       { "name": "reserveStable", "type": "uint256", "internalType": "uint256" },
       { "name": "sellable", "type": "bool", "internalType": "bool" },
+      { "name": "isClosed", "type": "bool", "internalType": "bool" },
       { "name": "feePercent", "type": "uint256", "internalType": "uint256" }
     ],
     "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "openMarket",
+    "inputs": [
+      { "name": "communityToken", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -127,19 +144,26 @@
   },
   {
     "type": "function",
+    "name": "pause",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "paused",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "point",
     "inputs": [],
     "outputs": [
       { "name": "", "type": "address", "internalType": "contract IERC20" }
     ],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "renounceOwnership",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -230,6 +254,13 @@
   },
   {
     "type": "function",
+    "name": "unpause",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "updateMarketStatus",
     "inputs": [
       {
@@ -238,6 +269,31 @@
         "internalType": "address"
       },
       { "name": "sellable", "type": "bool", "internalType": "bool" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "withdrawCT",
+    "inputs": [
+      {
+        "name": "communityToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "to", "type": "address", "internalType": "address" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "withdrawDai",
+    "inputs": [
+      { "name": "to", "type": "address", "internalType": "address" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -295,13 +351,26 @@
   },
   {
     "type": "event",
-    "name": "Initialized",
+    "name": "MarketClosed",
     "inputs": [
       {
-        "name": "version",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
+        "name": "communityToken",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MarketOpened",
+    "inputs": [
+      {
+        "name": "communityToken",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       }
     ],
     "anonymous": false
@@ -330,7 +399,7 @@
     "name": "OwnershipTransferred",
     "inputs": [
       {
-        "name": "previousOwner",
+        "name": "user",
         "type": "address",
         "indexed": true,
         "internalType": "address"
@@ -339,6 +408,19 @@
         "name": "newOwner",
         "type": "address",
         "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Paused",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": false,
         "internalType": "address"
       }
     ],
@@ -400,10 +482,24 @@
     ],
     "anonymous": false
   },
+  {
+    "type": "event",
+    "name": "Unpaused",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
   { "type": "error", "name": "AmountMustNotBeZero", "inputs": [] },
   { "type": "error", "name": "ConstantProductError", "inputs": [] },
+  { "type": "error", "name": "EnforcedPause", "inputs": [] },
+  { "type": "error", "name": "ExpectedPause", "inputs": [] },
   { "type": "error", "name": "InsufficientCT", "inputs": [] },
-  { "type": "error", "name": "InsufficientPoint", "inputs": [] },
   { "type": "error", "name": "InsufficientStable", "inputs": [] },
   {
     "type": "error",
@@ -414,28 +510,14 @@
       { "name": "deltaPoint", "type": "int256", "internalType": "int256" }
     ]
   },
-  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
   { "type": "error", "name": "MarketAlreadyExists", "inputs": [] },
+  { "type": "error", "name": "MarketNotClosed", "inputs": [] },
   { "type": "error", "name": "MarketNotFound", "inputs": [] },
+  { "type": "error", "name": "MarketNotOpened", "inputs": [] },
   { "type": "error", "name": "MarketNotSellable", "inputs": [] },
   { "type": "error", "name": "NotFanController", "inputs": [] },
-  { "type": "error", "name": "NotInitializing", "inputs": [] },
   { "type": "error", "name": "NotLocked", "inputs": [] },
   { "type": "error", "name": "NotUnlocked", "inputs": [] },
-  {
-    "type": "error",
-    "name": "OwnableInvalidOwner",
-    "inputs": [
-      { "name": "owner", "type": "address", "internalType": "address" }
-    ]
-  },
-  {
-    "type": "error",
-    "name": "OwnableUnauthorizedAccount",
-    "inputs": [
-      { "name": "account", "type": "address", "internalType": "address" }
-    ]
-  },
   {
     "type": "error",
     "name": "SafeCastOverflowedUintToInt",
