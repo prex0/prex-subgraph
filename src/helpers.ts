@@ -432,7 +432,6 @@ export function ensurePumToken(address: Bytes, timestamp: BigInt): PumToken {
 
 export function ensurePumActionHistory(
   user: string,
-  token: string,
   txHash: Bytes,
   action: string,
   timestamp: BigInt
@@ -443,7 +442,6 @@ export function ensurePumActionHistory(
   if (!pumActionHistory) {
     pumActionHistory = new PumActionHistory(id)
     pumActionHistory.user = user
-    pumActionHistory.token = token
     pumActionHistory.action = action
     pumActionHistory.txHash = txHash
     pumActionHistory.createdAt = timestamp

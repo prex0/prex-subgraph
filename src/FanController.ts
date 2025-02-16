@@ -1,4 +1,4 @@
-import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts'
+import { Address, BigInt } from '@graphprotocol/graph-ts'
 import {
   MetadataUpdated,
   OrderFilled,
@@ -37,11 +37,14 @@ export function handleTokenIssued(event: TokenIssued): void {
 
   const pumActionHistory = ensurePumActionHistory(
     endUser.id,
-    pumToken.id,
     event.transaction.hash,
     'ISSUE',
     event.block.timestamp
   )
+
+  pumActionHistory.token = pumToken.id
+  pumActionHistory.amountIn = event.params.amountPoint
+  pumActionHistory.metadata = event.params.metadata
 
   pumActionHistory.save()
 }
@@ -70,12 +73,12 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   const pumActionHistory = ensurePumActionHistory(
     endUser.id,
-    pumToken.id,
     event.transaction.hash,
     event.params.isBuy ? 'BUY' : 'SELL',
     event.block.timestamp
   )
 
+  pumActionHistory.token = pumToken.id
   pumActionHistory.recipient = recipient.id
   pumActionHistory.amountIn = event.params.amountIn
   pumActionHistory.amountOut = event.params.amountOut

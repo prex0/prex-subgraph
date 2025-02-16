@@ -208,17 +208,19 @@ enum PumAction {
   ISSUE
   BUY
   SELL
+  POINT
 }
 
 type PumActionHistory @entity {
   id: ID!
   user: EndUser!
-  token: PumToken!
   action: PumAction!
+  token: PumToken
   recipient: EndUser
   amountIn: BigInt
   amountOut: BigInt
   txHash: Bytes!
+  metadata: String
   createdAt: BigInt!
 }
 

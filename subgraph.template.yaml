@@ -189,6 +189,26 @@ dataSources:
           handler: handleMetadataUpdated
       file: ./src/FanController.ts
   - kind: ethereum/contract
+    name: PointMarket
+    network: {{network}}
+    source:
+      address: "{{pumpum.PointMarket}}"
+      abi: PointMarket
+      startBlock: {{pumpum.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PumActionHistory
+      abis:
+        - name: PointMarket
+          file: ./abis/PointMarket.json
+      eventHandlers:
+        - event: PointBought(indexed address,uint256,uint256,bytes)
+          handler: handlePointBought
+      file: ./src/PointMarket.ts
+  - kind: ethereum/contract
     name: CommunityPool
     network: {{network}}
     source:
