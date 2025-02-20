@@ -131,6 +131,7 @@ type CoinMovingHistory @entity {
   senderName: String
   recipient: EndUser!
   recipientName: String
+  recipientTokenHolder: TokenHolder
   amount: BigInt!
   metadata: Bytes
   tokenDistributeRequest: TokenDistributeRequest

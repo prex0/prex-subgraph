@@ -17,9 +17,9 @@
   "ProfileRegistryV2": "0x0e4d63b98937da40e943583d2eb4c243bcb1b05e",
   "startBlock": 126000000,
   "pumpum": {
-    "PointMarket": "0x32509693304DfC189C2FbAA47e72dfBC6a82b0b4",
-    "CommunityPool": "0x6c48bBc1CAe8A1AC872B072b2EABD7779658DbC0",
-    "FanController": "0x230364a9161c779a2D54C9e83a903559D048378B",
-    "startBlock": 131600000
+    "PointMarket": "0x87E639B9eeF67e6042C01778dB0A3B49aB7F44e7",
+    "CommunityPool": "0x4fBE6389cFa5bc50E9Cd9F150846d49711cb2B3f",
+    "FanController": "0x522476C3cf2af64d0920Fe3896500d8bDe07eD09",
+    "startBlock": 132000000
   }
 }

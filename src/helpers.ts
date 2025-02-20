@@ -120,8 +120,6 @@ export function createCoinMovingHistory(
   coinMoving.movingType = movingType
   coinMoving.tokenDistributeRequest = tokenDistributeRequestId
 
-  coinMoving.save()
-
   const tokenAddress = Address.fromString(tokenId)
 
   const totalSupply = ERC20.bind(tokenAddress).totalSupply()
@@ -134,10 +132,16 @@ export function createCoinMovingHistory(
 
   updateTokenTotalSupply(tokenId, totalSupply, eventTime)
 
-  updateTokenTotalUniqueSenders(tokenId, senderId, eventTime, amount)
+  if (movingType === 'DIRECT' || movingType === 'ONETIME') {
+    updateTokenTotalUniqueSenders(tokenId, senderId, eventTime, amount)
+  }
 
   updateTokenHolder(tokenId, senderId, senderBalance, eventTime)
-  updateTokenHolder(tokenId, recipientId, recipientBalance, eventTime)
+  const recipientTokenHolder = updateTokenHolder(tokenId, recipientId, recipientBalance, eventTime)
+
+  coinMoving.recipientTokenHolder = recipientTokenHolder.id
+
+  coinMoving.save()
 }
 
 export function ensureTransferRequest(
@@ -333,12 +337,14 @@ export function updateTokenHolder(
   holderId: string,
   balance: BigInt,
   eventTime: BigInt
-): void {
+): TokenHolder {
   const tokenHolder = ensureTokenHolder(tokenId, holderId, eventTime)
 
   tokenHolder.balance = balance
 
   tokenHolder.save()
+
+  return tokenHolder
 }
 
 export function updateTokenHolderParams(
@@ -507,5 +513,5 @@ function getStartTimestamp(timestamp: BigInt, interval: BigInt): BigInt {
   const adjustedTimestamp = timestamp.plus(JST_OFFSET)
 
   const excess = adjustedTimestamp.mod(interval)
-  return adjustedTimestamp.minus(excess).minus(interval)
+  return adjustedTimestamp.minus(excess).minus(JST_OFFSET)
 }
