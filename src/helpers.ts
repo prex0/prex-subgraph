@@ -428,6 +428,7 @@ export function ensurePumToken(address: Bytes, timestamp: BigInt): PumToken {
     pumToken.uniqueBuyers = BigInt.fromI32(0)
     pumToken.isMarketOpen = false
     pumToken.metadata = ''
+    pumToken.price = BigInt.fromI32(0)
     pumToken.createdAt = timestamp
   }
 

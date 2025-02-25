@@ -200,7 +200,9 @@ type PumToken @entity {
   isMarketOpen: Boolean!
   reserveCT: BigInt!
   reserveStable: BigInt!
+  price: BigInt!
   tokenPrices: [PumTokenPrice!]! @derivedFrom(field: "token")
+  latestPriceDay: PumTokenPrice
   createdAt: BigInt!
   updatedAt: BigInt!
 }
@@ -238,6 +240,7 @@ type PumTokenPrice @entity {
   high: BigInt!
   low: BigInt!
   close: BigInt!
+  change: BigInt!
   volume: BigInt!
   traderCount: BigInt!
   buyers: [EndUser!]!
