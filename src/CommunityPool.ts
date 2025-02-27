@@ -24,44 +24,44 @@ export function handleSwap(event: Swap): void {
     event.block.timestamp
   )
 
+  const previousPrice = pumToken.price
+
   pumToken.reserveCT = event.params.reserveCT
   pumToken.reserveStable = event.params.reserveStable
   pumToken.price = calculatePrice(event.params.reserveStable)
 
-  updatePumTokenPrice(pumToken.id, event, 'HOUR')
-  const pumTokenPriceDay = updatePumTokenPrice(pumToken.id, event, 'DAY')
+  updatePumTokenPrice(pumToken.id, event, 'HOUR', previousPrice, pumToken.price)
+  const pumTokenPriceDay = updatePumTokenPrice(pumToken.id, event, 'DAY', previousPrice, pumToken.price)
   
   pumToken.latestPriceDay = pumTokenPriceDay.id
 
   pumToken.save()
 }
 
-function updatePumTokenPrice(id: string, event: Swap, interval: string): PumTokenPrice {
+function updatePumTokenPrice(id: string, event: Swap, interval: string, previousPrice: BigInt, currentPrice: BigInt): PumTokenPrice {
   const pumTokenPrice = ensurePumTokenPrice(id, interval, event.block.timestamp)
 
-  const price = calculatePrice(event.params.reserveStable)
-
   if (pumTokenPrice.open.isZero()) {
-    pumTokenPrice.open = price
+    pumTokenPrice.open = previousPrice
   }
 
   if (pumTokenPrice.high.isZero()) {
-    pumTokenPrice.high = price
+    pumTokenPrice.high = previousPrice
   }
 
   if (pumTokenPrice.low.isZero()) {
-    pumTokenPrice.low = price
+    pumTokenPrice.low = previousPrice
   }
 
-  if (price.gt(pumTokenPrice.high)) {
-    pumTokenPrice.high = price
+  if (currentPrice.gt(pumTokenPrice.high)) {
+    pumTokenPrice.high = currentPrice
   }
 
-  if (price.lt(pumTokenPrice.low)) {
-    pumTokenPrice.low = price
+  if (currentPrice.lt(pumTokenPrice.low)) {
+    pumTokenPrice.low = currentPrice
   }
 
-  pumTokenPrice.close = price
+  pumTokenPrice.close = currentPrice
 
   pumTokenPrice.change = calculateChange(pumTokenPrice.open, pumTokenPrice.close)
 

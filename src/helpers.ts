@@ -15,6 +15,8 @@ import {
 } from '../generated/schema'
 import { PrexSmartWallet } from '../generated/templates'
 import { ERC20 } from '../generated/OnetimeLockRequestDispatcherV2/ERC20'
+import { getStartTimestampWithInterval } from './helpers/time'
+
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
 export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
@@ -494,25 +496,4 @@ function getPumTokenPriceId(
   startAt: BigInt
 ): string {
   return `${token}-${interval}-${startAt.toString()}`
-}
-
-function getStartTimestampWithInterval(
-  timestamp: BigInt,
-  interval: string
-): BigInt {
-  if (interval === 'HOUR') {
-    return getStartTimestamp(timestamp, BigInt.fromU32(3600))
-  } else if (interval === 'DAY') {
-    return getStartTimestamp(timestamp, BigInt.fromI32(86400))
-  }
-
-  return timestamp
-}
-
-function getStartTimestamp(timestamp: BigInt, interval: BigInt): BigInt {
-  const JST_OFFSET = BigInt.fromI32(32400) // JST is UTC+9, which is 9*3600 seconds = 32400 seconds
-  const adjustedTimestamp = timestamp.plus(JST_OFFSET)
-
-  const excess = adjustedTimestamp.mod(interval)
-  return adjustedTimestamp.minus(excess).minus(JST_OFFSET)
 }
