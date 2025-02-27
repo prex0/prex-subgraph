@@ -6,6 +6,7 @@ import {
   ensureTransferRequest,
   updateTokenHolderParams
 } from './helpers'
+import { savePumProfileBadge } from './helpers/badge'
 
 export function handleTransferred(event: Transferred): void {
   const transferHistory = ensureTransferRequest(
@@ -53,4 +54,7 @@ export function handleTransferred(event: Transferred): void {
     event.params.amount,
     event.block.timestamp
   )
+
+  // badge
+  savePumProfileBadge(to.id, 'TRANSFER', event.block.timestamp)
 }

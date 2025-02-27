@@ -15,6 +15,7 @@ import {
 } from './helpers'
 import { ERC20 } from '../generated/FanController/ERC20'
 import { EndUser, PumToken } from '../generated/schema'
+import { savePumProfileBadge } from './helpers/badge'
 
 export function handleTokenIssued(event: TokenIssued): void {
   const token = ensureToken(event.params.communityToken, event.block.timestamp)
@@ -47,6 +48,9 @@ export function handleTokenIssued(event: TokenIssued): void {
   pumActionHistory.metadata = event.params.metadata
 
   pumActionHistory.save()
+
+  // badge
+  savePumProfileBadge(endUser.id, 'ISSUER', event.block.timestamp)
 }
 
 export function handleMetadataUpdated(event: MetadataUpdated): void {
@@ -98,6 +102,21 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   addTraderInPumTokenPrice(pumToken, endUser, 'HOUR', event)
   addTraderInPumTokenPrice(pumToken, endUser, 'DAY', event)
+
+  // badge
+  savePumProfileBadge(pumToken.issuer, 'PUMPED', event.block.timestamp)
+
+  if(pumToken.uniqueBuyers.gt(BigInt.fromI32(10))) { 
+    savePumProfileBadge(pumToken.issuer, 'HOLDER_10', event.block.timestamp)
+  }
+
+  if(pumToken.uniqueBuyers.gt(BigInt.fromI32(100))) { 
+    savePumProfileBadge(pumToken.issuer, 'HOLDER_100', event.block.timestamp)
+  }
+
+  if(pumToken.uniqueBuyers.gt(BigInt.fromI32(1000))) { 
+    savePumProfileBadge(pumToken.issuer, 'HOLDER_1000', event.block.timestamp)
+  }
 }
 
 function addTraderInPumTokenPrice(

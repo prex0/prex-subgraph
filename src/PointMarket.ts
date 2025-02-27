@@ -3,8 +3,9 @@ import {
 } from '../generated/PointMarket/PointMarket'
 import {
   ensurePumActionHistory,
-  ensureEndUser,
+  ensureEndUser
 } from './helpers'
+import { savePumProfileBadge } from './helpers/badge'
 
 export function handlePointBought(event: PointBought): void {
   const endUser = ensureEndUser(event.params.buyer, event.block.timestamp)
@@ -22,4 +23,7 @@ export function handlePointBought(event: PointBought): void {
 
   endUser.save()
   pumActionHistory.save()
+
+  // badge
+  savePumProfileBadge(endUser.id, 'POINT_BUYER', event.block.timestamp)
 }

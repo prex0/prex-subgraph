@@ -249,3 +249,10 @@ type PumTokenPrice @entity {
   createdAt: BigInt!
   updatedAt: BigInt!
 }
+
+type PumProfileBadge @entity {
+  id: ID!
+  user: EndUser!
+  title: String!
+  createdAt: BigInt!
+}

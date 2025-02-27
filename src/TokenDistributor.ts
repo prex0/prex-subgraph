@@ -12,6 +12,7 @@ import {
   ensureTokenDistributeRequest,
   ensureToken
 } from './helpers'
+import { savePumProfileBadge } from './helpers/badge'
 
 export function handleSubmitted(event: Submitted): void {
   const tokenDistributeRequest = ensureTokenDistributeRequest(
@@ -61,6 +62,9 @@ export function handleSubmitted(event: Submitted): void {
     event.params.name,
     tokenDistributeRequest.id
   )
+
+  // badge
+  savePumProfileBadge(sender.id, 'TOKEN_DISTRIBUTOR', event.block.timestamp)
 }
 
 export function handleDeposited(event: Deposited): void {

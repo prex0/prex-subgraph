@@ -6,6 +6,7 @@ import {
 } from '../generated/FanController/CommunityPool'
 import { PumTokenPrice } from '../generated/schema'
 import { calculatePrice } from './helpers/price'
+import { savePumProfileBadge } from './helpers/badge'
 
 export function handleMarketStatusUpdated(event: MarketStatusUpdated): void {
   const pumToken = ensurePumToken(
@@ -16,6 +17,11 @@ export function handleMarketStatusUpdated(event: MarketStatusUpdated): void {
   pumToken.isMarketOpen = event.params.sellable
 
   pumToken.save()
+
+  // badge
+  if (event.params.sellable) {
+    savePumProfileBadge(pumToken.issuer, 'MARKET_OPENED', event.block.timestamp)
+  }
 }
 
 export function handleSwap(event: Swap): void {
@@ -36,6 +42,21 @@ export function handleSwap(event: Swap): void {
   pumToken.latestPriceDay = pumTokenPriceDay.id
 
   pumToken.save()
+
+  // badge 100$
+  if(pumToken.price.gt(BigInt.fromString('10000000'))) {
+    savePumProfileBadge(pumToken.issuer, 'VOLT100', event.block.timestamp)
+  }
+
+  // badge 1000$
+  if(pumToken.price.gt(BigInt.fromString('100000000'))) {
+    savePumProfileBadge(pumToken.issuer, 'VOLT1000', event.block.timestamp)
+  }
+
+  // badge 10000$
+  if(pumToken.price.gt(BigInt.fromString('1000000000'))) {
+    savePumProfileBadge(pumToken.issuer, 'VOLT10000', event.block.timestamp)
+  }  
 }
 
 function updatePumTokenPrice(id: string, event: Swap, interval: string, previousPrice: BigInt, currentPrice: BigInt): PumTokenPrice {
