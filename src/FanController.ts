@@ -95,6 +95,8 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   if (!existsTokenHolder(token.id, endUser.id)) {
     pumToken.uniqueBuyers = pumToken.uniqueBuyers.plus(BigInt.fromI32(1))
+    token.uniqueTokenHolders = token.uniqueTokenHolders.plus(BigInt.fromI32(1))
+    token.save()
   }
   pumToken.save()
 
@@ -105,18 +107,6 @@ export function handleOrderFilled(event: OrderFilled): void {
 
   // badge
   savePumProfileBadge(pumToken.issuer, 'PUMPED', event.block.timestamp)
-
-  if(pumToken.uniqueBuyers.gt(BigInt.fromI32(10))) { 
-    savePumProfileBadge(pumToken.issuer, 'HOLDER_10', event.block.timestamp)
-  }
-
-  if(pumToken.uniqueBuyers.gt(BigInt.fromI32(100))) { 
-    savePumProfileBadge(pumToken.issuer, 'HOLDER_100', event.block.timestamp)
-  }
-
-  if(pumToken.uniqueBuyers.gt(BigInt.fromI32(1000))) { 
-    savePumProfileBadge(pumToken.issuer, 'HOLDER_1000', event.block.timestamp)
-  }
 }
 
 function addTraderInPumTokenPrice(

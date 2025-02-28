@@ -3,7 +3,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
-    "test": "graph test",
+    "test": "graph test -d",
     "coverage": "graph test -- -c",
     "build": "graph build",
     "fmt:fix": "prettier --write src/**/* abis/**/*",

@@ -13,9 +13,9 @@ import {
   PumActionHistory,
   PumTokenPrice
 } from '../generated/schema'
-import { PrexSmartWallet } from '../generated/templates'
 import { ERC20 } from '../generated/OnetimeLockRequestDispatcherV2/ERC20'
 import { getStartTimestampWithInterval } from './helpers/time'
+import { savePumProfileBadge } from './helpers/badge'
 
 // type MovingType = "NONE" | "DIRECT" | "SECRET" | "ONETIME" | "EXPIRING"
 
@@ -31,6 +31,7 @@ export function ensureToken(tokenAddress: Address, eventTime: BigInt): Token {
     token.totalUniqueSenders = BigInt.zero()
     token.totalTransfers = BigInt.zero()
     token.totalTransferAmount = BigInt.zero()
+    token.uniqueTokenHolders = BigInt.zero()
     token.createdAt = eventTime
   }
 
@@ -65,14 +66,34 @@ export function ensureEndUser(
     user.address = userAddress
     user.isSmartWallet = false
     user.createdAt = eventTime
-
-    PrexSmartWallet.create(userAddress)
   }
 
   user.updatedAt = eventTime
 
   return user
 }
+
+export function saveEndUserIfNotExists(
+  userAddress: Address,
+  eventTime: BigInt
+): void {
+  const id = userAddress.toHex()
+
+  let user = EndUser.load(id)
+
+  if (user == null) {
+    user = new EndUser(id)
+
+    user.address = userAddress
+    user.isSmartWallet = false
+    user.createdAt = eventTime
+    user.updatedAt = eventTime
+
+    user.save()
+  }
+}
+
+
 
 export function ensureCoinMovingHistory(
   txHash: Bytes,
@@ -136,6 +157,29 @@ export function createCoinMovingHistory(
 
   if (movingType === 'DIRECT' || movingType === 'ONETIME') {
     updateTokenTotalUniqueSenders(tokenId, senderId, eventTime, amount)
+  }
+
+  if (!existsTokenHolder(tokenId, recipientId)) {
+    const token = ensureToken(Address.fromString(tokenId), eventTime)
+    token.uniqueTokenHolders = token.uniqueTokenHolders.plus(BigInt.fromI32(1))
+    token.save()
+
+    const pumToken = PumToken.load(tokenId)
+
+    if(pumToken != null) {
+      // save badge
+      if(token.uniqueTokenHolders.ge(BigInt.fromI32(2))) {
+        savePumProfileBadge(pumToken.issuer, "HOLDER_2", eventTime)
+      }
+
+      if(token.uniqueTokenHolders.ge(BigInt.fromI32(10))) {
+        savePumProfileBadge(pumToken.issuer, "HOLDER_10", eventTime)
+      }
+
+      if(token.uniqueTokenHolders.ge(BigInt.fromI32(100))) {
+        savePumProfileBadge(pumToken.issuer, "HOLDER_100", eventTime)
+      }
+    }  
   }
 
   updateTokenHolder(tokenId, senderId, senderBalance, eventTime)

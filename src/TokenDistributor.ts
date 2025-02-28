@@ -13,6 +13,7 @@ import {
   ensureToken
 } from './helpers'
 import { savePumProfileBadge } from './helpers/badge'
+import { syncPrexSmartWalletWithBytes } from './PrexSmartWallet'
 
 export function handleSubmitted(event: Submitted): void {
   const tokenDistributeRequest = ensureTokenDistributeRequest(
@@ -65,6 +66,9 @@ export function handleSubmitted(event: Submitted): void {
 
   // badge
   savePumProfileBadge(sender.id, 'TOKEN_DISTRIBUTOR', event.block.timestamp)
+
+  // sync smart wallet
+  syncPrexSmartWalletWithBytes(sender.address, event.block.timestamp)
 }
 
 export function handleDeposited(event: Deposited): void {

@@ -1,8 +1,6 @@
 import { WalletCreated } from '../generated/SmartWalletFactoryWrapper/SmartWalletFactoryWrapper'
-import { ensureEndUser } from './helpers'
+import { syncPrexSmartWallet } from './PrexSmartWallet'
 
 export function handleWalletCreated(event: WalletCreated): void {
-  const user = ensureEndUser(event.params.account, event.block.timestamp)
-
-  user.save()
+  syncPrexSmartWallet(event.params.account, event.block.timestamp)
 }

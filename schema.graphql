@@ -5,6 +5,7 @@ type Token @entity {
   totalUniqueSenders: BigInt!
   totalTransfers: BigInt!
   totalTransferAmount: BigInt!
+  uniqueTokenHolders: BigInt!
   tokenHolders: [TokenHolder!]! @derivedFrom(field: "token")
   createdAt: BigInt!
   updatedAt: BigInt!
@@ -38,6 +39,7 @@ type BelongToSharedWallet @entity {
 
 type P256PublicKey @entity {
   id: ID!
+  publicKey: Bytes!
   index: BigInt!
   wallet: EndUser!
   isRemoved: Boolean!

@@ -75,6 +75,8 @@ dataSources:
           file: ./abis/TokenDistributor.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: PrexSmartWallet
+          file: ./abis/PrexSmartWallet.json
       eventHandlers:
         - event: Submitted(bytes32,address,address,address,uint256,uint256,uint256,uint256,uint256,string,bytes32)
           handler: handleSubmitted
@@ -249,6 +251,8 @@ dataSources:
       abis:
         - name: SmartWalletFactoryWrapper
           file: ./abis/SmartWalletFactoryWrapper.json
+        - name: PrexSmartWallet
+          file: ./abis/PrexSmartWallet.json
       eventHandlers:
         - event: WalletCreated(indexed address,bytes[],uint256)
           handler: handleWalletCreated

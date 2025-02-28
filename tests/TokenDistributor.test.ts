@@ -21,6 +21,12 @@ createMockedFunction(Address.zero(), "balanceOf", "balanceOf(address):(uint256)"
     ethereum.Value.fromI32(0)
   ]);
 
+
+createMockedFunction(Address.zero(), "nextOwnerIndex", "nextOwnerIndex():(uint256)")
+  .returns([
+    ethereum.Value.fromI32(0)
+  ]);
+
 const REQUEST_ID = ZERO_HASH
 
 describe("handleSubmitted", () => {
