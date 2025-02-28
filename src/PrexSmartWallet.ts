@@ -37,7 +37,7 @@ export function syncPrexSmartWallet(address: Address, timestamp: BigInt): void {
     if (owner.value.byteLength > 0) {
       addOwner(address, timestamp, owner.value, BigInt.fromI32(i))
     } else {
-      removeOwner(address, owner.value, BigInt.fromI32(i))
+      removeOwner(address, BigInt.fromI32(i))
     }
   }
 }
@@ -70,25 +70,20 @@ export function addOwner(address: Address, timestamp: BigInt, owner: Bytes, inde
   }
 }
 
-export function removeOwner(address: Address, owner: Bytes, index: BigInt): void {
-  if (owner.byteLength >= 64) {
+export function removeOwner(address: Address, index: BigInt): void {
+  const id = getP256PublicKeyId(address.toHex(), index)
+
+  const p256PublicKey = P256PublicKey.load(id)
+
+  if (p256PublicKey) {
     removeP256PublicKey(address.toHex(), index)
   } else {
-    const ownerAddress = decodeOwnerToAddress(owner)
-
-    const belongToSharedWallet = ensureBelongToSharedWallet(
+    removeBelongToSharedWallet(
       // shared wallet address
       address,
-      // owner address
-      ownerAddress,
       // index
       index
     )
-
-    if (!belongToSharedWallet.isRemoved) {
-      belongToSharedWallet.isRemoved = true
-      belongToSharedWallet.save()
-    }
   }
 }
 
@@ -143,6 +138,19 @@ function saveBelongToSharedWallet(sharedWallet: Address, owner: Address, index: 
     belongToSharedWallet.save()
   }
 }
+
+function removeBelongToSharedWallet(sharedWallet: Address, index: BigInt): void {
+  const id = getBelongToSharedWalletId(sharedWallet, index)
+
+  let belongToSharedWallet = BelongToSharedWallet.load(id)
+
+  if (belongToSharedWallet != null && !belongToSharedWallet.isRemoved) {
+    belongToSharedWallet.isRemoved = true
+
+    belongToSharedWallet.save()
+  }
+}
+
 
 function saveP256PublicKey(walletId: string, index: BigInt, owner: Bytes): void {
   const id = getP256PublicKeyId(walletId, index)

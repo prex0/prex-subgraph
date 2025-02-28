@@ -29,5 +29,6 @@
     "CommunityPool": "0x4fBE6389cFa5bc50E9Cd9F150846d49711cb2B3f",
     "FanController": "0x522476C3cf2af64d0920Fe3896500d8bDe07eD09",
     "startBlock": 303400000
-  }
+  },
+  "AccountTrigger": "0x9afD29514F9Fb0f487bE1Fdfa66a4c194E06cE32"
 }

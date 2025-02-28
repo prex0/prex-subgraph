@@ -37,7 +37,7 @@ describe("PrexSmartWallet::handleRemoveOwner", () => {
   test('check RemoveOwner with P256PublicKey', () => {
     addOwner(Address.fromString(ADDRESS1), MOCK_EVENT.block.timestamp, Bytes.fromHexString('0x' + '0'.repeat(128)), BigInt.fromI32(1))
 
-    removeOwner(Address.fromString(ADDRESS1), Bytes.fromHexString('0x' + '0'.repeat(128)), BigInt.fromI32(1))
+    removeOwner(Address.fromString(ADDRESS1), BigInt.fromI32(1))
 
     const id = Address.fromString(ADDRESS1).toHex()
 
@@ -48,12 +48,12 @@ describe("PrexSmartWallet::handleRemoveOwner", () => {
   })
 
   test('check RemoveOwner with BelongToSharedWallet', () => {
-    addOwner(Address.fromString(ADDRESS1), MOCK_EVENT.block.timestamp, Bytes.fromHexString(ENCODED_ADDRESS2), BigInt.fromI32(1))
+    addOwner(Address.fromString(ADDRESS1), MOCK_EVENT.block.timestamp, Bytes.fromHexString(ENCODED_ADDRESS2), BigInt.fromI32(2))
 
-    removeOwner(Address.fromString(ADDRESS1), Bytes.fromHexString(ENCODED_ADDRESS2), BigInt.fromI32(1))
+    removeOwner(Address.fromString(ADDRESS1), BigInt.fromI32(2))
 
     const id = Address.fromString(ADDRESS1).toHex()
-    const belongToSharedWalletId = id + '-1'
+    const belongToSharedWalletId = id + '-2'
 
     assert.entityCount('EndUser', 2)
     assert.fieldEquals('EndUser', id, 'id', id)
