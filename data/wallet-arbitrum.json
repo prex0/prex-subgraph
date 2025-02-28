@@ -1,0 +1,640 @@
+{
+    "data": {
+      "endUsers": [
+        {
+          "address": "0x00de3f8226204e047bd0ffc040cab6dc8570f3c4",
+          "createdAt": "1734487458",
+          "id": "0x00de3f8226204e047bd0ffc040cab6dc8570f3c4",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x07231706a6d463eb2f168aa6561f8e0438c2b05c",
+          "createdAt": "1728364788",
+          "id": "0x07231706a6d463eb2f168aa6561f8e0438c2b05c",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x095aeca9a5a7cd26f488e01816f870d0120a4e4e",
+          "createdAt": "1731999659",
+          "id": "0x095aeca9a5a7cd26f488e01816f870d0120a4e4e",
+          "isSmartWallet": true,
+          "sharedWallets": [
+            {
+              "id": "0x164051be68a03f5361c9034148a2fc032248ba81-0x095aeca9a5a7cd26f488e01816f870d0120a4e4e-0",
+              "index": "0",
+              "isRemoved": false
+            }
+          ]
+        },
+        {
+          "address": "0x0adbd490e660d76a6f9f353a0d5f977fbe784551",
+          "createdAt": "1738419415",
+          "id": "0x0adbd490e660d76a6f9f353a0d5f977fbe784551",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x0d38ffcc9183d2a5fd8efede25f96b720dfac765",
+          "createdAt": "1724902818",
+          "id": "0x0d38ffcc9183d2a5fd8efede25f96b720dfac765",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x0d61e20137579eeccf8c15c310286012466df1a3",
+          "createdAt": "1728389253",
+          "id": "0x0d61e20137579eeccf8c15c310286012466df1a3",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x0f85f2ebaf111be9257490b8bd998a19b0212999",
+          "createdAt": "1732000225",
+          "id": "0x0f85f2ebaf111be9257490b8bd998a19b0212999",
+          "isSmartWallet": true,
+          "sharedWallets": [
+            {
+              "id": "0x164051be68a03f5361c9034148a2fc032248ba81-0x0f85f2ebaf111be9257490b8bd998a19b0212999-1",
+              "index": "1",
+              "isRemoved": true
+            }
+          ]
+        },
+        {
+          "address": "0x111952325c09d9c1387030e744f1777a6f65cc7f",
+          "createdAt": "1732081247",
+          "id": "0x111952325c09d9c1387030e744f1777a6f65cc7f",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x164051be68a03f5361c9034148a2fc032248ba81",
+          "createdAt": "1732000520",
+          "id": "0x164051be68a03f5361c9034148a2fc032248ba81",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x16cd2089908afa9b8d2b0d1b566ce99cb121ddfc",
+          "createdAt": "1731134415",
+          "id": "0x16cd2089908afa9b8d2b0d1b566ce99cb121ddfc",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x19564f65766158017aff1b3a9da2a7e5347d6be9",
+          "createdAt": "1730431844",
+          "id": "0x19564f65766158017aff1b3a9da2a7e5347d6be9",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x1a57230b771de18c5c8d0f2365cd04d0dc79b6e7",
+          "createdAt": "1729122451",
+          "id": "0x1a57230b771de18c5c8d0f2365cd04d0dc79b6e7",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x1bdf9c09d05f660c91e334df9ce531b2b3ce6e1d",
+          "createdAt": "1731956585",
+          "id": "0x1bdf9c09d05f660c91e334df9ce531b2b3ce6e1d",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x1c200fc4e55e2fad137344dd4cff765644d693d0",
+          "createdAt": "1724839325",
+          "id": "0x1c200fc4e55e2fad137344dd4cff765644d693d0",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x21841b66daf14f45e368bab4acd8ed090d3b0d2c",
+          "createdAt": "1732081787",
+          "id": "0x21841b66daf14f45e368bab4acd8ed090d3b0d2c",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x24ca57b2b9265713afd70182db0310a0373d1cda",
+          "createdAt": "1724055274",
+          "id": "0x24ca57b2b9265713afd70182db0310a0373d1cda",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x252c9447ba112502698428a05ae1fcb5d6a33234",
+          "createdAt": "1730265834",
+          "id": "0x252c9447ba112502698428a05ae1fcb5d6a33234",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x26b68367b7ee7a522f464252004e861361eb92b9",
+          "createdAt": "1730438202",
+          "id": "0x26b68367b7ee7a522f464252004e861361eb92b9",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x26c5807a8f9578d8158ca0482f6e8834b03a34d7",
+          "createdAt": "1732081391",
+          "id": "0x26c5807a8f9578d8158ca0482f6e8834b03a34d7",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x2a8fa1d100c05f2132dee565f6888c366ae37143",
+          "createdAt": "1731255804",
+          "id": "0x2a8fa1d100c05f2132dee565f6888c366ae37143",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x2c2a02d50d1bb5d9adce3e4b34355bc6d5fc5994",
+          "createdAt": "1728327565",
+          "id": "0x2c2a02d50d1bb5d9adce3e4b34355bc6d5fc5994",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x2e51f326b97507cbb386b67f12b5885f972a1792",
+          "createdAt": "1730522465",
+          "id": "0x2e51f326b97507cbb386b67f12b5885f972a1792",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x33e035a362c163144ef37d3d07da4cf2a20096a5",
+          "createdAt": "1732875269",
+          "id": "0x33e035a362c163144ef37d3d07da4cf2a20096a5",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x3663cbf877c7b958422c8440086eb79a017da1f3",
+          "createdAt": "1729129609",
+          "id": "0x3663cbf877c7b958422c8440086eb79a017da1f3",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x37ce6944d29223aaecd3cb5d29f20151ad43e86f",
+          "createdAt": "1732081600",
+          "id": "0x37ce6944d29223aaecd3cb5d29f20151ad43e86f",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x3a1332b58264ab787c99b29cd9e630e4a7503711",
+          "createdAt": "1730445656",
+          "id": "0x3a1332b58264ab787c99b29cd9e630e4a7503711",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x3bf85db2b5aade578241e0462aca9f2ae90f3902",
+          "createdAt": "1731459603",
+          "id": "0x3bf85db2b5aade578241e0462aca9f2ae90f3902",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x3f1c79ccfae80fc5c0d28669403383a5b67676b8",
+          "createdAt": "1728534357",
+          "id": "0x3f1c79ccfae80fc5c0d28669403383a5b67676b8",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x402f0f14496eb57882b448bf4a1d534f7ed4ace0",
+          "createdAt": "1724807388",
+          "id": "0x402f0f14496eb57882b448bf4a1d534f7ed4ace0",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x410893744d1f6140b3ed2bbcb18decf2c4ec4ada",
+          "createdAt": "1725251445",
+          "id": "0x410893744d1f6140b3ed2bbcb18decf2c4ec4ada",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x4461257b773cccda5c2ffb6e820ef12d6b470b7f",
+          "createdAt": "1730528741",
+          "id": "0x4461257b773cccda5c2ffb6e820ef12d6b470b7f",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x463cf792aee94472348bb344a8f3644d794af377",
+          "createdAt": "1727420878",
+          "id": "0x463cf792aee94472348bb344a8f3644d794af377",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x4b748969ab77c9d09ae07b4282a151b82f96311b",
+          "createdAt": "1728327903",
+          "id": "0x4b748969ab77c9d09ae07b4282a151b82f96311b",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x4c0bfc933a6face36aea8e13406927427106450b",
+          "createdAt": "1732102033",
+          "id": "0x4c0bfc933a6face36aea8e13406927427106450b",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x52c7f443e36f974ad226892e37cd25ad90e26373",
+          "createdAt": "1729579020",
+          "id": "0x52c7f443e36f974ad226892e37cd25ad90e26373",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x55268549b711a20fe42ee3eee3e31863118b7f3a",
+          "createdAt": "1724925715",
+          "id": "0x55268549b711a20fe42ee3eee3e31863118b7f3a",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x5890ef9e5975e2198c43dfbec30b081983707b9f",
+          "createdAt": "1732875224",
+          "id": "0x5890ef9e5975e2198c43dfbec30b081983707b9f",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x683863e0140c9b175256d2d9a4560dabe00a6b38",
+          "createdAt": "1725251380",
+          "id": "0x683863e0140c9b175256d2d9a4560dabe00a6b38",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x684bfbbb5ae634403b5a02523500889a7dd58802",
+          "createdAt": "1729579020",
+          "id": "0x684bfbbb5ae634403b5a02523500889a7dd58802",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x688596796be8d1de12044a8047f64a4ea0880d40",
+          "createdAt": "1732081694",
+          "id": "0x688596796be8d1de12044a8047f64a4ea0880d40",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x68f07309f9c7114a9b30db975fa15171e60dbeb1",
+          "createdAt": "1732174263",
+          "id": "0x68f07309f9c7114a9b30db975fa15171e60dbeb1",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x699ce963c11d2837c6c1e9418f86a65e3eb5eb26",
+          "createdAt": "1733216793",
+          "id": "0x699ce963c11d2837c6c1e9418f86a65e3eb5eb26",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x69c78fbb99db2f1c131bd552e584f6574f1f02a6",
+          "createdAt": "1732174484",
+          "id": "0x69c78fbb99db2f1c131bd552e584f6574f1f02a6",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x6a794847e23e09122af6ead6d74131228ab5f451",
+          "createdAt": "1724924074",
+          "id": "0x6a794847e23e09122af6ead6d74131228ab5f451",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x6f02184d5a1e2f1a497ae0e28407c33d1b3513cc",
+          "createdAt": "1730524313",
+          "id": "0x6f02184d5a1e2f1a497ae0e28407c33d1b3513cc",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x70fcf815289f6e6827146f5412785cc79dbeedbf",
+          "createdAt": "1730533200",
+          "id": "0x70fcf815289f6e6827146f5412785cc79dbeedbf",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x73b722ca2023b72debc31b27fc3f8dd1747c3661",
+          "createdAt": "1728016094",
+          "id": "0x73b722ca2023b72debc31b27fc3f8dd1747c3661",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x749f51733022095581171c2ba44ba0502245fd61",
+          "createdAt": "1732081952",
+          "id": "0x749f51733022095581171c2ba44ba0502245fd61",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x786a36009456f7c276d2b1a2054fbd8abc1e3c5a",
+          "createdAt": "1726988379",
+          "id": "0x786a36009456f7c276d2b1a2054fbd8abc1e3c5a",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x78b37d6cb222dbb38c9350405f787c51e9f0aee8",
+          "createdAt": "1730525156",
+          "id": "0x78b37d6cb222dbb38c9350405f787c51e9f0aee8",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x7d6f14c65307a5fc1b5b005560bd821f6a2bb67a",
+          "createdAt": "1737085336",
+          "id": "0x7d6f14c65307a5fc1b5b005560bd821f6a2bb67a",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x7e0489de39bc06f0c73c9ae2253fa7a146a6f493",
+          "createdAt": "1730447221",
+          "id": "0x7e0489de39bc06f0c73c9ae2253fa7a146a6f493",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x7ed64bebbe7d9cfe09b8d636b1038bd1fa6a58c3",
+          "createdAt": "1732762785",
+          "id": "0x7ed64bebbe7d9cfe09b8d636b1038bd1fa6a58c3",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x8343a07d8c383e152b625f3d14f64643321eb825",
+          "createdAt": "1738724036",
+          "id": "0x8343a07d8c383e152b625f3d14f64643321eb825",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x855b734b85aac2c78c454062862aee881a87cc23",
+          "createdAt": "1724663685",
+          "id": "0x855b734b85aac2c78c454062862aee881a87cc23",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x891a1b9fd77e477c2f5346b93fc219210e5f919d",
+          "createdAt": "1730445756",
+          "id": "0x891a1b9fd77e477c2f5346b93fc219210e5f919d",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x8df6bdf76f1c4226ba5c282bf00c8dd02c78be92",
+          "createdAt": "1730817588",
+          "id": "0x8df6bdf76f1c4226ba5c282bf00c8dd02c78be92",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x8e70dc99af0f26f4588812c7f5819f78ff07ab0a",
+          "createdAt": "1724928095",
+          "id": "0x8e70dc99af0f26f4588812c7f5819f78ff07ab0a",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x97af96d9a70c39331bdaa835f8301518a2550a17",
+          "createdAt": "1732081874",
+          "id": "0x97af96d9a70c39331bdaa835f8301518a2550a17",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x9c982ee01e7dee0061e05c913d65fef04eabc51d",
+          "createdAt": "1727419817",
+          "id": "0x9c982ee01e7dee0061e05c913d65fef04eabc51d",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0x9caa30dfd9400dde6bfb84d7f2bc69805935d7f7",
+          "createdAt": "1730866340",
+          "id": "0x9caa30dfd9400dde6bfb84d7f2bc69805935d7f7",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xa1c592460976b4e38609db71c449dad68971fbc9",
+          "createdAt": "1724804905",
+          "id": "0xa1c592460976b4e38609db71c449dad68971fbc9",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xa5b7c954821c6127ea8d40c35f4ff9b5cf9c1da6",
+          "createdAt": "1734955270",
+          "id": "0xa5b7c954821c6127ea8d40c35f4ff9b5cf9c1da6",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xa70d826c56b2be41eb2c87da704c0f3f492d758a",
+          "createdAt": "1724976663",
+          "id": "0xa70d826c56b2be41eb2c87da704c0f3f492d758a",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xa8979a323cd447a4b7411763c880c64f046c154b",
+          "createdAt": "1724911059",
+          "id": "0xa8979a323cd447a4b7411763c880c64f046c154b",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xa8e25ead93c92b500ab3b8ff1332ab03b70210c8",
+          "createdAt": "1732151885",
+          "id": "0xa8e25ead93c92b500ab3b8ff1332ab03b70210c8",
+          "isSmartWallet": true,
+          "sharedWallets": [
+            {
+              "id": "0x164051be68a03f5361c9034148a2fc032248ba81-0xa8e25ead93c92b500ab3b8ff1332ab03b70210c8-2",
+              "index": "2",
+              "isRemoved": false
+            }
+          ]
+        },
+        {
+          "address": "0xa8f4bf250541d924c7004e74760488658d806841",
+          "createdAt": "1728464149",
+          "id": "0xa8f4bf250541d924c7004e74760488658d806841",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xab9440788e3288923813209e97d33b007263d5d0",
+          "createdAt": "1724925219",
+          "id": "0xab9440788e3288923813209e97d33b007263d5d0",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xb5262ac8e4ccb5822178b9c77492b9122b70d787",
+          "createdAt": "1732013425",
+          "id": "0xb5262ac8e4ccb5822178b9c77492b9122b70d787",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xb91a058de7e178e1678820916a60fe54780f5a7c",
+          "createdAt": "1734496549",
+          "id": "0xb91a058de7e178e1678820916a60fe54780f5a7c",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xc3fc246823b8cb8017606a8ff85e5de6379da173",
+          "createdAt": "1733732340",
+          "id": "0xc3fc246823b8cb8017606a8ff85e5de6379da173",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xc4ac445eed3b764f225fb78d871a7d05792616ae",
+          "createdAt": "1724055344",
+          "id": "0xc4ac445eed3b764f225fb78d871a7d05792616ae",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xc742f0a74fb661ae3ec5f323732ed296f183d29c",
+          "createdAt": "1736317982",
+          "id": "0xc742f0a74fb661ae3ec5f323732ed296f183d29c",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xc757f7c96bd747f5dcc7b544fa1b003ada360c40",
+          "createdAt": "1732081123",
+          "id": "0xc757f7c96bd747f5dcc7b544fa1b003ada360c40",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xc9ab4322148d50df7d4f982694e0dcb4439bbbc0",
+          "createdAt": "1724924093",
+          "id": "0xc9ab4322148d50df7d4f982694e0dcb4439bbbc0",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xcfb96c760d58dae381c0412370c56bec9be47225",
+          "createdAt": "1730866401",
+          "id": "0xcfb96c760d58dae381c0412370c56bec9be47225",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xcfbdce7a4f48c504906ac56ecebc939da532d98f",
+          "createdAt": "1732179950",
+          "id": "0xcfbdce7a4f48c504906ac56ecebc939da532d98f",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xd696f58dc6387128ef25adac173de03ce91f6765",
+          "createdAt": "1733373278",
+          "id": "0xd696f58dc6387128ef25adac173de03ce91f6765",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xd8358dfa55597b639e3dacc9dff640071ca1d32f",
+          "createdAt": "1737773867",
+          "id": "0xd8358dfa55597b639e3dacc9dff640071ca1d32f",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xdab1db9c83a4d3d12aacf0de8a5864a66e03fcaa",
+          "createdAt": "1724808654",
+          "id": "0xdab1db9c83a4d3d12aacf0de8a5864a66e03fcaa",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xdaf073376744d54577a8a82ddf3951be68a22815",
+          "createdAt": "1732180771",
+          "id": "0xdaf073376744d54577a8a82ddf3951be68a22815",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xe1399b1e9dd0a5ab1352c328c41efa4eb98ff63e",
+          "createdAt": "1734484900",
+          "id": "0xe1399b1e9dd0a5ab1352c328c41efa4eb98ff63e",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xee220717c177f540c802a0e87a7ebf8b62c68e65",
+          "createdAt": "1732081514",
+          "id": "0xee220717c177f540c802a0e87a7ebf8b62c68e65",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xf2616327e085be058e541a4fc15c84d3423595e3",
+          "createdAt": "1739210550",
+          "id": "0xf2616327e085be058e541a4fc15c84d3423595e3",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xf2c60d24a4faebeeceed99ebc5da756ecdfcf583",
+          "createdAt": "1724920770",
+          "id": "0xf2c60d24a4faebeeceed99ebc5da756ecdfcf583",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xf3c48276c61f8520481dab742359fbc2fc309f88",
+          "createdAt": "1730531989",
+          "id": "0xf3c48276c61f8520481dab742359fbc2fc309f88",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xf66c8d79ccc51fc8723868b49d388906ae3ea2c0",
+          "createdAt": "1730527309",
+          "id": "0xf66c8d79ccc51fc8723868b49d388906ae3ea2c0",
+          "isSmartWallet": false,
+          "sharedWallets": []
+        },
+        {
+          "address": "0xfe096c8eb03a7061d4761b21dbcc6085f37cb543",
+          "createdAt": "1732154026",
+          "id": "0xfe096c8eb03a7061d4761b21dbcc6085f37cb543",
+          "isSmartWallet": true,
+          "sharedWallets": []
+        }
+      ]
+    }
+  }

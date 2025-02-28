@@ -1,15 +1,12 @@
 import { BigInt } from '@graphprotocol/graph-ts'
-import {
-  PumProfileBadge
-} from '../../generated/schema'
-
+import { PumProfileBadge } from '../../generated/schema'
 
 export function ensurePumProfileBadge(
   user: string,
   title: string,
   timestamp: BigInt
 ): PumProfileBadge {
-  const id = user + "-" + title
+  const id = user + '-' + title
   let pumTokenPrice = PumProfileBadge.load(id)
 
   if (!pumTokenPrice) {

@@ -256,6 +256,30 @@ dataSources:
       eventHandlers:
         - event: WalletCreated(indexed address,bytes[],uint256)
           handler: handleWalletCreated
+  - kind: ethereum/contract
+    name: AccountTrigger
+    network: {{network}}
+    source:
+      address: "{{AccountTrigger}}"
+      abi: AccountTrigger
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/AccountTrigger.ts
+      entities:
+        - EndUser
+      abis:
+        - name: AccountTrigger
+          file: ./abis/AccountTrigger.json
+        - name: PrexSmartWallet
+          file: ./abis/PrexSmartWallet.json
+      eventHandlers:
+        - event: SharedWalletRegistered(indexed address)
+          handler: handleSharedWalletRegistered
+        - event: Triggered(indexed address)
+          handler: handleTriggered
 templates:
   - name: PrexSmartWallet
     kind: ethereum/contract
